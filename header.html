@@ -1,44 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <link rel="stylesheet" href="./style.css"> -->
 </head>
-<header class="bg-gray-100 h-screen flex items-center justify-center">
-  <div class="relative">
-    <!-- Burger Button -->
-    <button id="burger-btn" class="flex flex-col items-center space-y-1 w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
-      <span class="w-8 h-1 bg-gray-800 rounded"></span>
-      <span class="w-8 h-1 bg-gray-800 rounded"></span>
-      <span class="w-8 h-1 bg-gray-800 rounded"></span>
-    </button>
+<header class="bg-gray-800 h-screen grid justify-evenly grid-cols-2 p-4 rounded-b-3xl">
+    <!-- BURGER MENU -->
+    <div class="relative">
+        <!-- Burger Button -->
+        <button id="burger-btn"
+            class="flex flex-col items-center justify-center space-y-1 w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
+            <span class="w-8 h-1 bg-gray-800 rounded"></span>
+            <span class="w-8 h-1 bg-gray-800 rounded"></span>
+            <span class="w-8 h-1 bg-gray-800 rounded"></span>
+        </button>
 
-    <!-- Dropdown Menu -->
-    <div id="menu" class="hidden absolute top-12 right-0 bg-white shadow-lg rounded-lg w-48 py-2">
-      <a href="#" class="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100">
-        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828490.png" alt="Home" class="w-5 h-5 mr-3">
-        Home
-      </a>
-      <a href="#" class="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100">
-        <img src="https://cdn-icons-png.flaticon.com/512/2983/2983813.png" alt="About" class="w-5 h-5 mr-3">
-        About
-      </a>
-      <a href="#" class="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100">
-        <img src="https://cdn-icons-png.flaticon.com/512/646/646094.png" alt="Contact" class="w-5 h-5 mr-3">
-        Contact
-      </a>
+        <!-- Dropdown Menu -->
+        <div id="menu" class="hidden absolute font-bold top-12 right-0 bg-white shadow-lg rounded-lg w-48 py-2">
+            <div class="liens">
+                <a href="./index.html" class="flex items-center px-4 text-gray-800 hover:bg-gray-100">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828490.png" alt="Home" class="w-5 h-5 mr-3">
+                    ACCUEIL
+                </a>
+                <a href="./masters.html" class="flex items-center px-4 text-gray-800 hover:bg-gray-100">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2983/2983813.png" alt="About" class="w-5 h-5 mr-3">
+                    MASTERs
+                </a>
+                <a href="./etablissements.html" class="flex items-center px-4 text-gray-800 hover:bg-gray-100">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2983/2983813.png" alt="About" class="w-5 h-5 mr-3">
+                    ÉTABLISSEMENTs
+                </a>
+
+                <!-- Barre de séparation -->
+                <div class="h-px bg-gray-400 my-2 mx-12"></div>
+
+                <div class="">
+                    <a href="./index.html/#aPropos"
+                        class="flex items-center px-4 text-gray-800 hover:bg-gray-100">Qui sommes-nous
+                        ?</a>
+                    <a href="./index.html/#contact" class="flex items-center px-4 text-gray-800 hover:bg-gray-100">
+                        Nous contacter
+                    </a>
+                </div>
+            </div>
+
+            <!-- Barre de séparation -->
+            <div class="h-px bg-gray-400 my-2 mx-12"></div>
+
+            <div class="recherche text-center">
+                <p>ICI BARRE DE RECHERCHE & FILTRES</p>
+            </div>
+        </div>
+
     </div>
-  </div>
 
-  <script>
-    // Toggle Menu
-    const burgerBtn = document.getElementById('burger-btn');
-    const menu = document.getElementById('menu');
+    <!-- SUITE MENU -->
+    <div>
 
-    burgerBtn.addEventListener('click', () => {
-      menu.classList.toggle('hidden');
-    });
-  </script>
+    </div>
+
+    <!-- SCRIPT BG MENU -->
+    <script>
+        // Toggle Menu
+        const burgerBtn = document.getElementById('burger-btn');
+        const menu = document.getElementById('menu');
+
+        burgerBtn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
 </header>
+
 </html>
