@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link rel="stylesheet" href="./css/style-tailwind.css">
+
+    <!-- BG menu js -->
+    <script src="./js/bgMenu.js"></script>
 </head>
 <header class="bg-gray-800 h-screen grid justify-evenly grid-cols-2 p-4 rounded-b-3xl max-h-20">
     <!-- BURGER MENU -->
@@ -62,16 +65,7 @@
 
     </div>
 
-    <!-- SCRIPT BG MENU -->
-    <script>
-        // Toggle Menu
-        const burgerBtn = document.getElementById('burger-btn');
-        const menu = document.getElementById('menu');
-
-        burgerBtn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-    </script>
+    
 </header>
 
 </html>
