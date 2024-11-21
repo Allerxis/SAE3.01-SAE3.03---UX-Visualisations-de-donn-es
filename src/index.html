@@ -21,12 +21,11 @@
         </div>
 
         <!-- Search Bar -->
-        <div>
-
-        </div>
+        <div id="search-container"></div>
 
         <!-- Filtres -->
         <div>
+            <!-- mettre les filtres ici -->
         </div>
 
         <!-- Title Section -->
@@ -93,6 +92,13 @@
             .then(response => response.text())
             .then(data => {
                 document.getElementById('footer-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+            fetch('rechercheETfiltres.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('search-container').innerHTML = data;
             })
             .catch(error => console.error('Error loading header:', error));
 
