@@ -10,7 +10,7 @@
 <body>
     <header class="bg-gray-800 flex justify-between items-center p-4 rounded-b-3xl h-20"> <!-- si le justify-between ne fonctionne pas, ajouter : style="display: flex; justify-content: space-between;"-->
         <!-- BURGER MENU -->
-        <div class="flex relative">
+        <div class="relative">
             <!-- Burger Button -->
             <button id="burger-btn"
                 class="md:hidden flex flex-col items-center justify-center space-y-1 w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
@@ -21,7 +21,7 @@
 
             <!-- Dropdown Menu -->
             <div id="menu"
-                class="hidden absolute top-12 right-0 font-bold bg-white shadow-lg rounded-lg w-48 py-2 md:hidden">
+                class="hidden absolute z-10 top-12 left-0 font-bold bg-white shadow-lg rounded-lg w-48 py-2 md:hidden">
                 <div class="liens">
                     <a href="./index.html" class="flex items-center px-4 text-gray-800 hover:bg-gray-100">
                         <img src="https://cdn-icons-png.flaticon.com/512/1828/1828490.png" alt="Home"

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vos Favoris</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./js/bgMenu.js"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+    <header>
+        <div id="header-container"></div>
+    </header>
+
+    <main class="p-6 space-y-8">
+        <!-- Carte de l'établissement -->
+        <div class="bg-white rounded-lg shadow-md p-4 flex flex-col sm:flex-row gap-4">
+            <div class="w-16 h-16 bg-gray-300 flex items-center justify-center rounded-full">
+                <span class="text-xl font-bold">images</span>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold">IUT de Xxxxxxxx</h2>
+                <p class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur. Fermentum leo eget ipsum in dui ultrices morbi id.</p>
+            </div>
+        </div>
+
+        <!-- Titre des masters -->
+        <div>
+            <h3 class="text-center text-xl font-bold">MASTERS DISPONIBLES DANS<br>CET ÉTABLISSEMENT</h3>
+            <hr class="my-4 border-t border-gray-300">
+        </div>
+
+        <!-- Liste des masters -->
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+
+                const burgerBtn = document.getElementById('burger-btn');
+                const menu = document.getElementById('menu');
+
+                if (burgerBtn) {
+                    burgerBtn.addEventListener('click', () => {
+                        menu.classList.toggle('hidden');
+                    });
+                }
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        fetch('rechercheETfiltres.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('search-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+    <footer>
+        <div id="footer-container"></div>
+    </footer>
+</body>
+
+</html>
