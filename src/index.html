@@ -1,28 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- feuille de style -->
-    <style></style>
-    <!-- fichiers js -->
-    <script src="./js/bgMenu.js"></script>
-
-
-    <title>NaMaster</title>
-
+    <title>NaMaster - Accueil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <header>
-<!--  -->
-</header>
+        <div id="header-container"></div>
+    </header>
 
-<body>
-<!--  -->
+<body class="bg-gray-100 text-gray-800">
+
+    <main class="p-6">
+        <div class="flex justify-center items-center">
+            <div class="w-32 h-32 border-2 border-gray-400 flex justify-center items-center">
+                <span class="text-lg font-bold">Logo</span>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div>
+
+        </div>
+
+        <!-- Filtres -->
+        <div>
+        </div>
+
+        <!-- Title Section -->
+        <div class="mt-10 text-center">
+            <h1 class="text-2xl font-bold">C'EST QUOI</h1>
+            <h2 class="text-lg italic text-gray-600">NaMaster</h2>
+        </div>
+
+        <!-- Description -->
+        <div class="mt-6 text-justify">
+            <p class="text-gray-600 text-sm">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed porttitor lectus. Nam
+                consectetur egestas pulvinar. Nullam non leo ut metus tempus cursus. Donec viverra quam sed elementum
+                efficitur. Aenean id nulla ultricies, finibus elit eu, euismod magna. Mauris quis diam bibendum, varius
+                ligula sit amet, porta metus. Nulla facilisi. Phasellus ultrices, mi vitae eleifend vulputate, libero
+                nunc aliquam ex, quis ultrices mauris tortor scelerisque ligula. Fusce pharetra, ligula nec feugiat
+                accumsan, dolor lectus lacinia purus, id sollicitudin ante mauris sit amet elit. Phasellus quam lectus,
+                ullamcorper fringilla urna eu, cursus rhoncus lacus. Sed venenatis accumsan consectetur. Donec ornare
+                sollicitudin lacus, ut volutpat ipsum. Sed quis tortor in lorem auctor consequat et eget elit. Cras
+                laoreet sapien in tempor viverra.
+
+                Curabitur feugiat convallis odio, et rutrum dui laoreet sit amet. Sed tempus nisi sed lorem ornare, eget
+                sollicitudin augue euismod. Vivamus at lacus tempus purus egestas convallis sit amet quis nibh. Duis
+                vestibulum eleifend consectetur. Fusce sed dictum ligula. Ut in efficitur eros. Ut ut lectus at erat
+                rhoncus tempus. Nam porta, nulla nec laoreet euismod, justo augue tincidunt sem, ac imperdiet magna arcu
+                a quam. Praesent id quam finibus, mollis sem a, eleifend massa. Vivamus fermentum tortor est, sed
+                pellentesque lectus porta nec. Nullam aliquet ante sit amet magna vestibulum consectetur. Cras diam
+                dolor, euismod quis laoreet et, laoreet id tellus.
+
+                Nam malesuada, nisi ut commodo pharetra, diam nisl rutrum tellus, eu placerat nulla ipsum vitae lacus.
+                Nullam id efficitur libero. Vestibulum sollicitudin a magna a venenatis. Donec ultricies nulla a urna
+                tempus, quis tempor urna efficitur. In accumsan elit ante, non tempor nulla blandit sodales. Nunc
+                interdum sem id purus consectetur, ac venenatis sem feugiat. Sed luctus nisi quis lorem tincidunt
+                mollis. Aenean massa elit, condimentum sit amet felis et, ultrices mattis quam. Vivamus vehicula orci
+                vitae nulla posuere, eget faucibus turpis molestie.
+
+                Nam placerat, metus non consequat consequat, enim sapien interdum felis, id volutpat nunc massa at quam.
+                Curabitur vestibulum lacus nec felis elementum fringilla. Sed quis mollis nisl. Sed vitae turpis nec
+                arcu consectetur imperdiet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+                inceptos himenaeos. Duis egestas ante nec porta sollicitudin. Phasellus lacinia tellus vitae congue
+                rutrum. Curabitur iaculis velit sit amet convallis mollis. Ut tincidunt nisl eget venenatis scelerisque.
+            </p>
+        </div>
+    </main>
+
+    <script>
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+
+                const burgerBtn = document.getElementById('burger-btn');
+                const menu = document.getElementById('menu');
+
+                if (burgerBtn) {
+                    burgerBtn.addEventListener('click', () => {
+                        menu.classList.toggle('hidden');
+                    });
+                }
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+    </script>
 </body>
-
 <footer>
-<!--  -->
+    <div id="footer-container"></div>
 </footer>
 
 </html>
