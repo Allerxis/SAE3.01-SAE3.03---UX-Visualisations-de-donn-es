@@ -8,8 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <header>
-        <div id="header-container"></div>
-    </header>
+    <div id="header-container"></div>
+</header>
 
 <body class="bg-gray-100 text-gray-800">
 
@@ -95,7 +95,7 @@
             })
             .catch(error => console.error('Error loading header:', error));
 
-            fetch('rechercheETfiltres.html')
+        fetch('rechercheETfiltres.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('search-container').innerHTML = data;

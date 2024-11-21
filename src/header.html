@@ -8,12 +8,13 @@
 </head>
 
 <body>
-    <header class="bg-gray-800 flex justify-between items-center p-4 rounded-b-3xl h-20"> <!-- si le justify-between ne fonctionne pas, ajouter : style="display: flex; justify-content: space-between;"-->
+    <header class="bg-gray-800 flex justify-between items-center p-4 rounded-b-3xl h-20">
+        <!-- si le justify-between ne fonctionne pas, ajouter : style="display: flex; justify-content: space-between;"-->
         <!-- BURGER MENU -->
         <div class="relative">
             <!-- Burger Button -->
             <button id="burger-btn"
-                class="md:hidden flex flex-col items-center justify-center space-y-1 w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
+                class="md:hidden z-20 flex flex-col items-center justify-center space-y-1 w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
                 <span class="w-8 h-1 bg-gray-800 rounded"></span>
                 <span class="w-8 h-1 bg-gray-800 rounded"></span>
                 <span class="w-8 h-1 bg-gray-800 rounded"></span>
@@ -21,19 +22,19 @@
 
             <!-- Dropdown Menu -->
             <div id="menu"
-                class="hidden absolute z-10 top-12 left-0 font-bold bg-white shadow-lg rounded-lg w-48 py-2 md:hidden">
+                class="hidden absolute z-10 top-10 left-[-16px] font-bold bg-gray-800 shadow-lg rounded-b-3xl w-[100vw] p-4 pt-10 md:hidden">
                 <div class="liens">
-                    <a href="./index.html" class="flex items-center px-4 text-gray-800 hover:bg-gray-100">
+                    <a href="./index.html" class="flex items-center px-4 text-white hover:bg-gray-100">
                         <img src="https://cdn-icons-png.flaticon.com/512/1828/1828490.png" alt="Home"
                             class="w-5 h-5 mr-3">
                         ACCUEIL
                     </a>
-                    <a href="./masters.html" class="flex items-center px-4 text-gray-800 hover:bg-gray-100">
+                    <a href="./masters.html" class="flex items-center px-4 text-white hover:bg-gray-100">
                         <img src="https://cdn-icons-png.flaticon.com/512/2983/2983813.png" alt="About"
                             class="w-5 h-5 mr-3">
                         MASTERs
                     </a>
-                    <a href="./etablissements.html" class="flex items-center px-4 text-gray-800 hover:bg-gray-100">
+                    <a href="./etablissements.html" class="flex items-center px-4 text-white hover:bg-gray-100">
                         <img src="https://cdn-icons-png.flaticon.com/512/2983/2983813.png" alt="About"
                             class="w-5 h-5 mr-3">
                         ÉTABLISSEMENTs
@@ -43,11 +44,10 @@
                     <div class="h-px bg-gray-400 my-2 mx-12"></div>
 
                     <div class="">
-                        <a href="./index.html/#aPropos"
-                            class="flex items-center px-4 text-gray-800 hover:bg-gray-100">Qui
+                        <a href="./index.html/#aPropos" class="flex items-center px-4 text-white hover:bg-gray-100">Qui
                             sommes-nous
                             ?</a>
-                        <a href="./index.html/#contact" class="flex items-center px-4 text-gray-800 hover:bg-gray-100">
+                        <a href="./index.html/#contact" class="flex items-center px-4 text-white hover:bg-gray-100">
                             Nous contacter
                         </a>
                     </div>
@@ -56,26 +56,36 @@
                 <!-- Barre de séparation -->
                 <div class="h-px bg-gray-400 my-2 mx-12"></div>
 
-                <div class="recherche text-center">
-                    <p>ICI BARRE DE RECHERCHE & FILTRES</p>
-                </div>
+                <div id="search-container"></div>
             </div>
         </div>
 
         <!-- FAVORIS ET PROFIL -->
-        <div class="md:hidden flex items-center space-x-4">
+        <div class="md:hidden flex items-center space-x-4 z-20">
             <!-- Bouton Favoris -->
             <button id="favoris-btn"
                 class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
-                <a href="./favoris.html"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" alt="Favoris" class="w-6 h-6"></a>
+                <a href="./favoris.html"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"
+                        alt="Favoris" class="w-6 h-6"></a>
             </button>
             <!-- Bouton Profil -->
             <button id="profil-btn"
                 class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
-                <a href="./profil.html"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" alt="Profil" class="w-6 h-6"></a>
+                <a href="./profil.html"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" alt="Profil"
+                        class="w-6 h-6"></a>
             </button>
         </div>
     </header>
+
+    <script>
+        fetch('rechercheETfiltres.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('search-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
 </body>
 
 </html>
