@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- feuille de style -->
+  <link rel="stylesheet" href="./css/style-tailwind.css">
+  <!-- <script src="https://cdn.tailwindcss.com/"></script> -->
+  <!-- fichiers js -->
+  <script src="./js/bgMenu.js"></script>
+
+  <title>NaMaster</title>
+
+</head>
+
+
+<header>
+  <div id="header-container"></div>
+</header>
+
+<body>
+  
+
+  <script>
+    // Charger et insérer le contenu de header.html
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-container').innerHTML = data;
+
+        // Réexécuter le script bgMenu.js après l'injection
+        const burgerBtn = document.getElementById('burger-btn');
+        const menu = document.getElementById('menu');
+
+        if (burgerBtn) {
+          burgerBtn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+          });
+        }
+      })
+      .catch(error => console.error('Error loading header:', error));
+  </script>
+</body>
+
+<footer>
+  <!--  -->
+</footer>
+
+</html>
