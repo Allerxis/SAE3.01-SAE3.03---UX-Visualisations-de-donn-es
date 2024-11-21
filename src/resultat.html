@@ -71,11 +71,18 @@
         }
       })
       .catch(error => console.error('Error loading header:', error));
-  </script>
-</body>
 
-<footer>
-  <!--  -->
+      fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+  </script>
+  <footer>
+    <div id="footer-container"></div>
 </footer>
+</body>
 
 </html>
