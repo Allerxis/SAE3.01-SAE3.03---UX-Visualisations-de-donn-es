@@ -10,6 +10,8 @@
 <body>
     <header class="bg-gray-800 flex justify-between items-center p-4 rounded-b-3xl h-20">
         <!-- si le justify-between ne fonctionne pas, ajouter : style="display: flex; justify-content: space-between;"-->
+        
+        <!-- ||||||||||| -->
         <!-- BURGER MENU -->
         <div class="relative">
             <!-- Burger Button -->
@@ -75,6 +77,49 @@
                         class="w-6 h-6"></a>
             </button>
         </div>
+
+
+        <!-- ||||||||||| -->
+        <!-- NORMAL MENU -->
+        <div class="sm:hidden md:flex">
+            <nav class="flex justify-around rounded-full bg-white shadow-md p-2">
+              <a
+                href="./index.html"
+                class="text-black px-4 py-2 rounded-full font-medium transition-all duration-200 active:bg-gray-200"
+                id="home-tab"
+              >
+                ACCUEIL
+              </a>
+              <a
+                href="./etablissements.html"
+                class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
+                id="establishments-tab"
+              >
+                ÉTABLISSEMENTS
+              </a>
+              <a
+                href="./masters.html"
+                class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
+                id="masters-tab"
+              >
+                MASTERS
+              </a>
+              <a
+                href="./favoris.html"
+                class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
+                id="favorites-tab"
+              >
+                FAVORIS
+              </a>
+              <a
+                href="./profil.html"
+                class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
+                id="profile-tab"
+              >
+                PROFIL
+              </a>
+            </nav>
+          </div>
     </header>
 
     <script>
