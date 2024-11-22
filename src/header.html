@@ -2,86 +2,87 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/style-tailwind.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style-tailwind.css">
 </head>
 
 <body>
-  <header class="bg-gray-800 flex justify-between items-center p-4 rounded-b-3xl h-20">
-    <!-- si le justify-between ne fonctionne pas, ajouter : style="display: flex; justify-content: space-between;"-->
+    <header class="bg-gray-800 flex justify-between items-center p-4 rounded-b-3xl h-20">
+        <!-- si le justify-between ne fonctionne pas, ajouter : style="display: flex; justify-content: space-between;"-->
 
-    <!-- ||||||||||| -->
-    <!-- BURGER MENU -->
-    <div class="relative">
-      <!-- Burger Button -->
-      <button id="burger-btn"
-        class="md:hidden z-20 flex flex-col items-center justify-center space-y-1 w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
-        <span class="w-8 h-1 bg-gray-800 rounded"></span>
-        <span class="w-8 h-1 bg-gray-800 rounded"></span>
-        <span class="w-8 h-1 bg-gray-800 rounded"></span>
-      </button>
+        <!-- ||||||||||| -->
+        <!-- BURGER MENU -->
+        <div class="relative">
+            <!-- Burger Button -->
+            <button id="burger-btn"
+                class="md:hidden z-20 flex flex-col items-center justify-center space-y-1 w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
+                <span class="w-8 h-1 bg-gray-800 rounded"></span>
+                <span class="w-8 h-1 bg-gray-800 rounded"></span>
+                <span class="w-8 h-1 bg-gray-800 rounded"></span>
+            </button>
 
-      <!-- Dropdown Menu -->
-      <div id="menu"
-        class="transition duration-150 hidden absolute z-10 top-10 left-[-16px] font-bold bg-gray-800 shadow-lg rounded-b-3xl w-[100vw] p-4 pt-10 md:hidden">
-        <div class="liens">
-          <a href="./index.html" class="flex items-center px-4 text-white hover:bg-gray-100">
-            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828490.png" alt="Home" class="w-5 h-5 mr-3">
-            ACCUEIL
-          </a>
-          <a href="./masters.html" class="flex items-center px-4 text-white hover:bg-gray-100">
-            <img src="https://cdn-icons-png.flaticon.com/512/2983/2983813.png" alt="About" class="w-5 h-5 mr-3">
-            MASTERs
-          </a>
-          <a href="./etablissements.html" class="flex items-center px-4 text-white hover:bg-gray-100">
-            <img src="https://cdn-icons-png.flaticon.com/512/2983/2983813.png" alt="About" class="w-5 h-5 mr-3">
-            ÉTABLISSEMENTs
-          </a>
+            <!-- Dropdown Menu -->
+            <div id="menu"
+                class="transition duration-150 hidden absolute z-10 top-10 left-[-16px] font-bold bg-gray-800 shadow-lg rounded-b-3xl w-[100vw] p-4 pt-10 md:hidden">
+                <div class="liens">
+                    <a href="./index.html" class="flex items-center px-4 text-white hover:bg-gray-100">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828490.png" alt="Home"
+                            class="w-5 h-5 mr-3">
+                        ACCUEIL
+                    </a>
+                    <a href="./masters.html" class="flex items-center px-4 text-white hover:bg-gray-100">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2983/2983813.png" alt="About"
+                            class="w-5 h-5 mr-3">
+                        MASTERs
+                    </a>
+                    <a href="./etablissements.html" class="flex items-center px-4 text-white hover:bg-gray-100">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2983/2983813.png" alt="About"
+                            class="w-5 h-5 mr-3">
+                        ÉTABLISSEMENTs
+                    </a>
 
-          <!-- Barre de séparation -->
-          <div class="h-px bg-gray-400 my-2 mx-12"></div>
+                    <!-- Barre de séparation -->
+                    <div class="h-px bg-gray-400 my-2 mx-12"></div>
 
-          <div class="">
-            <a href="./index.html#aPropos" class="flex items-center px-4 text-white hover:bg-gray-100">Qui
-              sommes-nous
-              ?</a>
-            <a href="./index.html#contact" class="flex items-center px-4 text-white hover:bg-gray-100">
-              Nous contacter
-            </a>
-          </div>
+                    <div class="">
+                        <a href="./index.html#aPropos" class="flex items-center px-4 text-white hover:bg-gray-100">Qui
+                            sommes-nous
+                            ?</a>
+                        <a href="./index.html#contact" class="flex items-center px-4 text-white hover:bg-gray-100">
+                            Nous contacter
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Barre de séparation -->
+                <div class="h-px bg-gray-400 my-2 mx-12"></div>
+
+                <div id="search-container"></div>
+            </div>
         </div>
 
-        <!-- Barre de séparation -->
-        <div class="h-px bg-gray-400 my-2 mx-12"></div>
+        <!-- FAVORIS ET PROFIL -->
+        <div class="md:hidden flex items-center space-x-4 z-20">
+            <!-- Bouton Favoris -->
+            <button id="favoris-btn"
+                class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
+                <a href="./favoris.html"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"
+                        alt="Favoris" class="w-6 h-6"></a>
+            </button>
+            <!-- Bouton Profil -->
+            <button id="profil-btn"
+                class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
+                <a href="./profil.html"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" alt="Profil"
+                        class="w-6 h-6"></a>
+            </button>
+        </div>
 
-        <div id="search-container"></div>
-      </div>
-    </div>
-
-    <!-- FAVORIS ET PROFIL -->
-    <div class="md:hidden flex items-center space-x-4 z-20">
-      <!-- Bouton Favoris -->
-      <button id="favoris-btn"
-        class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
-        <a href="./favoris.html"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" alt="Favoris"
-            class="w-6 h-6"></a>
-      </button>
-      <!-- Bouton Profil -->
-      <button id="profil-btn"
-        class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
-        <a href="./profil.html"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" alt="Profil"
-            class="w-6 h-6"></a>
-      </button>
-    </div>
-
-
-<<<<<<< HEAD
         <!-- ||||||||||| -->
         <!-- NORMAL MENU -->
-        <div class="sm:hidden md:flex">
+        <div class="hidden md:flex">
             <!-- LOGO -->
-            <img  class="" src="" alt="">
+            <img class="" src="" alt="">
 
             <!-- RECHERCHE -->
             <!-- Barre de recherche -->
@@ -96,55 +97,46 @@
                     </button>
                 </div>
             </div>
-=======
-    <!-- ||||||||||| -->
-    <!-- NORMAL MENU -->
-    <div class="sm:hidden md:flex">
-      <!-- LOGO -->
 
-      <!-- RECHERCHE -->
-      <div id="search-container"></div>
->>>>>>> 8eaa386a3d382b5db4605cb06bcc1735e2fac56a
+            <!-- NAVBARRE -->
+            <nav class="flex justify-around rounded-full bg-white shadow-md p-2">
+                <a href="./index.html"
+                    class="text-black px-4 py-2 rounded-full font-medium transition-all duration-200 active:bg-gray-200"
+                    id="home-tab">
+                    ACCUEIL
+                </a>
+                <a href="./etablissements.html"
+                    class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
+                    id="establishments-tab">
+                    ÉTABLISSEMENTS
+                </a>
+                <a href="./masters.html"
+                    class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
+                    id="masters-tab">
+                    MASTERS
+                </a>
+                <a href="./favoris.html"
+                    class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
+                    id="favorites-tab">
+                    FAVORIS
+                </a>
+                <a href="./profil.html"
+                    class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
+                    id="profile-tab">
+                    PROFIL
+                </a>
+            </nav>
+        </div>
+    </header>
 
-      <!-- NAVBARRE -->
-      <nav class="flex justify-around rounded-full bg-white shadow-md p-2">
-        <a href="./index.html"
-          class="text-black px-4 py-2 rounded-full font-medium transition-all duration-200 active:bg-gray-200"
-          id="home-tab">
-          ACCUEIL
-        </a>
-        <a href="./etablissements.html"
-          class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
-          id="establishments-tab">
-          ÉTABLISSEMENTS
-        </a>
-        <a href="./masters.html"
-          class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
-          id="masters-tab">
-          MASTERS
-        </a>
-        <a href="./favoris.html"
-          class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
-          id="favorites-tab">
-          FAVORIS
-        </a>
-        <a href="./profil.html"
-          class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
-          id="profile-tab">
-          PROFIL
-        </a>
-      </nav>
-    </div>
-  </header>
-
-  <script>
-    fetch('rechercheETfiltres.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('search-container').innerHTML = data;
-      })
-      .catch(error => console.error('Error loading header:', error));
-  </script>
+    <script>
+        fetch('rechercheETfiltres.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('search-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
 
 </body>
 
