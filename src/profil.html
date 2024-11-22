@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<header>
+    <div id="header-container"></div>
+</header>
+
+<body class="bg-gray-100 text-gray-800">
+
+    <main class="p-6">
+        <!-- Section Profil -->
+        <div class="text-center space-y-8">
+            <!-- Avatar et Nom -->
+            <div>
+                <div class="w-32 h-32 bg-gray-300 rounded-full mx-auto flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-500" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 12c2.5 0 4.5-2 4.5-4.5S14.5 3 12 3 7.5 5 7.5 7.5 9.5 12 12 12zM12 14.25c-4.5 0-6.75 2.25-6.75 2.25s.75 4.5 6.75 4.5 6.75-4.5 6.75-4.5-2.25-2.25-6.75-2.25z" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold">*User*</h2>
+            </div>
+
+            <!-- Informations -->
+            <div class="grid grid-cols-1 gap-4 max-w-md mx-auto">
+                <!-- Email -->
+                <div class="flex items-center bg-gray-200 p-4 rounded-full justify-between">
+                    <input type="email" id="email" class="bg-gray-200 focus:outline-none w-full" placeholder="*mail*" />
+                </div>
+                <!-- Mot de passe -->
+                <div class="flex items-center bg-gray-200 p-4 rounded-full justify-between">
+                    <input type="password" id="password" class="bg-gray-200 focus:outline-none w-full"
+                        placeholder="*mdp*" />
+                    <button onclick="togglePasswordVisibility()" id="toggle-password">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12H9m6 0a6 6 0 11-12 0 6 6 0 0112 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="grid grid-cols-1 gap-4 max-w-md mx-auto">
+                <button class="bg-gray-200 py-3 px-6 rounded-full text-center text-sm font-semibold">Supprimer vos
+                    données</button>
+                <button class="bg-gray-200 py-3 px-6 rounded-full text-center text-sm font-semibold">Changer de mot de
+                    passe</button>
+                <button class="bg-gray-800 text-white py-3 px-6 rounded-full text-center text-sm font-semibold">Se
+                    déconnecter</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+
+                const burgerBtn = document.getElementById('burger-btn');
+                const menu = document.getElementById('menu');
+
+                if (burgerBtn) {
+                    burgerBtn.addEventListener('click', () => {
+                        menu.classList.toggle('hidden');
+                    });
+                }
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        fetch('rechercheETfiltres.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('search-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const passwordToggle = document.getElementById('toggle-password').firstElementChild;
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.setAttribute('stroke', '#000'); // Icône devient plus visible
+            } else {
+                passwordInput.type = 'password';
+                passwordToggle.setAttribute('stroke', '#6b7280'); // Récupère la couleur grise
+            }
+        }
+    </script>
+</body>
+
+<footer>
+    <div id="footer-container"></div>
+</footer>
+
+
+</html>

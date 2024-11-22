@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- feuille de style -->
   <link rel="stylesheet" href="./css/style-tailwind.css">
-  <!-- <script src="https://cdn.tailwindcss.com/"></script> -->
+  <script src="https://cdn.tailwindcss.com/"></script>
   <!-- fichiers js -->
   <script src="./js/bgMenu.js"></script>
   <script src="./js/navBarre.js"></script>
@@ -73,17 +73,17 @@
       })
       .catch(error => console.error('Error loading header:', error));
 
-      fetch('footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-            })
-            .catch(error => console.error('Error loading header:', error));
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-container').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading header:', error));
 
   </script>
   <footer>
     <div id="footer-container"></div>
-</footer>
+  </footer>
 </body>
 
 
