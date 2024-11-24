@@ -34,10 +34,10 @@ Il faut :
 
 ## Modèles de Données et Composants
 ### Modèle de données :
-*(Diagramme à inclure ici)*
+![Modèle de données de l'application web](./documentation/modele_de_données.png "Modèle de données de l'application web")
 
 ### Diagramme de composants :
-*(Diagramme à inclure ici)*
+![Diagramme de composant de l'application web](./documentation/diagramme_de_composants.png "Diagramme de composant de l'application web")
 
 ---
 
@@ -58,8 +58,4 @@ Il faut :
 ### Liste des bugs identifiés :
 | Numéro du bug | État           | Description                              |
 |---------------|----------------|------------------------------------------|
-| 1             | Bug responsive | La barre de navigation ne s’adapte pas à la taille de la page |
-
----
-
-*(Inclure les images ou diagrammes si disponibles)*
+| 1             | Corrigé        | La barre de navigation ne s’adapte pas à la taille de la page |
