@@ -9,8 +9,8 @@
     <script src="./js/bgMenu.js"></script>
 
     <!-- fichiers js -->
-    <script src="./js/bgMenu.js"></script>
-    <script src="./js/navBarre.js"></script>
+  <script src="./js/bgMenu.js"></script>
+  <script src="./js/navBarre.js"></script>
 </head>
 
 <body class="bg-gray-100 text-gray-800">
@@ -27,8 +27,7 @@
             </div>
             <div>
                 <h2 class="text-lg font-semibold">IUT de Xxxxxxxx</h2>
-                <p class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur. Fermentum leo eget ipsum in dui
-                    ultrices morbi id.</p>
+                <p class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur. Fermentum leo eget ipsum in dui ultrices morbi id.</p>
             </div>
         </div>
 
@@ -42,51 +41,35 @@
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
-                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc
-                    elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.
-                </p>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
             </div>
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
-                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc
-                    elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.
-                </p>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
             </div>
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
-                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc
-                    elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.
-                </p>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
             </div>
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
-                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc
-                    elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.
-                </p>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
             </div>
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
-                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc
-                    elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.
-                </p>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
             </div>
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
-                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc
-                    elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.
-                </p>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
             </div>
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
-                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc
-                    elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.
-                </p>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
             </div>
             <div class="bg-white rounded-lg shadow-md p-4">
                 <h4 class="text-lg font-semibold">MASTER Xxxxxxxx</h4>
-                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc
-                    elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.
-                </p>
+                <p class="text-sm text-gray-600">Description master. Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate. Orci aliquet lectus ut tristique lacus.</p>
             </div>
         </div>
     </main>
@@ -115,14 +98,12 @@
             })
             .catch(error => console.error('Error loading header:', error));
 
-        document.querySelectorAll('.search-container').forEach(container => {
-            fetch('rechercheETfiltres.html')
-                .then(response => response.text())
-                .then(data => {
-                    container.innerHTML = data;
-                })
-                .catch(error => console.error('Error loading content:', error));
-        });
+        fetch('rechercheETfiltres.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('search-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
     </script>
     <footer>
         <div id="footer-container"></div>

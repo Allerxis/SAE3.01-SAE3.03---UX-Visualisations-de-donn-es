@@ -130,14 +130,12 @@
     </header>
 
     <script>
-        document.querySelectorAll('.search-container').forEach(container => {
-            fetch('rechercheETfiltres.html')
-                .then(response => response.text())
-                .then(data => {
-                    container.innerHTML = data;
-                })
-                .catch(error => console.error('Error loading content:', error));
-        });
+        fetch('rechercheETfiltres.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('search-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
     </script>
 
 </body>
