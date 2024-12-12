@@ -7,4 +7,11 @@ document.addEventListener('DOMContentLoaded', function () {
             menu.classList.toggle('hidden');
         });
     }
+
+    function toggleMenu() {
+        const menu = document.querySelector(".menu-links");
+        const burgerBtn = document.querySelector(".hamburger-icon");
+        menu.classList.toggle("open")
+        icon.classList.toggle("open")
+    }
 });
