@@ -16,7 +16,7 @@
     <div id="header-container"></div>
 </header>
 
-<body class="bg-gray-100 text-gray-800">
+<body class="mt-[8rem] bg-gray-100 text-gray-800">
 
     <main class="p-6">
         <div class="flex justify-center items-center">
@@ -103,35 +103,37 @@
     </main>
 
     <script>
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-container').innerHTML = data;
 
-                const burgerBtn = document.getElementById('burger-btn');
-                const menu = document.getElementById('menu');
+                    const burgerBtn = document.getElementById('burger-btn');
+                    const menu = document.getElementById('menu');
 
-                if (burgerBtn) {
-                    burgerBtn.addEventListener('click', () => {
-                        menu.classList.toggle('hidden');
-                    });
-                }
-            })
-            .catch(error => console.error('Error loading header:', error));
+                    if (burgerBtn) {
+                        burgerBtn.addEventListener('click', () => {
+                            menu.classList.toggle('hidden');
+                        });
+                    }
+                })
+                .catch(error => console.error('Error loading header:', error));
 
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-container').innerHTML = data;
-            })
-            .catch(error => console.error('Error loading header:', error));
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-container').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading header:', error));
 
-        fetch('rechercheETfiltres.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('search-container').innerHTML = data;
-            })
-            .catch(error => console.error('Error loading header:', error));
+            fetch('rechercheETfiltres.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('search-container').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading header:', error));
+        });
 
     </script>
 </body>
