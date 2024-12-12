@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- feuille de style -->
+  <link rel="stylesheet" href="./css/style-tailwind.css">
+  <script src="https://cdn.tailwindcss.com/"></script>
+  <!-- fichiers js -->
+  <script src="./js/bgMenu.js"></script>
+  <script src="./js/navBarre.js"></script>
+
+  <title>Résultats NaMaster</title>
+
+</head>
+
+
+<header>
+  <div id="header-container"></div>
+</header>
+
+<body class="mt[8rem]">
+  <div class="grid grid-cols-1 gap-4 lg:mx-10 mb-8">
+    <h1 class="font-bold text-5xl text-center lg:text-7xl">Les diffèrents Masters</h1>
+
+    <a href="#">
+      <div class="p-4 bg-gray-500 border rounded-md shadow-sm">
+        <h2 class="font-bold text-lg mb-2 lg:text-2xl">MASTER Xxxxxxxxx</h2>
+        <p class="text-sm text-gray-200 lg:text-lg">
+          Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate.
+          Orci aliquet lectus ut tristique lacus.
+        </p>
+      </div>
+    </a>
+    <a href="#">
+      <div class="p-4 bg-gray-500 border rounded-md shadow-sm">
+        <h2 class="font-bold text-lg mb-2 lg:text-2xl">MASTER Xxxxxxxxx</h2>
+        <p class="text-sm text-gray-200 lg:text-lg">
+          Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate.
+          Orci aliquet lectus ut tristique lacus.
+        </p>
+      </div>
+    </a>
+    <a href="#">
+      <div class="p-4 bg-gray-500 border rounded-md shadow-sm">
+        <h2 class="font-bold text-lg mb-2 lg:text-2xl">MASTER Xxxxxxxxx</h2>
+        <p class="text-sm text-gray-200 lg:text-lg">
+          Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate.
+          Orci aliquet lectus ut tristique lacus.
+        </p>
+      </div>
+    </a>
+  </div>
+  </div>
+
+  <script>
+    // Charger et insérer le contenu de header.html
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-container').innerHTML = data;
+
+        // Réexécuter le script bgMenu.js après l'injection
+        const burgerBtn = document.getElementById('burger-btn');
+        const menu = document.getElementById('menu');
+
+        if (burgerBtn) {
+          burgerBtn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+          });
+        }
+      })
+      .catch(error => console.error('Error loading header:', error));
+
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-container').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading header:', error));
+
+  </script>
+  <footer>
+    <div id="footer-container"></div>
+  </footer>
+</body>
+
+
+</html>
