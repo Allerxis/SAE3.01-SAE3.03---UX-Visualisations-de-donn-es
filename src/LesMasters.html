@@ -21,7 +21,7 @@
 </header>
 
 <body class="mt[8rem]">
-  <div class="grid grid-cols-1 gap-4 lg:mx-10 mb-8">
+  <!-- <div class="grid grid-cols-1 gap-4 lg:mx-10 mb-8">
     <h1 class="font-bold text-5xl text-center lg:text-7xl">Les diffèrents Masters</h1>
 
     <a href="#">
@@ -33,26 +33,12 @@
         </p>
       </div>
     </a>
-    <a href="#">
-      <div class="p-4 bg-gray-500 border rounded-md shadow-sm">
-        <h2 class="font-bold text-lg mb-2 lg:text-2xl">MASTER Xxxxxxxxx</h2>
-        <p class="text-sm text-gray-200 lg:text-lg">
-          Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate.
-          Orci aliquet lectus ut tristique lacus.
-        </p>
-      </div>
-    </a>
-    <a href="#">
-      <div class="p-4 bg-gray-500 border rounded-md shadow-sm">
-        <h2 class="font-bold text-lg mb-2 lg:text-2xl">MASTER Xxxxxxxxx</h2>
-        <p class="text-sm text-gray-200 lg:text-lg">
-          Lorem ipsum dolor sit amet consectetur. Est nunc elit molestie vel viverra phasellus rutrum urna vulputate.
-          Orci aliquet lectus ut tristique lacus.
-        </p>
-      </div>
-    </a>
-  </div>
-  </div>
+  </div> -->
+
+  <div class="grid grid-cols-1 gap-4 lg:mx-10 mb-8" id="masters-container">
+    <h1 class="font-bold text-5xl text-center lg:text-7xl">Les différents Masters</h1>
+    <!-- Les masters seront insérés ici -->
+</div>
 
   <script>
     // Charger et insérer le contenu de header.html
@@ -79,6 +65,54 @@
         document.getElementById('footer-container').innerHTML = data;
       })
       .catch(error => console.error('Error loading header:', error));
+
+
+
+      document.addEventListener('DOMContentLoaded', () => {
+    const mastersContainer = document.getElementById('masters-container');
+
+    // URL de l'API pour récupérer les masters
+    const apiURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations';
+
+    // Fonction pour créer une carte de master
+    const createMasterCard = (master) => {
+    const masterCard = document.createElement('a');
+    masterCard.href = `master.html?id=${master.ifc}`; // Lien vers une page de détail utilisant l'identifiant `ifc`
+    masterCard.innerHTML = `
+        <div class="p-4 bg-white border rounded-md shadow-sm">
+            <h2 class="font-bold text-lg mb-2 lg:text-2xl">${master.parcours || 'Nom non disponible'}</h2>
+            <p class="text-sm text-gray-500 lg:text-lg">
+                Alternance : ${master.alternance ? 'Oui' : 'Non'}
+            </p>
+            <p class="text-xs text-gray-400 lg:text-sm mt-2">Lieu(x) : ${master.lieux || 'Non spécifié'}</p>
+        </div>
+    `;
+    return masterCard;
+};
+
+    // Requête API pour récupérer les masters
+    fetch(apiURL)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la récupération des données.');
+            }
+            return response.json();
+        })
+        .then(data => {
+          console.log(data); // Affiche les données pour les inspecter
+            // Vider le conteneur et ajouter chaque master
+            mastersContainer.innerHTML = `<h1 class="font-bold text-5xl text-center lg:text-7xl">Les différents Masters</h1>`;
+            data.forEach(master => {
+                const masterCard = createMasterCard(master);
+                mastersContainer.appendChild(masterCard);
+            });
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            mastersContainer.innerHTML = `<p class="text-red-500 text-center">Impossible de charger les données des masters. Veuillez réessayer plus tard.</p>`;
+        });
+});
+
 
   </script>
   <footer>
