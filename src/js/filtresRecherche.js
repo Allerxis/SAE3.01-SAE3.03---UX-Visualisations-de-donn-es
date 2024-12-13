@@ -25,11 +25,11 @@ function populateFilters(secteurs) {
     secteurs.slice(0, 5).forEach((secteur) => {
         const button = document.createElement('button');
         button.className = 'bg-gray-200 py-2 px-4 rounded-full text-center text-gray-800 text-sm shadow-sm';
-        button.textContent = secteur.nom; // Utiliser le nom du secteur
+        button.textContent = secteur.disciplineNom; // Utiliser le nom du secteur
 
         // Ajouter l'événement de redirection
         button.addEventListener('click', () => {
-            const url = `lesMasters.html?id=${secteur.id}`;
+            const url = `lesMasters.html?id=${secteur.disciplineId}`;
             window.location.href = url; // Redirige vers la page avec l'ID
         });
 
@@ -43,11 +43,11 @@ function populateFilters(secteurs) {
 
         const button = document.createElement('button');
         button.className = 'bg-gray-200 py-2 px-4 rounded-full text-center text-gray-800 text-sm shadow-sm';
-        button.textContent = secteur.nom;
+        button.textContent = secteur.disciplineNom;
 
         // Ajouter l'événement de redirection
         button.addEventListener('click', () => {
-            const url = `lesMasters.html?id=${secteur.id}`;
+            const url = `lesMasters.html?id=${secteur.disciplineId}`;
             window.location.href = url; // Redirige vers la page avec l'ID
         });
 
