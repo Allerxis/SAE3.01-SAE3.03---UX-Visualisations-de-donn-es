@@ -59,3 +59,5 @@ Il faut :
 | Numéro du bug | État           | Description                              |
 |---------------|----------------|------------------------------------------|
 | 1             | Corrigé        | La barre de navigation ne s’adapte pas à la taille de la page |
+|---------------|----------------|------------------------------------------|
+| 2             | Corrigé        | Suppression des éléments ayant comme valeurs 'null' pour la catégorie "parcours"|
