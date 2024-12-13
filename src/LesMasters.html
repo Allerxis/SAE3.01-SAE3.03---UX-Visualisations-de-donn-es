@@ -34,13 +34,30 @@
       </div>
     </a>
   </div> -->
-
-  <div class="grid grid-cols-1 gap-4 lg:mx-10 mb-8" id="masters-container">
-    <h1 class="font-bold text-5xl text-center lg:text-7xl">Les différents Masters</h1>
-    <!-- Les masters seront insérés ici -->
-  </div>
+  <main class="p-6 sm:mx-8 lg:my-10">
+    
+    <div class="text-center sm:pt-8 my-8 ">
+      <h1 class="font-bold text-5xl sm:my-10 sm:py-5 lg:text-7xl lg:py-6">Les différents Masters</h1>
+    </div>
+    <div class="mt-8 pb-8">
+    <div id="search-container"></div>
+</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:mx-8 lg:mx-10 mb-8" id="masters-container">
+      <!-- Les masters seront insérés ici -->
+    </div>
+  </main>
 
   <script>
+
+
+fetch('rechercheETfiltres.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('search-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+
     // Charger et insérer le contenu de header.html
     fetch('header.html')
       .then(response => response.text())
@@ -101,7 +118,6 @@
         .then(data => {
           console.log(data); // Affiche les données pour les inspecter
           // Vider le conteneur et ajouter chaque master
-          mastersContainer.innerHTML = `<h1 class="font-bold text-5xl text-center lg:text-7xl">Les différents Masters</h1>`;
           data.forEach(master => {
             if (master.parcours !== null) {
               const masterCard = createMasterCard(master);
