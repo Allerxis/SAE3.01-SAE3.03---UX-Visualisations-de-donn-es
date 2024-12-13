@@ -131,11 +131,27 @@
 
     <script>
         fetch('rechercheETfiltres.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('search-container').innerHTML = data;
-            })
-            .catch(error => console.error('Error loading header:', error));
+        .then(response => response.text())
+        .then(data => {
+            // Insère le contenu HTML dans le conteneur
+            const container = document.getElementById('search-container');
+            container.innerHTML = data;
+
+            // Trouve et exécute tous les scripts inclus dans le HTML
+            const scripts = container.querySelectorAll('script');
+            scripts.forEach(script => {
+                const newScript = document.createElement('script');
+                if (script.src) {
+                    // Si le script a un src, charge-le via une nouvelle balise <script>
+                    newScript.src = script.src;
+                } else {
+                    // Sinon, exécute le contenu inline
+                    newScript.textContent = script.textContent;
+                }
+                document.body.appendChild(newScript);
+            });
+        })
+        .catch(error => console.error('Error loading content:', error));
     </script>
 
 </body>
