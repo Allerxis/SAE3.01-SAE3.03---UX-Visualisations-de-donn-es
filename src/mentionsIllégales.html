@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NaPasMaster - Mentions Illégales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- fichiers js -->
+    <script src="./js/bgMenu.js"></script>
+    <script src="./js/navBarre.js"></script>
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="./js/filtresRecherche.js"></script>
+
+</head>
+<header>
+    <div id="header-container"></div>
+</header>
+
+<body class="mt-[8rem] bg-gray-100 text-gray-800">
+    <main class="p-8">
+        <h1 class="text-4xl font-bold text-center text-red-600">Mentions Illégales</h1>
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">1. Informations douteuses</h2>
+            <p><strong>Nom du site :</strong> NaPasMaster</p>
+            <p><strong>Propriétaire :</strong> Une organisation malicieuse à but lucrative.</p>
+            <p><strong>Adresse :</strong> Quelque part dans les quartiers les plus sombes de Gotham.</p>
+            <p><strong>Contact :</strong> Pour nous contacter, ils vous suffit de projeter le Bat Signal dans le ciel, durant les nuits les plus sombre.</p>
+        </section>
+    
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">2. Hébergement</h2>
+            <p><strong>Hébergeur :</strong> Une clé USB coincée dans un vieux PC sous Windows XP.</p>
+        </section>
+    
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">3. Irresponsable de publication</h2>
+            <p>Les membres en charge (ou pas) de cette catastrophe numérique :</p>
+            <ul class="list-disc ml-8">
+                <li><strong>Romain Annet</strong> : Expert en excuses pour bugs inexpliqués.</li>
+                <li><strong>Tony Delage</strong> : Designer de maquettes qui ne verront jamais le jour.</li>
+                <li><strong>David Traversier</strong> : Développeur Front-End, ou plutôt Front-Cringe.</li>
+                <li><strong>Alexis Le Corre</strong> : Maître du bouton "ça marche sur ma machine".</li>
+            </ul>
+        </section>
+    
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">4. Objet du site</h2>
+            <p>Ce site est supposé référencer les masters en France, mais il est aussi là pour vous perdre dans des boucles infinies de bugs.</p>
+        </section>
+    
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">5. Données impersonnelles</h2>
+            <p>Nous collectons vos données pour les utiliser à des fins inutiles. Promis, on les protège... sauf si on oublie.</p>
+            <p>Conformément au RGPD, vous avez le droit d’accéder, de modifier ou de supprimer vos données. Mais bonne chance pour nous joindre.</p>
+        </section>
+    
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-4">6. Propriété corporelle</h2>
+            <p>Les contenus présents ici ne sont pas protégés, mais sérieusement, qui voudrait copier ça ?</p>
+        </section>
+    
+        <section>
+            <h2 class="text-xl font-semibold mb-4">7. Limitations de l'irresponsabilité</h2>
+            <p>NaPasMaster décline toute responsabilité en cas de :
+                <ul class="list-disc ml-8 mt-2">
+                    <li>Explosion de votre ordinateur après un clic.</li>
+                    <li>Perte de votre temps et de votre patience.</li>
+                    <li>Bug intempestif causé par une pleine lune.</li>
+                </ul>
+            </p>
+        </section>
+
+    </main>
+    <footer id="footer-container">
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-container').innerHTML = data;
+
+                    const burgerBtn = document.getElementById('burger-btn');
+                    const menu = document.getElementById('menu');
+
+                    if (burgerBtn) {
+                        burgerBtn.addEventListener('click', () => {
+                            menu.classList.toggle('hidden');
+                        });
+                    }
+                })
+                .catch(error => console.error('Error loading header:', error));
+
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-container').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading header:', error));
+        });
+
+    </script>
+</body>
