@@ -49,6 +49,9 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:mx-8 lg:mx-10 mb-8" id="masters-container">
       <!-- Les masters seront insérés ici -->
     </div>
+    <div class="text-center mt-8">
+      <button id="load-more" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Charger plus</button>
+    </div>
   </main>
 
   <script>
@@ -89,52 +92,68 @@ fetch('rechercheETfiltres.html')
 
 
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const mastersContainer = document.getElementById('masters-container');
+      document.addEventListener('DOMContentLoaded', () => {
+  const mastersContainer = document.getElementById('masters-container');
+  const loadMoreButton = document.getElementById('load-more');
 
-      // URL de l'API pour récupérer les masters
-      const apiURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations';
+  const apiURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations';
 
-      // Fonction pour créer une carte de master
-      const createMasterCard = (master) => {
-        const masterCard = document.createElement('a');
-        masterCard.href = `master.html?id=${master.ifc}`; // Lien vers une page de détail utilisant l'identifiant `ifc`
-        masterCard.innerHTML = `
-        <div class="p-4 bg-white border rounded-md shadow-sm">
-            <h2 class="font-bold text-lg mb-2 lg:text-2xl">${master.parcours || 'Nom non disponible'}</h2>
-            <p class="text-sm text-gray-500 lg:text-lg">
-                Alternance : ${master.alternance ? 'Oui' : 'Non'}
-            </p>
-            <p class="text-xs text-gray-400 lg:text-sm mt-2">Lieu(x) : ${master.lieux || 'Non spécifié'}</p>
-        </div>
+  let allMasters = []; // Stocke tous les masters récupérés depuis l'API
+  let currentIndex = 0; // Index actuel pour le chargement des masters
+
+  const createMasterCard = (master) => {
+    const masterCard = document.createElement('a');
+    masterCard.href = `master.html?id=${master.ifc}`;
+    masterCard.innerHTML = `
+      <div class="p-4 bg-white border rounded-md shadow-sm">
+        <h2 class="font-bold text-lg mb-2 lg:text-2xl">${master.parcours || 'Nom non disponible'}</h2>
+        <p class="text-sm text-gray-500 lg:text-lg">
+          Alternance : ${master.alternance ? 'Oui' : 'Non'}
+        </p>
+        <p class="text-xs text-gray-400 lg:text-sm mt-2">Lieu(x) : ${master.lieux || 'Non spécifié'}</p>
+      </div>
     `;
-        return masterCard;
-      };
+    return masterCard;
+  };
 
-      // Requête API pour récupérer les masters
-      fetch(apiURL)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Erreur lors de la récupération des données.');
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log(data); // Affiche les données pour les inspecter
-          // Vider le conteneur et ajouter chaque master
-          data.forEach(master => {
-            if (master.parcours !== null) {
-              const masterCard = createMasterCard(master);
-              mastersContainer.appendChild(masterCard);
-            }
-
-          });
-        })
-        .catch(error => {
-          console.error('Erreur:', error);
-          mastersContainer.innerHTML = `<p class="text-red-500 text-center">Impossible de charger les données des masters. Veuillez réessayer plus tard.</p>`;
-        });
+  const loadMasters = (count) => {
+    const nextMasters = allMasters.slice(currentIndex, currentIndex + count);
+    nextMasters.forEach((master) => {
+      if (master.parcours !== null) {
+        const masterCard = createMasterCard(master);
+        mastersContainer.appendChild(masterCard);
+      }
     });
+    currentIndex += count;
+
+    // Si tous les masters sont affichés, cache le bouton
+    if (currentIndex >= allMasters.length) {
+      loadMoreButton.style.display = 'none';
+    }
+  };
+
+  // Requête API pour récupérer les masters
+  fetch(apiURL)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erreur lors de la récupération des données.');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      allMasters = data; // Stocke tous les masters récupérés
+      loadMasters(9); // Charge les 9 premiers masters (3 lignes)
+    })
+    .catch((error) => {
+      console.error('Erreur:', error);
+      mastersContainer.innerHTML = `<p class="text-red-500 text-center">Impossible de charger les données des masters. Veuillez réessayer plus tard.</p>`;
+    });
+
+  // Événement pour charger plus de masters
+  loadMoreButton.addEventListener('click', () => {
+    loadMasters(9); // Charge 9 masters supplémentaires (3 lignes)
+  });
+});
 
 
   </script>
