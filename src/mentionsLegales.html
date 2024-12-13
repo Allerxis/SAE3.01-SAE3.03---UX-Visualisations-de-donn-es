@@ -17,4 +17,35 @@
 </header>
 
 <body class="mt-[8rem] bg-gray-100 text-gray-800">
+
+    <footer id="footer-container">
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-container').innerHTML = data;
+
+                    const burgerBtn = document.getElementById('burger-btn');
+                    const menu = document.getElementById('menu');
+
+                    if (burgerBtn) {
+                        burgerBtn.addEventListener('click', () => {
+                            menu.classList.toggle('hidden');
+                        });
+                    }
+                })
+                .catch(error => console.error('Error loading header:', error));
+
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-container').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading header:', error));
+        });
+
+    </script>
 </body>
