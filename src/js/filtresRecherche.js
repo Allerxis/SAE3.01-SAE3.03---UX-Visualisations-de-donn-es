@@ -29,7 +29,7 @@ function populateFilters(secteurs) {
 
         // Ajouter l'événement de redirection
         button.addEventListener('click', () => {
-            const url = `resultat.html?id=${secteur.id}`;
+            const url = `lesMasters.html?id=${secteur.id}`;
             window.location.href = url; // Redirige vers la page avec l'ID
         });
 
