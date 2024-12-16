@@ -99,6 +99,28 @@
       const apiURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations';
 
       let allMasters = []; // Stocke tous les masters récupérés depuis l'API
+
+
+      // Récupère l'URL de la page actuelle
+      const pageURL = window.location.href;
+
+      // Affiche l'URL pour s'assurer qu'elle est correcte
+      console.log("URL actuelle de la page :", pageURL);
+
+      // Vérifie si "lesMasters.html" est dans l'URL de la page et si une requête ou un fragment est présent
+      if (pageURL.includes('lesMasters.html') && (pageURL.includes('?') || pageURL.includes('#'))) { // PENSER A MODIFIER 'lesMasters.html' ICI SI RÉUTILISÉ DANS 'lesEtablissements.html'
+        console.log("Il y a quelque chose après lesMasters.html.");
+
+        // DANS CE CAS, IL NOUS FAUT EXCLURE LES MASTER NON-NECESSAIRES / UNIQUEMENT CEUX DEMANDÉS :
+        
+
+
+
+
+      } else {
+        console.log("Il n'y a rien après lesMasters.html.");
+      }
+
       let currentIndex = 0; // Index actuel pour le chargement des masters
 
       const createMasterCard = (master) => {
