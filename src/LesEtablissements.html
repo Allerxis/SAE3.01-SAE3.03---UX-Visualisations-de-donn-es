@@ -77,18 +77,18 @@
 
     // Fonction pour créer une carte d'établissement
     const createEtablissementCard = (etablissement) => {
-      const academie = allAcademies.find((acad) => acad.id === etablissement.academieId); // Trouve l'académie correspondante
-      const card = document.createElement('a');
-      card.href = `etablissement.html?id=${etablissement.id}`;
-      card.innerHTML = `
-        <div class="p-4 bg-white border rounded-md shadow-sm">
-          <h2 class="font-bold text-lg mb-2 lg:text-2xl">${etablissement.nom || 'Nom non disponible'}</h2>
-          <p class="text-sm text-gray-500 lg:text-lg">Académie : ${academie ? academie.nom : 'Non spécifiée'}</p>
-          <p class="text-xs text-gray-400 lg:text-sm mt-2">Région : ${academie ? academie.regionNom :'Non spécifiée'}</p>
-        </div>
-      `;
-      return card;
-    };
+  const academie = allAcademies.find((acad) => acad.id === etablissement.academieId); // Trouve l'académie correspondante
+  const card = document.createElement('a');
+  card.href = `etablissement.html?id=${etablissement.uai}`; // Utilise le champ `uai` comme identifiant
+  card.innerHTML = `
+    <div class="p-4 bg-white border rounded-md shadow-sm">
+      <h2 class="font-bold text-lg mb-2 lg:text-2xl">${etablissement.nom || 'Nom non disponible'}</h2>
+      <p class="text-sm text-gray-500 lg:text-lg">Académie : ${academie ? academie.nom : 'Non spécifiée'}</p>
+      <p class="text-xs text-gray-400 lg:text-sm mt-2">Région : ${academie ? academie.regionNom : 'Non spécifiée'}</p>
+    </div>
+  `;
+  return card;
+};
 
     // Fonction pour charger les établissements dans le conteneur
     const loadEtablissements = (count) => {
