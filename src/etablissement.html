@@ -39,10 +39,10 @@
     <script>
 
         // Fonction pour récupérer les paramètres de l'URL
-function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
 
         fetch('header.html')
             .then(response => response.text())
@@ -76,108 +76,112 @@ function getQueryParam(param) {
 
 
 
-          // Fonction principale pour gérer la page établissement
-document.addEventListener('DOMContentLoaded', () => {
-    const mastersContainer = document.getElementById('masters-container');
-    const establishmentName = document.getElementById('establishment-name');
-    const establishmentAcademie = document.getElementById('establishment-academie');
-    const apiEtablissementsURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/etablissements';
-    const apiFormationsURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations';
+        // Fonction principale pour gérer la page établissement
+        document.addEventListener('DOMContentLoaded', () => {
+            const mastersContainer = document.getElementById('masters-container');
+            const establishmentName = document.getElementById('establishment-name');
+            const establishmentAcademie = document.getElementById('establishment-academie');
+            const apiEtablissementsURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/etablissements';
+            const apiFormationsURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations';
 
-    // Récupère l'ID de l'établissement dans l'URL
-    const establishmentId = getQueryParam('id');
+            // Récupère l'ID de l'établissement dans l'URL
+            const establishmentId = getQueryParam('id');
 
-    if (!establishmentId) {
-        console.error("Aucun ID d'établissement spécifié.");
-        mastersContainer.innerHTML = '<p class="text-red-500 text-center">Aucun établissement trouvé.</p>';
-        return;
-    }
-
-    // Charge les données de l'établissement et des formations
-    fetchEstablishmentData(establishmentId)
-        .then(establishment => {
-            // Mettre à jour le titre de l'établissement
-            establishmentName.textContent = establishment.nom || 'Nom non disponible';
-            establishmentAcademie.textContent = `Académie ID : ${establishment.academieId || 'Non spécifié'}`;
-
-            // Charger et afficher les formations liées
-            fetchMastersForEstablishment(establishmentId);
-        })
-        .catch(error => {
-            console.error("Erreur :", error);
-            mastersContainer.innerHTML = '<p class="text-red-500 text-center">Impossible de charger les données. Veuillez réessayer plus tard.</p>';
-        });
-});
-
-// Fonction pour récupérer les paramètres de l'URL
-function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
-
-// Fonction pour récupérer les données de l'établissement
-function fetchEstablishmentData(establishmentId) {
-    return fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/etablissements')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erreur lors du chargement des établissements.');
+            if (!establishmentId) {
+                console.error("Aucun ID d'établissement spécifié.");
+                mastersContainer.innerHTML = '<p class="text-red-500 text-center">Aucun établissement trouvé.</p>';
+                return;
             }
-            return response.json();
-        })
-        .then(data => {
-            const establishment = data.find(etab => etab.uai === establishmentId);
-            if (!establishment) {
-                throw new Error('Établissement introuvable.');
-            }
-            return establishment;
-        });
-}
 
-/// Fonction pour récupérer et afficher les formations liées à un établissement
-function fetchMastersForEstablishment(establishmentId) {
-    const mastersContainer = document.getElementById('masters-container');
+            // Charge les données de l'établissement et des formations
+            fetchEstablishmentData(establishmentId)
+                .then(establishment => {
+                    // Mettre à jour le titre de l'établissement
+                    establishmentName.textContent = establishment.nom || 'Nom non disponible';
+                    establishmentAcademie.textContent = `Académie ID : ${establishment.academieId || 'Non spécifié'}`;
 
-    fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erreur lors du chargement des formations.');
-            }
-            return response.json();
-        })
-        .then(formations => {
-            // Filtrer les formations pour cet établissement et exclure celles où parcours est null
-            const filteredMasters = formations.filter(master => 
-                master.etabUai === establishmentId && master.parcours !== null
-            );
-
-            // Afficher les formations filtrées
-            if (filteredMasters.length === 0) {
-                mastersContainer.innerHTML = '<p class="text-gray-500 text-center">Aucune formation trouvée pour cet établissement.</p>';
-            } else {
-                filteredMasters.forEach(master => {
-                    const masterCard = createMasterCard(master);
-                    mastersContainer.appendChild(masterCard);
+                    // Charger et afficher les formations liées
+                    fetchMastersForEstablishment(establishmentId);
+                })
+                .catch(error => {
+                    console.error("Erreur :", error);
+                    mastersContainer.innerHTML = '<p class="text-red-500 text-center">Impossible de charger les données. Veuillez réessayer plus tard.</p>';
                 });
-            }
-        })
-        .catch(error => {
-            console.error("Erreur lors du chargement des formations :", error);
-            mastersContainer.innerHTML = '<p class="text-red-500 text-center">Impossible de charger les formations. Veuillez réessayer plus tard.</p>';
         });
-}
 
-// Fonction pour créer une carte de master
-function createMasterCard(master) {
-    const masterCard = document.createElement('div');
-    masterCard.className = 'p-4 bg-white border rounded-md shadow-sm';
-    masterCard.innerHTML = `
+        // Fonction pour récupérer les paramètres de l'URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Fonction pour récupérer les données de l'établissement
+        function fetchEstablishmentData(establishmentId) {
+            return fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/etablissements')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors du chargement des établissements.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const establishment = data.find(etab => etab.uai === establishmentId);
+                    if (!establishment) {
+                        throw new Error('Établissement introuvable.');
+                    }
+                    return establishment;
+                });
+        }
+
+        /// Fonction pour récupérer et afficher les formations liées à un établissement
+        function fetchMastersForEstablishment(establishmentId) {
+            console.log("Establishment ID récupéré :", establishmentId); // Ajout pour vérifier l'ID
+            const mastersContainer = document.getElementById('masters-container');
+
+            fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors du chargement des formations.');
+                    }
+                    return response.json();
+                })
+                .then(formations => {
+                    // Filtrer les formations pour cet établissement et exclure celles où parcours est null
+                    console.log("Formations récupérées :", formations); // Ajout pour vérifier les données récupérées
+                    const filteredMasters = formations.filter(master =>
+                        master.etabUai === establishmentId && master.parcours !== null
+                    );
+
+                    console.log("Formations filtrées :", filteredMasters); // Ajout pour vérifier le filtrage
+
+                    // Afficher les formations filtrées
+                    if (filteredMasters.length === 0) {
+                        mastersContainer.innerHTML = '<p class="text-gray-500 text-center">Aucune formation trouvée pour cet établissement.</p>';
+                    } else {
+                        filteredMasters.forEach(master => {
+                            const masterCard = createMasterCard(master);
+                            mastersContainer.appendChild(masterCard);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Erreur lors du chargement des formations :", error);
+                    mastersContainer.innerHTML = '<p class="text-red-500 text-center">Impossible de charger les formations. Veuillez réessayer plus tard.</p>';
+                });
+        }
+
+        // Fonction pour créer une carte de master
+        function createMasterCard(master) {
+            const masterCard = document.createElement('div');
+            masterCard.className = 'p-4 bg-white border rounded-md shadow-sm';
+            masterCard.innerHTML = `
         <h2 class="font-bold text-lg mb-2 lg:text-2xl">${master.parcours || 'Nom non disponible'}</h2>
         <p class="text-sm text-gray-500 lg:text-lg">Lieu(x) : ${master.lieux || 'Non spécifié'}</p>
         <p class="text-sm text-gray-500 lg:text-lg">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
     `;
-    return masterCard;
-}
-;
+            return masterCard;
+        }
+        ;
 
     </script>
     <footer>
