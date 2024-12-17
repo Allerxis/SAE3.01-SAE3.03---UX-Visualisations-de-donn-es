@@ -34,7 +34,8 @@
       <!-- Les académies seront insérées ici -->
     </div>
 
-    <div id="etablissements-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:mx-8 lg:mx-10 mb-8 hidden">
+    <div id="etablissements-container"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:mx-8 lg:mx-10 mb-8 hidden">
       <!-- Les établissements filtrés seront insérés ici -->
     </div>
   </main>
@@ -66,7 +67,7 @@
       .catch(error => console.error('Error loading header:', error));
 
 
-      const apiAcademiesURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/academies';
+    const apiAcademiesURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/academies';
     const apiEtablissementsURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/etablissements';
 
     const academiesContainer = document.getElementById('academies-container');
@@ -76,65 +77,65 @@
 
     // Fonction pour créer une carte d'académie
     const createAcademieCard = (academie) => {
-        const card = document.createElement('div');
-        card.className = 'p-4 bg-white border rounded-md shadow-sm cursor-pointer';
-        card.innerHTML = `
+      const card = document.createElement('div');
+      card.className = 'p-4 bg-white border rounded-md shadow-sm cursor-pointer';
+      card.innerHTML = `
             <h2 class="font-bold text-lg mb-2 lg:text-2xl">${academie.nom}</h2>
             <p class="text-sm text-gray-500">ID : ${academie.id}</p>
         `;
-        card.addEventListener('click', () => {
-            academiesContainer.classList.add('hidden'); // Cacher les académies
-            etablissementsContainer.classList.remove('hidden'); // Afficher les établissements
-            loadEtablissements(academie.id); // Charger les établissements de l'académie
-        });
-        return card;
+      card.addEventListener('click', () => {
+        academiesContainer.classList.add('hidden'); // Cacher les académies
+        etablissementsContainer.classList.remove('hidden'); // Afficher les établissements
+        loadEtablissements(academie.id); // Charger les établissements de l'académie
+      });
+      return card;
     };
 
     // Fonction pour créer une carte d'établissement
     const createEtablissementCard = (etablissement) => {
-        const card = document.createElement('a');
-        card.href = `etablissement.html?id=${etablissement.uai}`;
-        card.className = 'p-4 bg-white border rounded-md shadow-sm';
-        card.innerHTML = `
+      const card = document.createElement('a');
+      card.href = `etablissement.html?id=${etablissement.uai}`;
+      card.className = 'p-4 bg-white border rounded-md shadow-sm';
+      card.innerHTML = `
             <h2 class="font-bold text-lg mb-2 lg:text-2xl">${etablissement.nom}</h2>
             <p class="text-sm text-gray-500">UAI : ${etablissement.uai}</p>
         `;
-        return card;
+      return card;
     };
 
     // Charger les académies depuis l'API
     fetch(apiAcademiesURL)
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(academie => {
-                const card = createAcademieCard(academie);
-                academiesContainer.appendChild(card);
-            });
-        })
-        .catch(error => console.error('Erreur chargement académies:', error));
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(academie => {
+          const card = createAcademieCard(academie);
+          academiesContainer.appendChild(card);
+        });
+      })
+      .catch(error => console.error('Erreur chargement académies:', error));
 
     // Charger les établissements filtrés par académie
     const loadEtablissements = (academieId) => {
-        etablissementsContainer.innerHTML = ''; // Efface les anciens établissements
-        if (allEtablissements.length === 0) {
-            fetch(apiEtablissementsURL)
-                .then(response => response.json())
-                .then(data => {
-                    allEtablissements = data;
-                    displayEtablissementsByAcademie(academieId);
-                })
-                .catch(error => console.error('Erreur chargement établissements:', error));
-        } else {
+      etablissementsContainer.innerHTML = ''; // Efface les anciens établissements
+      if (allEtablissements.length === 0) {
+        fetch(apiEtablissementsURL)
+          .then(response => response.json())
+          .then(data => {
+            allEtablissements = data;
             displayEtablissementsByAcademie(academieId);
-        }
+          })
+          .catch(error => console.error('Erreur chargement établissements:', error));
+      } else {
+        displayEtablissementsByAcademie(academieId);
+      }
     };
 
     const displayEtablissementsByAcademie = (academieId) => {
-        const filteredEtablissements = allEtablissements.filter(etab => etab.academieId === academieId);
-        filteredEtablissements.forEach(etablissement => {
-            const card = createEtablissementCard(etablissement);
-            etablissementsContainer.appendChild(card);
-        });
+      const filteredEtablissements = allEtablissements.filter(etab => etab.academieId === academieId);
+      filteredEtablissements.forEach(etablissement => {
+        const card = createEtablissementCard(etablissement);
+        etablissementsContainer.appendChild(card);
+      });
     };
 
   </script>
