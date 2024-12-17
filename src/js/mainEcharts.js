@@ -19,6 +19,7 @@ async function fetchStatsAndRenderChart() {
 
         // Traiter la réponse
         const data = await response.json();
+        console.log(data);
 
         // Vérifier si les données sont valides
         if (!data || data.length === 0) {
@@ -26,7 +27,7 @@ async function fetchStatsAndRenderChart() {
             return;
         }
 
-        // Traiter les données pour ECharts
+        // Traiter les données pour ECharts    A REMPLACER
         const categories = data.map(item => item.nom); // Exemple : noms des secteurs ou données similaires
         const values = data.map(item => item.valeur);  // Exemple : valeurs associées aux secteurs
 
