@@ -27,7 +27,7 @@
 <body class="mt[8rem]">
   <main class="p-6 sm:mx-8 lg:my-10">
     <div class="text-center">
-      <h1 class="font-bold text-5xl sm:my-10 sm:py-5 lg:text-7xl lg:py-6">Les différentes Académies</h1>
+      <h1 id="dynamic-title" class="font-bold text-5xl sm:my-10 sm:py-5 lg:text-7xl lg:py-6">Les différentes Académies</h1>
     </div>
 
     <div id="academies-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:mx-8 lg:mx-10 mb-8">
@@ -86,7 +86,7 @@
       card.addEventListener('click', () => {
         academiesContainer.classList.add('hidden'); // Cacher les académies
         etablissementsContainer.classList.remove('hidden'); // Afficher les établissements
-        loadEtablissements(academie.id); // Charger les établissements de l'académie
+        loadEtablissements(academie.id, academie.nom); // Passer l'ID et le nom de l'académie
       });
       return card;
     };
@@ -115,34 +115,45 @@
       .catch(error => console.error('Erreur chargement académies:', error));
 
     // Charger les établissements filtrés par académie
-    const loadEtablissements = (academieId) => {
-      etablissementsContainer.innerHTML = ''; // Efface les anciens établissements
-      if (allEtablissements.length === 0) {
-        fetch(apiEtablissementsURL)
-          .then(response => response.json())
-          .then(data => {
-            allEtablissements = data;
-            displayEtablissementsByAcademie(academieId);
-          })
-          .catch(error => console.error('Erreur chargement établissements:', error));
-      } else {
-        displayEtablissementsByAcademie(academieId);
-      }
-    };
+    const loadEtablissements = (academieId, academieNom) => {
+    etablissementsContainer.innerHTML = ''; // Efface les anciens établissements
 
-    const displayEtablissementsByAcademie = (academieId) => {
-      const filteredEtablissements = allEtablissements.filter(etab => etab.academieId === academieId);
-      filteredEtablissements.forEach(etablissement => {
+    if (allEtablissements.length === 0) {
+        fetch(apiEtablissementsURL)
+            .then(response => response.json())
+            .then(data => {
+                allEtablissements = data;
+                displayEtablissementsByAcademie(academieId, academieNom);
+            })
+            .catch(error => console.error('Erreur chargement établissements:', error));
+    } else {
+        displayEtablissementsByAcademie(academieId, academieNom);
+    }
+};
+
+const displayEtablissementsByAcademie = (academieId, academieNom) => {
+    const filteredEtablissements = allEtablissements.filter(etab => etab.academieId === academieId);
+
+    // Mise à jour dynamique du titre H1 avec le nom de l'académie
+    const title = document.getElementById('dynamic-title');
+    if (filteredEtablissements.length > 1) {
+        title.textContent = `Voici les établissements disponibles dans l'académie ${academieNom}`;
+    } else if (filteredEtablissements.length === 1) {
+        title.textContent = `Voici l'établissement disponible dans l'académie ${academieNom}`;
+    } else {
+        title.textContent = `Aucun établissement disponible dans l'académie ${academieNom}`;
+    }
+
+    filteredEtablissements.forEach(etablissement => {
         const card = createEtablissementCard(etablissement);
         etablissementsContainer.appendChild(card);
-      });
-    };
+    });
+};
 
   </script>
   <footer>
     <div id="footer-container"></div>
   </footer>
 </body>
-
 
 </html>
