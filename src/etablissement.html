@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -35,10 +35,10 @@
                 <!-- Les masters seront insérés ici -->
             </div>
             <!-- Loader -->
-        <div id="loader" class="flex flex-col items-center justify-center mt-10 hidden">
-            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
-            <p id="loader-text" class="mt-4 text-gray-600 text-lg font-semibold"></p>
-        </div>
+            <div id="loader" class="flex flex-col items-center justify-center mt-10 hidden">
+                <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+                <p id="loader-text" class="mt-4 text-gray-600 text-lg font-semibold"></p>
+            </div>
         </div>
     </main>
 
@@ -119,32 +119,32 @@
 
         // Textes dynamiques pour le loader
         let loaderTexts = [
-    "Détendez-vous, nous chargeons les données",
-    "Namasté, nous chargeons la page",
-    "Aucune idée de master, NaMaster est là."
-];
+            "Détendez-vous, nous chargeons les données",
+            "Namasté, nous chargeons la page",
+            "Aucune idée de master, NaMaster est là."
+        ];
 
-let loaderInterval;
+        let loaderInterval;
 
-const showLoader = () => {
-    const loader = document.getElementById('loader');
-    const loaderText = document.getElementById('loader-text');
-    let index = 0;
+        const showLoader = () => {
+            const loader = document.getElementById('loader');
+            const loaderText = document.getElementById('loader-text');
+            let index = 0;
 
-    loader.classList.remove('hidden'); // Affiche le loader
-    loaderText.textContent = loaderTexts[index];
+            loader.classList.remove('hidden'); // Affiche le loader
+            loaderText.textContent = loaderTexts[index];
 
-    loaderInterval = setInterval(() => {
-        index = (index + 1) % loaderTexts.length;
-        loaderText.textContent = loaderTexts[index];
-    }, 3000);
-};
+            loaderInterval = setInterval(() => {
+                index = (index + 1) % loaderTexts.length;
+                loaderText.textContent = loaderTexts[index];
+            }, 3000);
+        };
 
-const hideLoader = () => {
-    const loader = document.getElementById('loader');
-    loader.classList.add('hidden'); // Cache le loader
-    clearInterval(loaderInterval); // Arrête l'intervalle
-};
+        const hideLoader = () => {
+            const loader = document.getElementById('loader');
+            loader.classList.add('hidden'); // Cache le loader
+            clearInterval(loaderInterval); // Arrête l'intervalle
+        };
 
 
 
@@ -176,45 +176,45 @@ const hideLoader = () => {
 
         /// Fonction pour récupérer et afficher les formations liées à un établissement
         const fetchMastersForEstablishment = (establishmentId) => {
-    console.log("Establishment ID récupéré :", establishmentId); // Vérification de l'ID
-    const mastersContainer = document.getElementById('masters-container');
+            console.log("Establishment ID récupéré :", establishmentId); // Vérification de l'ID
+            const mastersContainer = document.getElementById('masters-container');
 
-    showLoader(); // Afficher le loader pendant le chargement
+            showLoader(); // Afficher le loader pendant le chargement
 
-    fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erreur lors du chargement des formations.');
-            }
-            return response.json();
-        })
-        .then(formations => {
-            // Filtrer les masters pour l'établissement sélectionné
-            const filteredMasters = formations.filter(master =>
-                master.etabUai === establishmentId && master.parcours !== null
-            );
+            fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors du chargement des formations.');
+                    }
+                    return response.json();
+                })
+                .then(formations => {
+                    // Filtrer les masters pour l'établissement sélectionné
+                    const filteredMasters = formations.filter(master =>
+                        master.etabUai === establishmentId && master.parcours !== null
+                    );
 
-            // Nettoyer le conteneur des masters
-            mastersContainer.innerHTML = '';
+                    // Nettoyer le conteneur des masters
+                    mastersContainer.innerHTML = '';
 
-            // Vérifier si des masters existent
-            if (filteredMasters.length === 0) {
-                mastersContainer.innerHTML = '<p class="text-gray-500 text-center">Aucune formation trouvée pour cet établissement.</p>';
-            } else {
-                filteredMasters.forEach(master => {
-                    const masterCard = createMasterCard(master);
-                    mastersContainer.appendChild(masterCard);
+                    // Vérifier si des masters existent
+                    if (filteredMasters.length === 0) {
+                        mastersContainer.innerHTML = '<p class="text-gray-500 text-center">Aucune formation trouvée pour cet établissement.</p>';
+                    } else {
+                        filteredMasters.forEach(master => {
+                            const masterCard = createMasterCard(master);
+                            mastersContainer.appendChild(masterCard);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Erreur lors du chargement des formations :", error);
+                    mastersContainer.innerHTML = '<p class="text-red-500 text-center">Impossible de charger les formations. Veuillez réessayer plus tard.</p>';
+                })
+                .finally(() => {
+                    hideLoader(); // Cacher le loader après le chargement, même en cas d'erreur
                 });
-            }
-        })
-        .catch(error => {
-            console.error("Erreur lors du chargement des formations :", error);
-            mastersContainer.innerHTML = '<p class="text-red-500 text-center">Impossible de charger les formations. Veuillez réessayer plus tard.</p>';
-        })
-        .finally(() => {
-            hideLoader(); // Cacher le loader après le chargement, même en cas d'erreur
-        });
-};
+        };
 
 
         // Fonction pour créer une carte de master
@@ -231,32 +231,33 @@ const hideLoader = () => {
         ;
 
         document.addEventListener('DOMContentLoaded', () => {
-    const backToTopButton = document.getElementById('back-to-top');
+            const backToTopButton = document.getElementById('back-to-top');
 
-    // Afficher la flèche lorsque l'utilisateur descend dans la page
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) { // Affiche la flèche après 300px de défilement
-            backToTopButton.classList.remove('hidden');
-        } else {
-            backToTopButton.classList.add('hidden');
-        }
-    });
+            // Afficher la flèche lorsque l'utilisateur descend dans la page
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) { // Affiche la flèche après 300px de défilement
+                    backToTopButton.classList.remove('hidden');
+                } else {
+                    backToTopButton.classList.add('hidden');
+                }
+            });
 
-    // Fonctionnalité de retour en haut de la page
-    backToTopButton.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // Défilement fluide
+            // Fonctionnalité de retour en haut de la page
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // Défilement fluide
+                });
+            });
         });
-    });
-});    
 
     </script>
     <footer>
         <div id="footer-container"></div>
     </footer>
 
-    <button id="back-to-top" title="Retour en haut" class="fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full shadow-lg hidden">
+    <button id="back-to-top" title="Retour en haut"
+        class="fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full shadow-lg hidden">
         ↑
     </button>
 </body>
