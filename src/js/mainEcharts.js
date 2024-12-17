@@ -1,3 +1,4 @@
+import * as echarts from 'echarts';
 // Créer l'instance ECharts
 const chart = echarts.init(document.getElementById('chart'));
 
