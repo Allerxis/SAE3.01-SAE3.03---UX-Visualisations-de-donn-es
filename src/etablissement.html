@@ -28,11 +28,17 @@
             <h1 id="establishment-name" class="font-bold text-5xl sm:text-6xl lg:text-7xl"></h1>
             <p id="establishment-academie" class="text-lg text-gray-600"></p>
         </div>
+
         <div>
             <h2 class="font-bold text-3xl mb-4">Masters disponibles</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="masters-container">
                 <!-- Les masters seront insérés ici -->
             </div>
+            <!-- Loader -->
+        <div id="loader" class="flex flex-col items-center justify-center mt-10 hidden">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+            <p id="loader-text" class="mt-4 text-gray-600 text-lg font-semibold"></p>
+        </div>
         </div>
     </main>
 
@@ -109,6 +115,41 @@
                 });
         });
 
+
+
+        // Textes dynamiques pour le loader
+        let loaderTexts = [
+    "Détendez-vous, nous chargeons les données",
+    "Namasté, nous chargeons la page",
+    "Aucune idée de master, NaMaster est là."
+];
+
+let loaderInterval;
+
+const showLoader = () => {
+    const loader = document.getElementById('loader');
+    const loaderText = document.getElementById('loader-text');
+    let index = 0;
+
+    loader.classList.remove('hidden'); // Affiche le loader
+    loaderText.textContent = loaderTexts[index];
+
+    loaderInterval = setInterval(() => {
+        index = (index + 1) % loaderTexts.length;
+        loaderText.textContent = loaderTexts[index];
+    }, 3000);
+};
+
+const hideLoader = () => {
+    const loader = document.getElementById('loader');
+    loader.classList.add('hidden'); // Cache le loader
+    clearInterval(loaderInterval); // Arrête l'intervalle
+};
+
+
+
+
+
         // Fonction pour récupérer les paramètres de l'URL
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -134,41 +175,47 @@
         }
 
         /// Fonction pour récupérer et afficher les formations liées à un établissement
-        function fetchMastersForEstablishment(establishmentId) {
-            console.log("Establishment ID récupéré :", establishmentId); // Ajout pour vérifier l'ID
-            const mastersContainer = document.getElementById('masters-container');
+        const fetchMastersForEstablishment = (establishmentId) => {
+    console.log("Establishment ID récupéré :", establishmentId); // Vérification de l'ID
+    const mastersContainer = document.getElementById('masters-container');
 
-            fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erreur lors du chargement des formations.');
-                    }
-                    return response.json();
-                })
-                .then(formations => {
-                    // Filtrer les formations pour cet établissement et exclure celles où parcours est null
-                    console.log("Formations récupérées :", formations); // Ajout pour vérifier les données récupérées
-                    const filteredMasters = formations.filter(master =>
-                        master.etabUai === establishmentId && master.parcours !== null
-                    );
+    showLoader(); // Afficher le loader pendant le chargement
 
-                    console.log("Formations filtrées :", filteredMasters); // Ajout pour vérifier le filtrage
+    fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors du chargement des formations.');
+            }
+            return response.json();
+        })
+        .then(formations => {
+            // Filtrer les masters pour l'établissement sélectionné
+            const filteredMasters = formations.filter(master =>
+                master.etabUai === establishmentId && master.parcours !== null
+            );
 
-                    // Afficher les formations filtrées
-                    if (filteredMasters.length === 0) {
-                        mastersContainer.innerHTML = '<p class="text-gray-500 text-center">Aucune formation trouvée pour cet établissement.</p>';
-                    } else {
-                        filteredMasters.forEach(master => {
-                            const masterCard = createMasterCard(master);
-                            mastersContainer.appendChild(masterCard);
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error("Erreur lors du chargement des formations :", error);
-                    mastersContainer.innerHTML = '<p class="text-red-500 text-center">Impossible de charger les formations. Veuillez réessayer plus tard.</p>';
+            // Nettoyer le conteneur des masters
+            mastersContainer.innerHTML = '';
+
+            // Vérifier si des masters existent
+            if (filteredMasters.length === 0) {
+                mastersContainer.innerHTML = '<p class="text-gray-500 text-center">Aucune formation trouvée pour cet établissement.</p>';
+            } else {
+                filteredMasters.forEach(master => {
+                    const masterCard = createMasterCard(master);
+                    mastersContainer.appendChild(masterCard);
                 });
-        }
+            }
+        })
+        .catch(error => {
+            console.error("Erreur lors du chargement des formations :", error);
+            mastersContainer.innerHTML = '<p class="text-red-500 text-center">Impossible de charger les formations. Veuillez réessayer plus tard.</p>';
+        })
+        .finally(() => {
+            hideLoader(); // Cacher le loader après le chargement, même en cas d'erreur
+        });
+};
+
 
         // Fonction pour créer une carte de master
         function createMasterCard(master) {
