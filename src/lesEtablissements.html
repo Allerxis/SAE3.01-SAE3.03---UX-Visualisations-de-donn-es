@@ -27,7 +27,8 @@
 <body class="mt[8rem]">
   <main class="p-6 sm:mx-8 lg:my-10">
     <div class="text-center">
-      <h1 id="dynamic-title" class="font-bold text-5xl sm:my-10 sm:py-5 lg:text-7xl lg:py-6">Les différentes Académies</h1>
+      <h1 id="dynamic-title" class="font-bold text-5xl sm:my-10 sm:py-5 lg:text-7xl lg:py-6">Les différentes Académies
+      </h1>
     </div>
 
     <div id="academies-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:mx-8 lg:mx-10 mb-8">
@@ -116,69 +117,70 @@
 
     // Charger les établissements filtrés par académie
     const loadEtablissements = (academieId, academieNom) => {
-    etablissementsContainer.innerHTML = ''; // Efface les anciens établissements
+      etablissementsContainer.innerHTML = ''; // Efface les anciens établissements
 
-    if (allEtablissements.length === 0) {
+      if (allEtablissements.length === 0) {
         fetch(apiEtablissementsURL)
-            .then(response => response.json())
-            .then(data => {
-                allEtablissements = data;
-                displayEtablissementsByAcademie(academieId, academieNom);
-            })
-            .catch(error => console.error('Erreur chargement établissements:', error));
-    } else {
+          .then(response => response.json())
+          .then(data => {
+            allEtablissements = data;
+            displayEtablissementsByAcademie(academieId, academieNom);
+          })
+          .catch(error => console.error('Erreur chargement établissements:', error));
+      } else {
         displayEtablissementsByAcademie(academieId, academieNom);
-    }
-};
+      }
+    };
 
-const displayEtablissementsByAcademie = (academieId, academieNom) => {
-    const filteredEtablissements = allEtablissements.filter(etab => etab.academieId === academieId);
+    const displayEtablissementsByAcademie = (academieId, academieNom) => {
+      const filteredEtablissements = allEtablissements.filter(etab => etab.academieId === academieId);
 
-    // Mise à jour dynamique du titre H1 avec le nom de l'académie
-    const title = document.getElementById('dynamic-title');
-    if (filteredEtablissements.length > 1) {
+      // Mise à jour dynamique du titre H1 avec le nom de l'académie
+      const title = document.getElementById('dynamic-title');
+      if (filteredEtablissements.length > 1) {
         title.textContent = `Voici les établissements disponibles dans l'académie ${academieNom}`;
-    } else if (filteredEtablissements.length === 1) {
+      } else if (filteredEtablissements.length === 1) {
         title.textContent = `Voici l'établissement disponible dans l'académie ${academieNom}`;
-    } else {
+      } else {
         title.textContent = `Aucun établissement disponible dans l'académie ${academieNom}`;
-    }
+      }
 
-    filteredEtablissements.forEach(etablissement => {
+      filteredEtablissements.forEach(etablissement => {
         const card = createEtablissementCard(etablissement);
         etablissementsContainer.appendChild(card);
-    });
-};
+      });
+    };
 
-document.addEventListener('DOMContentLoaded', () => {
-    const backToTopButton = document.getElementById('back-to-top');
+    document.addEventListener('DOMContentLoaded', () => {
+      const backToTopButton = document.getElementById('back-to-top');
 
-    // Afficher la flèche lorsque l'utilisateur descend dans la page
-    window.addEventListener('scroll', () => {
+      // Afficher la flèche lorsque l'utilisateur descend dans la page
+      window.addEventListener('scroll', () => {
         if (window.scrollY > 300) { // Affiche la flèche après 300px de défilement
-            backToTopButton.classList.remove('hidden');
+          backToTopButton.classList.remove('hidden');
         } else {
-            backToTopButton.classList.add('hidden');
+          backToTopButton.classList.add('hidden');
         }
-    });
+      });
 
-    // Fonctionnalité de retour en haut de la page
-    backToTopButton.addEventListener('click', () => {
+      // Fonctionnalité de retour en haut de la page
+      backToTopButton.addEventListener('click', () => {
         window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // Défilement fluide
+          top: 0,
+          behavior: 'smooth' // Défilement fluide
         });
+      });
     });
-});
 
   </script>
   <footer>
     <div id="footer-container"></div>
   </footer>
-
-  <button id="back-to-top" title="Retour en haut" class="fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full shadow-lg hidden">
+  <!-- Bouton de retour vers le haut -->
+  <button id="back-to-top" title="Retour en haut"
+    class="fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full shadow-lg hidden">
     ↑
-</button>
+  </button>
 </body>
 
 </html>
