@@ -150,10 +150,35 @@ const displayEtablissementsByAcademie = (academieId, academieNom) => {
     });
 };
 
+document.addEventListener('DOMContentLoaded', () => {
+    const backToTopButton = document.getElementById('back-to-top');
+
+    // Afficher la flèche lorsque l'utilisateur descend dans la page
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) { // Affiche la flèche après 300px de défilement
+            backToTopButton.classList.remove('hidden');
+        } else {
+            backToTopButton.classList.add('hidden');
+        }
+    });
+
+    // Fonctionnalité de retour en haut de la page
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Défilement fluide
+        });
+    });
+});
+
   </script>
   <footer>
     <div id="footer-container"></div>
   </footer>
+
+  <button id="back-to-top" title="Retour en haut" class="fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full shadow-lg hidden">
+    ↑
+</button>
 </body>
 
 </html>
