@@ -4,4 +4,5 @@ const URL_API = "https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/"; //co
 
 function test () {
     return fetch ( `${URL_API}/formations`);  //appel  la table formation de l'API 
+    console.log
 } //on doit filtrer ensuite pour garder que les informations essentiels 
