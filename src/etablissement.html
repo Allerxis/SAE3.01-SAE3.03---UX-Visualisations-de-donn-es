@@ -200,7 +200,7 @@
                 .then(formations => {
                     // Filtrer les masters pour l'établissement sélectionné
                     const filteredMasters = formations.filter(master =>
-                        master.etabUai === establishmentId && master.parcours !== null
+                        master.etabUai === establishmentId && master.parcours !== ""
                     );
 
                     // Nettoyer le conteneur des masters
