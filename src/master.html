@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vos Favoris</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="./js/bgMenu.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+
+
 
     <!-- fichiers js -->
     <script src="./js/bgMenu.js"></script>
@@ -16,6 +16,9 @@
     <!-- Swiper JS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="./js/filtresRecherche.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script type="module" src="./js/mainEcharts.js"></script>
 </head>
 
 <body class="mt-[8rem] bg-gray-100 text-gray-800">
@@ -25,19 +28,20 @@
     </header>
 
     <main class="p-6 space-y-8">
-        <!--Test echart-->
-        <div id="chart" style="width: 600px; height: 400px;"></div>
-        <script src="./js/mainEcharts.js"></script>
+
         <!-- Carte de l'établissement -->
         <div class="bg-white rounded-lg shadow-md p-4 flex flex-col sm:flex-row gap-4">
             <div class="w-16 h-16 bg-gray-300 flex items-center justify-center rounded-full">
                 <span class="text-xl font-bold">images</span>
             </div>
+
             <div>
                 <h2 class="text-lg font-semibold">IUT de Xxxxxxxx</h2>
                 <p class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur. Fermentum leo eget ipsum in dui
                     ultrices morbi id.</p>
             </div>
+            <!--Test echart-->
+            <div id="chart-container" style="width: 600px; height: 400px;"></div>
         </div>
 
         <!-- Titre des masters -->
@@ -129,6 +133,7 @@
                 document.getElementById('search-container').innerHTML = data;
             })
             .catch(error => console.error('Error loading header:', error));
+
     </script>
     <footer>
         <div id="footer-container"></div>
