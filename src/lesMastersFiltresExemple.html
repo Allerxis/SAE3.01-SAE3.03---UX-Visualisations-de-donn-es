@@ -68,7 +68,7 @@ async function fetchAllMasters() {
     const response = await fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations');
     if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
     allMasters = await response.json();
-    allMasters = allMasters.filter(master => master.parcours !== null); // Exclure parcours: null
+    allMasters = allMasters.filter(master => master.parcours !== ''); // Exclure parcours: null
     // Initialiser avec tous les masters
     filteredMasters = allMasters;
     loadMoreMasters(true); // Charge les premiers masters au chargement
