@@ -22,88 +22,71 @@
 
 <body class="mt-[8rem] bg-gray-100 text-gray-800">
 
-    <main class="p-6">
-        <div class="flex justify-center items-center">
-            <div class="w-32 h-32 border-2 border-gray-400 flex justify-center items-center">
-                <span class="text-lg font-bold">Logo</span>
+    <main class="mt-[8rem] px-6 sm:px-12 lg:px-24">
+        <!-- Section de bienvenue -->
+        <section class="text-center py-12">
+            <h1 class="text-3xl sm:text-5xl font-bold text-gray-900">Bienvenue sur NaMaster</h1>
+            <p class="mt-4 text-gray-600 text-lg">Votre plateforme de référence pour la recherche de formations
+                universitaires</p>
+            <div class="mt-8 flex justify-center space-x-4">
+                <a href="lesMasters.html"
+                    class="bg-blue-600 text-white py-3 px-6 rounded-full hover:bg-blue-700">Explorer les Masters</a>
+                <a href="lesEtablissements.html"
+                    class="bg-gray-200 text-gray-800 py-3 px-6 rounded-full hover:bg-gray-300">Découvrir les
+                    Établissements</a>
             </div>
-        </div>
+        </section>
 
-        <!-- Search Bar -->
-        <div id="search-container"></div>
+        <!-- Description et fonctionnalités -->
+        <section class="py-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                <h3 class="text-xl font-semibold text-blue-600">Rechercher</h3>
+                <p class="mt-4 text-gray-600">Trouvez des masters adaptés à vos critères : localisation, domaines, et
+                    plus encore.</p>
+            </div>
+            <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                <h3 class="text-xl font-semibold text-blue-600">Découvrir</h3>
+                <p class="mt-4 text-gray-600">Accédez à des informations détaillées sur les établissements
+                    universitaires.</p>
+            </div>
+            <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                <h3 class="text-xl font-semibold text-blue-600">Comparer</h3>
+                <p class="mt-4 text-gray-600">Mettez en parallèle plusieurs options pour choisir en toute sérénité.</p>
+            </div>
+            <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                <h3 class="text-xl font-semibold text-blue-600">Sauvegarder</h3>
+                <p class="mt-4 text-gray-600">Créez une liste de favoris pour revenir facilement à vos formations
+                    préférées.</p>
+            </div>
+        </section>
 
-        <!-- Title Section -->
-        <div class="mt-10 text-center">
-            <h1 class="text-2xl font-bold">C'EST QUOI</h1>
-            <h2 class="text-lg italic text-gray-600">NaMaster</h2>
-        </div>
-
-        <!-- Description -->
-        <div class="mt-6 text-justify">
-            <p>
-                Bienvenue sur <strong>NaMaster</strong>, votre plateforme de référence pour la recherche de
-                <strong>masters</strong> et d’informations détaillées sur les établissements qui les proposent. Que vous
-                soyez
-                en quête d’un parcours correspondant à vos ambitions ou que vous souhaitiez explorer vos options,
-                <strong>NaMaster</strong> est là pour vous accompagner à chaque étape.
-            </p>
-            <p>Grâce à une interface intuitive et des outils performants, vous pouvez :</p>
-            <ul>
-                <li><strong>Rechercher</strong> des masters selon vos centres d'intérêt, vos critères géographiques, ou
-                    encore selon des spécificités propres à chaque domaine.</li>
-                <li><strong>Découvrir</strong> des informations complètes sur les établissements et les formations
-                    qu’ils proposent, afin de vous aider à faire des choix éclairés.</li>
-                <li><strong>Sauvegarder</strong> vos formations préférées grâce à notre système de favoris pour y
-                    revenir facilement.</li>
-            </ul>
-            <p>
-                <strong>NaMaster</strong>, c’est plus qu’un simple site de recherche : c’est un véritable compagnon pour
-                vous guider
-                dans l’une des étapes les plus importantes de votre parcours universitaire.
-            </p>
-            <!-- Barre de séparation -->
-            <div class="h-px bg-gray-400 my-2 mx-12"></div>
-            <p>
-                <em>Ce projet a été réalisé dans le cadre d’une <strong>Séance d’Apprentissage et d’Évaluation
-                        (SAÉ)</strong> lors
-                    de notre seconde année de <strong>BUT Métiers du Multimédia et de l’Internet (MMI)</strong>.
-                    Il reflète notre engagement à concevoir des outils numériques utiles et accessibles, en mettant en
-                    pratique
-                    nos compétences en <strong>développement web</strong>, <strong>design d’interfaces</strong> et
-                    <strong>gestion de projet</strong>.</em>
-            </p>
-            <!-- Barre de séparation -->
-            <div class="h-px bg-gray-400 my-2 mx-12"></div>
-            <p>Merci de nous faire confiance pour votre avenir académique. Explorez <strong>NaMaster</strong> et trouvez
-                le master qui vous correspond !</p>
-        </div>
+        <!-- À propos -->
+        <section class="py-12 text-center">
+            <h2 class="text-2xl font-bold text-gray-900">À propos de NaMaster</h2>
+            <p class="mt-4 text-gray-600">Notre mission est de vous accompagner dans l’une des étapes les plus
+                importantes de votre parcours universitaire. Grâce à nos outils intuitifs, explorez vos options et
+                ouvrez la voie à un avenir prometteur.</p>
+        </section>
 
         <!-- Section Contact -->
-        <div id="contact" class="mt-10">
-            <h3 class="text-center text-xl font-bold">Contact</h3>
-            <hr class="my-4 border-t border-gray-300">
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <!-- Email -->
-                <div class="bg-white rounded-lg shadow-md p-4 text-center">
-                    <h4 class="text-lg font-semibold">Email</h4>
-                    <p class="text-sm text-gray-600">namaster@contact.fr</p>
+        <section id="contact" class="py-12">
+            <h3 class="text-xl font-bold text-center text-blue-600">Contact</h3>
+            <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                    <h4 class="text-lg font-semibold text-gray-900">Email</h4>
+                    <p class="mt-2 text-gray-600"><a href="mailto:namaster@contact.fr"
+                            class="text-blue-600 hover:underline">namaster@contact.fr</a></p>
                 </div>
-
-                <!-- Téléphone Fixe -->
-                <div class="bg-white rounded-lg shadow-md p-4 text-center">
-                    <h4 class="text-lg font-semibold">Téléphone Fixe</h4>
-                    <p class="text-sm text-gray-600">+33 1 23 45 67 89</p>
+                <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                    <h4 class="text-lg font-semibold text-gray-900">Téléphone Fixe</h4>
+                    <p class="mt-2 text-gray-600">+33 1 23 45 67 89</p>
                 </div>
-
-                <!-- Téléphone Portable -->
-                <div class="bg-white rounded-lg shadow-md p-4 text-center">
-                    <h4 class="text-lg font-semibold">Téléphone Portable</h4>
-                    <p class="text-sm text-gray-600">+33 6 78 90 12 34</p>
+                <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                    <h4 class="text-lg font-semibold text-gray-900">Téléphone Portable</h4>
+                    <p class="mt-2 text-gray-600">+33 6 78 90 12 34</p>
                 </div>
             </div>
-        </div>
-
+        </section>
     </main>
 
     <script>
