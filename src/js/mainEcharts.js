@@ -137,6 +137,9 @@ function renderPropositionsChart(data) {
             text: 'Propositions envoyées',
             left: 'center',
         },
+        tooltip: {
+            trigger: 'axis',
+        },
         legend: {
             bottom: '0%',
         },
@@ -149,9 +152,10 @@ function renderPropositionsChart(data) {
         },
         series: [
             {
-                data: [data.prop, data.propFemmes],
+               
                 type: 'bar',
                 name: 'Propositions',
+                data: [data.prop, data.propFemmes],
             },
         ],
     };
@@ -208,6 +212,9 @@ function renderRatiosChart(data) {
         },
         tooltip: {
             trigger: 'axis',
+        },
+        legend: {
+            bottom: '0%',
         },
         xAxis: {
             type: 'category',
