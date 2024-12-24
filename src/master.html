@@ -30,18 +30,19 @@
     <main class="p-6 space-y-8">
 
         <!-- Carte de l'établissement -->
-        <div class="bg-white rounded-lg shadow-md p-4 flex flex-col sm:flex-row gap-4">
-            <div class="w-16 h-16 bg-gray-300 flex items-center justify-center rounded-full">
-                <span class="text-xl font-bold">images</span>
-            </div>
-
+        <div class="bg-white rounded-lg shadow-md p-4">
             <div>
                 <h2 class="text-lg font-semibold">IUT de Xxxxxxxx</h2>
                 <p class="text-sm text-gray-600">Lorem ipsum dolor sit amet consectetur. Fermentum leo eget ipsum in dui
                     ultrices morbi id.</p>
             </div>
-            <!--Test echart-->
-            <div id="chart-container" style="width: 600px; height: 400px;"></div>
+            <!-- Grille pour aligner les graphiques -->
+            <div id="container-echart" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                <div id="chart-candidatures" style="width: 100%; height: 400px;"></div>
+                <div id="chart-propositions" style="width: 100%; height: 400px;"></div>
+                <div id="chart-acceptations" style="width: 100%; height: 400px;"></div>
+                <div id="chart-ratios" style="width: 100%; height: 400px;"></div>
+            </div>
         </div>
 
         <!-- Titre des masters -->
