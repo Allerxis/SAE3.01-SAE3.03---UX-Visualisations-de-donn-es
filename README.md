@@ -44,11 +44,11 @@ Il faut :
 ## Roadmap Prévisionnelle
 | Étape                   | État                  |
 |-------------------------|-----------------------|
-| Burger menu             | En cours             |
+| Burger menu             | Fini                  |
 | Mise en favoris         | Partie front uniquement |
-| Fonctionnalité de recherche | Partie front uniquement |
+| Fonctionnalité de recherche | Fini              |
 | Gestion de compte       | Partie front uniquement |
-| Affichage de graphique  | Pas commencé         |
+| Affichage de graphique via echart  | Fini         |
 
 - **Priorités et dépendances** : *(à détailler)*
 
@@ -61,3 +61,5 @@ Il faut :
 | 1             | Corrigé        | La barre de navigation ne s’adapte pas à la taille de la page |
 | 2             | Corrigé        | Suppression des éléments ayant comme valeurs 'null' pour la catégorie "parcours"|
 | 3             | Corrigé        | Optimisation du chargement des masters pour éviter des bugs d'affichage liés au chargement|
+| 4             | Pas corrigé    | La mise en gras du nom de la page sélectionnée dans la barre de navigation ne se met pas à jour au changement de page |
+| 5             | Pas corrigé    | Latence au chargement des données de l'API (API surchargée) |
