@@ -1,67 +1,57 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Sélection des éléments du DOM
-    const searchInputs = document.querySelectorAll('input[type="text"][placeholder="Rechercher"]');
-    const searchButtons = document.querySelectorAll('button img[alt="Search Icon"]');
-    const resultsContainer = document.getElementById('masters-container'); // Pour les résultats sur rechercheETfiltres.html
+    // Charge dynamiquement le header
+    fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-container').innerHTML = data;
 
-    // Fonction pour effectuer la recherche
-    async function searchMasters(query) {
-        try {
-            // Construction de l'URL pour la requête
-            const response = await fetch(`https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations?search=${encodeURIComponent(query)}`);
-            if (!response.ok) throw new Error('Erreur lors de la récupération des résultats.');
+            // Initialise les fonctionnalités après l'injection du header
+            initSearch(); // Pour la barre de recherche
+            initBurgerMenu(); // Pour le menu burger
+        })
+        .catch(error => console.error('Erreur lors du chargement du header :', error));
 
-            const data = await response.json();
+    // Fonction pour la recherche dans le header
+    function initSearch() {
+        const searchInput = document.getElementById('header-search-input');
+        const searchButton = document.getElementById('header-search-button');
 
-            // Afficher les résultats
-            displayResults(data);
-        } catch (error) {
-            console.error('Erreur lors de la recherche :', error);
-            if (resultsContainer) {
-                resultsContainer.innerHTML = `<p class="text-red-500">Aucun résultat trouvé.</p>`;
-            }
+        if (!searchInput || !searchButton) {
+            console.error('Éléments de recherche introuvables dans le DOM.');
+            return;
         }
-    }
 
-    // Fonction pour afficher les résultats
-    function displayResults(data) {
-        if (resultsContainer) {
-            resultsContainer.innerHTML = ''; // Vider les résultats précédents
-            data.forEach(master => {
-                const masterCard = document.createElement('a');
-                masterCard.href = `master.html?id=${master.ifc}`;
-                masterCard.innerHTML = `
-                    <div class="p-4 bg-white border rounded-md shadow-sm">
-                        <h2 class="font-bold text-lg mb-2 lg:text-2xl">${master.parcours || 'Nom non disponible'}</h2>
-                        <p class="text-sm text-gray-500 lg:text-lg">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
-                        <p class="text-xs text-gray-400 lg:text-sm mt-2">Lieu(x) : ${master.lieux || 'Non spécifié'}</p>
-                    </div>
-                `;
-                resultsContainer.appendChild(masterCard);
-            });
-        }
-    }
-
-    // Gestion des événements de recherche
-    searchButtons.forEach((button, index) => {
-        button.addEventListener('click', () => {
-            const query = searchInputs[index].value.trim();
+        function redirectToSearchPage(query) {
             if (query) {
-                searchMasters(query);
+                window.location.href = `lesMasters.html?search=${encodeURIComponent(query)}`;
             } else {
-                console.warn('Veuillez saisir un terme de recherche.');
+                alert('Veuillez saisir un terme de recherche.');
             }
-        });
-    });
+        }
 
-    searchInputs.forEach(input => {
-        input.addEventListener('keydown', (event) => {
+        searchButton.addEventListener('click', () => {
+            redirectToSearchPage(searchInput.value.trim());
+        });
+
+        searchInput.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
-                const query = input.value.trim();
-                if (query) {
-                    searchMasters(query);
-                }
+                redirectToSearchPage(searchInput.value.trim());
             }
         });
-    });
+    }
+
+    // Fonction pour le menu burger
+    function initBurgerMenu() {
+        const burgerBtn = document.getElementById('burger-btn');
+        const menu = document.getElementById('menu');
+
+        if (burgerBtn && menu) {
+            burgerBtn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+            console.log('Burger menu initialisé avec succès !');
+        } else {
+            console.error('Éléments burger-btn ou menu non trouvés.');
+        }
+    }
 });

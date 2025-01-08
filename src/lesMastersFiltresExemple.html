@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,12 @@
   <script src="./js/bgMenu.js"></script>
   <script src="./js/navBarre.js"></script>
   <script src="./js/search.js"></script>
+
+  <script src="./js/search.js"></script>
+  <script src="./js/mastersSearch.js"></script>
+  
 </head>
+
 <body class="pt-20 bg-gray-100 text-gray-800">
   <header>
     <div id="header-container"></div>
@@ -33,8 +39,8 @@
 
   <script>
 
-// Charger et insérer le contenu de header.html
-fetch('header.html')
+    // Charger et insérer le contenu de header.html
+    fetch('header.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('header-container').innerHTML = data;
@@ -59,123 +65,124 @@ fetch('header.html')
       .catch(error => console.error('Error loading header:', error));
 
     let allMasters = []; // Stockage global des masters
-let filteredMasters = []; // Masters filtrés
-let currentIndex = 0; // Index pour pagination
-const mastersPerPage = 9; // Nombre de masters par lot
+    let filteredMasters = []; // Masters filtrés
+    let currentIndex = 0; // Index pour pagination
+    const mastersPerPage = 9; // Nombre de masters par lot
 
-// Charger tous les masters au démarrage
-async function fetchAllMasters() {
-  try {
-    const response = await fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations');
-    if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
-    allMasters = await response.json();
-    allMasters = allMasters.filter(master => master.parcours !== ''); // Exclure parcours: null
-    // Initialiser avec tous les masters
-    filteredMasters = allMasters;
-    loadMoreMasters(true); // Charge les premiers masters au chargement
-  } catch (error) {
-    console.error('Erreur lors de la récupération des masters :', error);
-  }
-}
+    // Charger tous les masters au démarrage
+    async function fetchAllMasters() {
+      try {
+        const response = await fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations');
+        if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
+        allMasters = await response.json();
+        allMasters = allMasters.filter(master => master.parcours !== ''); // Exclure parcours: null
+        // Initialiser avec tous les masters
+        filteredMasters = allMasters;
+        loadMoreMasters(true); // Charge les premiers masters au chargement
+      } catch (error) {
+        console.error('Erreur lors de la récupération des masters :', error);
+      }
+    }
 
-// Charger les secteurs disciplinaires pour générer les filtres
-async function fetchSecteursDisciplinaires() {
-  try {
-    const response = await fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/secteurs-disciplinaires');
-    if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
-    const secteurs = await response.json();
+    // Charger les secteurs disciplinaires pour générer les filtres
+    async function fetchSecteursDisciplinaires() {
+      try {
+        const response = await fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/secteurs-disciplinaires');
+        if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
+        const secteurs = await response.json();
 
-    const filtersContainer = document.getElementById('filters-container');
-    filtersContainer.innerHTML = '<button class="bg-gray-200 py-2 px-4 rounded-full text-center text-gray-800 text-sm shadow-sm" id="filter-all">Tous</button>';
+        const filtersContainer = document.getElementById('filters-container');
+        filtersContainer.innerHTML = '<button class="bg-gray-200 py-2 px-4 rounded-full text-center text-gray-800 text-sm shadow-sm" id="filter-all">Tous</button>';
 
-    // Bouton pour réinitialiser le filtre
-    document.getElementById('filter-all').addEventListener('click', () => {
-      activeFilter = null;
-      filteredMasters = allMasters;
-      currentIndex = 0;
-      loadMoreMasters(true); // Réinitialiser l'affichage
-      updateFilterUI(null);
-    });
+        // Bouton pour réinitialiser le filtre
+        document.getElementById('filter-all').addEventListener('click', () => {
+          activeFilter = null;
+          filteredMasters = allMasters;
+          currentIndex = 0;
+          loadMoreMasters(true); // Réinitialiser l'affichage
+          updateFilterUI(null);
+        });
 
-    // Créer les boutons pour chaque secteur disciplinaire
-    secteurs.forEach(secteur => {
-      const button = document.createElement('button');
-      button.className = 'bg-gray-200 py-2 px-4 rounded-full text-center text-gray-800 text-sm shadow-sm';
-      button.textContent = secteur.nom;
+        // Créer les boutons pour chaque secteur disciplinaire
+        secteurs.forEach(secteur => {
+          const button = document.createElement('button');
+          button.className = 'bg-gray-200 py-2 px-4 rounded-full text-center text-gray-800 text-sm shadow-sm';
+          button.textContent = secteur.nom;
 
-      button.addEventListener('click', () => {
-        activeFilter = secteur.id;
-        filteredMasters = allMasters.filter(master => master.secDiscId === secteur.id); // Filtrer les masters
-        currentIndex = 0;
-        loadMoreMasters(true); // Réinitialiser l'affichage
-        updateFilterUI(secteur.id);
-      });
+          button.addEventListener('click', () => {
+            activeFilter = secteur.id;
+            filteredMasters = allMasters.filter(master => master.secDiscId === secteur.id); // Filtrer les masters
+            currentIndex = 0;
+            loadMoreMasters(true); // Réinitialiser l'affichage
+            updateFilterUI(secteur.id);
+          });
 
-      filtersContainer.appendChild(button);
-    });
-  } catch (error) {
-    console.error('Erreur lors de la récupération des secteurs disciplinaires :', error);
-  }
-}
+          filtersContainer.appendChild(button);
+        });
+      } catch (error) {
+        console.error('Erreur lors de la récupération des secteurs disciplinaires :', error);
+      }
+    }
 
-// Charger les masters par lots (pagination)
-function loadMoreMasters(reset = false) {
-  const mastersContainer = document.getElementById('masters-container');
+    // Charger les masters par lots (pagination)
+    function loadMoreMasters(reset = false) {
+      const mastersContainer = document.getElementById('masters-container');
 
-  // Réinitialiser l'affichage si nécessaire
-  if (reset) {
-    mastersContainer.innerHTML = '';
-  }
+      // Réinitialiser l'affichage si nécessaire
+      if (reset) {
+        mastersContainer.innerHTML = '';
+      }
 
-  const nextMasters = filteredMasters.slice(currentIndex, currentIndex + mastersPerPage);
-  nextMasters.forEach(master => {
-    const card = document.createElement('div');
-    card.className = 'p-4 bg-white border rounded-md shadow-sm';
-    card.innerHTML = `
+      const nextMasters = filteredMasters.slice(currentIndex, currentIndex + mastersPerPage);
+      nextMasters.forEach(master => {
+        const card = document.createElement('div');
+        card.className = 'p-4 bg-white border rounded-md shadow-sm';
+        card.innerHTML = `
       <h2 class="font-bold text-lg mb-2 lg:text-2xl">${master.parcours || 'Nom non disponible'}</h2>
       <p class="text-sm text-gray-500 lg:text-lg">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
       <p class="text-xs text-gray-400 lg:text-sm mt-2">Lieu(x) : ${master.lieux || 'Non spécifié'}</p>
     `;
-    mastersContainer.appendChild(card);
-  });
+        mastersContainer.appendChild(card);
+      });
 
-  currentIndex += nextMasters.length;
+      currentIndex += nextMasters.length;
 
-  // Cacher le bouton "Charger plus" s'il n'y a plus de masters à afficher
-  const loadMoreButton = document.getElementById('load-more');
-  if (currentIndex >= filteredMasters.length) {
-    loadMoreButton.style.display = 'none';
-  } else {
-    loadMoreButton.style.display = 'block';
-  }
-}
-
-// Mettre à jour l'apparence des filtres
-function updateFilterUI(activeId) {
-  const buttons = document.querySelectorAll('#filters-container button');
-  buttons.forEach(button => {
-    button.classList.remove('bg-blue-500', 'text-white');
-    button.classList.add('bg-gray-200', 'text-gray-800');
-  });
-
-  if (activeId === null) {
-    document.getElementById('filter-all').classList.add('bg-blue-500', 'text-white');
-  } else {
-    const activeButton = [...buttons].find(button => button.textContent === activeId.toString());
-    if (activeButton) {
-      activeButton.classList.add('bg-blue-500', 'text-white');
+      // Cacher le bouton "Charger plus" s'il n'y a plus de masters à afficher
+      const loadMoreButton = document.getElementById('load-more');
+      if (currentIndex >= filteredMasters.length) {
+        loadMoreButton.style.display = 'none';
+      } else {
+        loadMoreButton.style.display = 'block';
+      }
     }
-  }
-}
 
-// Initialisation de la page
-document.addEventListener('DOMContentLoaded', () => {
-  fetchAllMasters();
-  fetchSecteursDisciplinaires();
+    // Mettre à jour l'apparence des filtres
+    function updateFilterUI(activeId) {
+      const buttons = document.querySelectorAll('#filters-container button');
+      buttons.forEach(button => {
+        button.classList.remove('bg-blue-500', 'text-white');
+        button.classList.add('bg-gray-200', 'text-gray-800');
+      });
 
-  // Événement pour le bouton "Charger plus"
-  document.getElementById('load-more').addEventListener('click', () => loadMoreMasters());
-});
+      if (activeId === null) {
+        document.getElementById('filter-all').classList.add('bg-blue-500', 'text-white');
+      } else {
+        const activeButton = [...buttons].find(button => button.textContent === activeId.toString());
+        if (activeButton) {
+          activeButton.classList.add('bg-blue-500', 'text-white');
+        }
+      }
+    }
+
+    // Initialisation de la page
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchAllMasters();
+      fetchSecteursDisciplinaires();
+
+      // Événement pour le bouton "Charger plus"
+      document.getElementById('load-more').addEventListener('click', () => loadMoreMasters());
+    });
   </script>
 </body>
+
 </html>

@@ -17,10 +17,6 @@
 
 <body>
     <header class="fixed top-0 left-0 w-full z-50 bg-gray-800 flex justify-between items-center p-4 rounded-b-3xl h-20">
-        <!-- si le justify-between ne fonctionne pas, ajouter : style="display: flex; justify-content: space-between;"-->
-
-        <!-- ||||||||||| -->
-        <!-- BURGER MENU -->
         <div class="relative">
             <!-- Burger Button -->
             <button id="burger-btn"
@@ -49,8 +45,6 @@
                             class="w-5 h-5 mr-3">
                         ÉTABLISSEMENTs
                     </a>
-
-                    <!-- Barre de séparation -->
                     <div class="h-px bg-gray-400 my-2 mx-12"></div>
 
                     <div class="">
@@ -62,23 +56,17 @@
                         </a>
                     </div>
                 </div>
-
-                <!-- Barre de séparation -->
                 <div class="h-px bg-gray-400 my-2 mx-12"></div>
-
                 <div id="search-container"></div>
             </div>
         </div>
 
-        <!-- FAVORIS ET PROFIL -->
         <div class="md:hidden flex items-center space-x-4 z-20">
-            <!-- Bouton Favoris -->
             <button id="favoris-btn"
                 class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
                 <a href="./favoris.html"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"
                         alt="Favoris" class="w-6 h-6"></a>
             </button>
-            <!-- Bouton Profil -->
             <button id="profil-btn"
                 class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-lg focus:outline-none hover:bg-gray-300">
                 <a href="./profil.html"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" alt="Profil"
@@ -86,82 +74,56 @@
             </button>
         </div>
 
-        <!-- ||||||||||| -->
-        <!-- NORMAL MENU -->
         <div class="hidden md:flex">
-            <!-- LOGO -->
             <img class="" src="" alt="">
 
             <!-- RECHERCHE -->
-            <!-- Barre de recherche -->
             <div class="flex justify-center items-center mr-2">
                 <div class="relative w-full max-w-lg">
-                    <input type="text" placeholder="Rechercher"
+                    <input id="header-search-input" type="text" placeholder="Rechercher"
                         class="w-full px-4 py-3 border border-gray-300 rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400" />
-                    <!-- Icône de recherche -->
-                    <button class="absolute top-1/2 transform -translate-y-1/2 right-4">
-                        <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Search Icon"
-                            class="w-5 h-5">
+                    <button id="header-search-button" class="absolute top-1/2 transform -translate-y-1/2 right-4">
+                        <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Search Icon" class="w-5 h-5" />
                     </button>
                 </div>
             </div>
 
-            <!-- NAVBARRE -->
             <nav class="flex justify-around rounded-full bg-white shadow-md p-2">
                 <a href="./index.html"
-                    class="text-black px-4 py-2 rounded-full font-medium transition-all duration-200 active:bg-gray-200"
-                    id="home-tab">
+                    class="text-black px-4 py-2 rounded-full font-medium transition-all duration-200 active:bg-gray-200">
                     ACCUEIL
                 </a>
                 <a href="./lesEtablissements.html"
-                    class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
-                    id="establishments-tab">
+                    class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black">
                     ÉTABLISSEMENTS
                 </a>
                 <a href="./lesMasters.html"
-                    class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
-                    id="masters-tab">
+                    class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black">
                     MASTERS
                 </a>
                 <a href="./favoris.html"
-                    class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
-                    id="favorites-tab">
+                    class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black">
                     FAVORIS
                 </a>
                 <a href="./profil.html"
-                    class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black"
-                    id="profile-tab">
+                    class="text-gray-500 px-4 py-2 rounded-full font-medium transition-all duration-200 hover:text-black">
                     PROFIL
                 </a>
             </nav>
         </div>
     </header>
 
+    <script src="./js/search.js"></script>
     <script>
         fetch('rechercheETfiltres.html')
             .then(response => response.text())
             .then(data => {
-                // Insère le contenu HTML dans le conteneur
                 const container = document.getElementById('search-container');
                 container.innerHTML = data;
-
-                // Trouve et exécute tous les scripts inclus dans le HTML
-                const scripts = container.querySelectorAll('script');
-                scripts.forEach(script => {
-                    const newScript = document.createElement('script');
-                    if (script.src) {
-                        // Si le script a un src, charge-le via une nouvelle balise <script>
-                        newScript.src = script.src;
-                    } else {
-                        // Sinon, exécute le contenu inline
-                        newScript.textContent = script.textContent;
-                    }
-                    document.body.appendChild(newScript);
-                });
+                initBurgerMenu();
             })
             .catch(error => console.error('Error loading content:', error));
     </script>
-
 </body>
 
 </html>
