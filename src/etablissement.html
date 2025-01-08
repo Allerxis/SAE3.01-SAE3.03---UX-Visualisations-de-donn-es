@@ -12,6 +12,9 @@
     <script src="./js/bgMenu.js"></script>
     <script src="./js/navBarre.js"></script>
     <script src="./js/search.js"></script>
+    <script src="./js/loader.js" defer></script>
+
+
 
     <!-- Swiper JS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -33,23 +36,15 @@
             <p id="establishment-academie" class="text-lg text-gray-600"></p>
         </div>
 
-        <!-- <div>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!2m3!3v2!1xyz..." width="600" height="450"
-                style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div> -->
-
         <div>
             <h2 class="font-bold text-3xl mb-4">Masters disponibles</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="masters-container">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 loader-container" id="masters-container">
                 <!-- Les masters seront insérés ici -->
             </div>
-            <!-- Loader -->
-            <div id="loader" class="flex flex-col items-center justify-center mt-10 hidden">
-                <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
-                <p id="loader-text" class="mt-4 text-gray-600 text-lg font-semibold"></p>
-            </div>
+            
         </div>
+        
+
 
         <div class="text-center mt-10">
             <button class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:ring-4 focus:ring-blue-300">
@@ -58,7 +53,7 @@
         </div>
     </main>
 
-    <script>
+    <script >
         fetch('header.html')
             .then(response => response.text())
             .then(data => {
