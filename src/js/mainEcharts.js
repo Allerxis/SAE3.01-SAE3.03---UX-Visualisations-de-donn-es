@@ -66,7 +66,6 @@
 // });
 
 // Importation des modules nécessaires
-// Importation des modules nécessaires
 import * as echarts from 'https://cdn.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.esm.min.js';
 
 const URL_API = "https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/";
@@ -355,7 +354,13 @@ function renderPropositionsChart(data) {
         tooltip: {
             trigger: 'axis',
             formatter: (params) => {
-                return `${params[0].name}<br>Total: ${params[0].value}<br>Femmes: ${params[1].value}`;
+                const descriptions = {
+                    'Total': "Nombre total de propositions envoyées.",
+                    'Femmes': "Nombre de propositions envoyées à des candidats féminins.",
+                };
+                return params.map(param => 
+                    `${param.axisValue}: ${param.data}<br>${descriptions[param.axisValue] || ''}`
+                ).join('');
             },
         },
         xAxis: {
@@ -367,8 +372,8 @@ function renderPropositionsChart(data) {
         },
         series: [
             {
+                name: 'Total',
                 type: 'bar',
-                name: 'Propositions',
                 data: [data.prop, data.propFemmes],
             },
         ],
@@ -376,6 +381,7 @@ function renderPropositionsChart(data) {
 
     myChart.setOption(options);
 }
+
 
 // Fonction pour afficher un graphique à barres pour les acceptations
 function renderAcceptationsChart(data) {
@@ -395,9 +401,16 @@ function renderAcceptationsChart(data) {
         tooltip: {
             trigger: 'axis',
             formatter: (params) => {
-                return `${params[0].name}<br>Total: ${params[0].value}<br>Femmes: ${params[1].value}`;
+                const descriptions = {
+                    'Total': "Nombre total d'acceptations.",
+                    'Femmes': "Nombre d'acceptations pour les candidates.",
+                };
+                return params.map(param => 
+                    `${param.axisValue}: ${param.data}<br>${descriptions[param.axisValue] || ''}`
+                ).join('');
             },
         },
+        
         xAxis: {
             type: 'category',
             data: ['Total', 'Femmes'],
@@ -416,6 +429,7 @@ function renderAcceptationsChart(data) {
 
     myChart.setOption(options);
 }
+
 
 // Fonction pour afficher un graphique pour les ratios
 function renderRatiosChart(data) {
