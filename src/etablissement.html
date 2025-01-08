@@ -12,9 +12,6 @@
     <script src="./js/bgMenu.js"></script>
     <script src="./js/navBarre.js"></script>
     <script src="./js/search.js"></script>
-    <script src="./js/loader.js" defer></script>
-
-
 
     <!-- Swiper JS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -25,6 +22,14 @@
 </head>
 
 <body class="mt-[8rem] bg-gray-100 text-gray-800">
+
+      <!-- Superposition pour le loader -->
+      <div id="global-loader" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+            <p class="mt-4 text-white text-lg font-semibold">Chargement en cours...</p>
+        </div>
+    </div>
 
     <header>
         <div id="header-container"></div>
@@ -86,8 +91,20 @@
 
 
 
-      // Fonction pour récupérer un paramètre de l'URL
-      function getQueryParam(param) {
+        // Fonction pour afficher le loader
+        const showLoader = () => {
+            const loader = document.getElementById('global-loader');
+            loader.classList.remove('hidden');
+        };
+
+        // Fonction pour masquer le loader
+        const hideLoader = () => {
+            const loader = document.getElementById('global-loader');
+            loader.classList.add('hidden');
+        };
+
+        // Fonction pour récupérer un paramètre de l'URL
+        function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
@@ -154,8 +171,11 @@
                 return;
             }
 
+            // Afficher le loader
+            showLoader();
+
             try {
-                // Charge les données de l'établissement
+                // Charger les données de l'établissement
                 const establishment = await fetchEstablishmentData(establishmentId);
                 if (!establishment) {
                     throw new Error('Établissement introuvable.');
@@ -164,12 +184,15 @@
                 establishmentNameElement.textContent = establishment.nom;
                 establishmentAcademieElement.textContent = `Académie ID : ${establishment.academieId || 'Non spécifié'}`;
 
-                // Charge et affiche les masters
+                // Charger et afficher les masters
                 const masters = await fetchMastersForEstablishment(establishmentId);
                 displayMasters(masters, mastersContainer);
             } catch (error) {
                 console.error(error);
                 mastersContainer.innerHTML = '<p class="text-red-500 text-center">Une erreur est survenue. Veuillez réessayer plus tard.</p>';
+            } finally {
+                // Masquer le loader après chargement
+                hideLoader();
             }
         });
     </script>
