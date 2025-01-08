@@ -46,15 +46,14 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 loader-container" id="masters-container">
                 <!-- Les masters seront insérés ici -->
             </div>
+
+            <div class="text-center mt-4">
+                <button id="load-more-btn" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:ring-4 focus:ring-blue-300">
+                    Charger plus
+                </button>
+            </div>
             
-        </div>
-        
-
-
-        <div class="text-center mt-10">
-            <button class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:ring-4 focus:ring-blue-300">
-                Explorez nos Masters
-            </button>
+            
         </div>
     </main>
 
@@ -129,72 +128,82 @@
             return data.filter(master => master.etabUai === establishmentId && master.parcours !== "");
         }
 
-        // Affiche les masters dans le conteneur
-        function displayMasters(masters, mastersContainer) {
-            mastersContainer.innerHTML = '';
+        let allMasters = []; // Stocker tous les masters récupérés
+let currentIndex = 0; // Index pour le chargement progressif
+const mastersPerPage = 9; // Nombre de masters par page
 
-            if (masters.length === 0) {
-                mastersContainer.innerHTML = '<p class="text-gray-500 text-center">Aucune formation trouvée pour cet établissement.</p>';
-                return;
-            }
+// Affiche un lot de masters
+function displayMasters(masters, mastersContainer) {
+    const nextMasters = masters.slice(currentIndex, currentIndex + mastersPerPage);
+    nextMasters.forEach(master => {
+        const masterCard = document.createElement('div');
+        masterCard.className = 'p-4 bg-white border rounded-md shadow-sm';
+        masterCard.innerHTML = `
+            <h2 class="font-bold text-lg mb-2 lg:text-2xl">${master.parcours || 'Nom non disponible'}</h2>
+            <p class="text-sm text-gray-500 lg:text-lg">Lieu(x) : ${master.lieux || 'Non spécifié'}</p>
+            <p class="text-sm text-gray-500 lg:text-lg">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
+            <div class="mt-4 text-center">
+                <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:ring-2 focus:ring-blue-300" onclick="redirectToMaster('${master.ifc}')">
+                    Voir le Master
+                </button>
+            </div>
+        `;
+        mastersContainer.appendChild(masterCard);
+    });
 
-            masters.forEach(master => {
-                const masterCard = document.createElement('div');
-                masterCard.className = 'p-4 bg-white border rounded-md shadow-sm';
-                masterCard.innerHTML = `
-                    <h2 class="font-bold text-lg mb-2 lg:text-2xl">${master.parcours || 'Nom non disponible'}</h2>
-                    <p class="text-sm text-gray-500 lg:text-lg">Lieu(x) : ${master.lieux || 'Non spécifié'}</p>
-                    <p class="text-sm text-gray-500 lg:text-lg">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
-                    <div class="mt-4 text-center">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:ring-2 focus:ring-blue-300" onclick="redirectToMaster('${master.ifc}')">
-                            Voir le Master
-                        </button>
-                    </div>
-                `;
-                mastersContainer.appendChild(masterCard);
-            });
+    currentIndex += mastersPerPage;
+
+    // Cacher le bouton si tous les masters sont affichés
+    if (currentIndex >= masters.length) {
+        document.getElementById('load-more-btn').style.display = 'none';
+    }
+}
+
+// Fonction pour rediriger vers la page du master
+function redirectToMaster(masterId) {
+    window.location.href = `master.html?id=${masterId}`;
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const establishmentId = getQueryParam('id');
+    const establishmentNameElement = document.getElementById('establishment-name');
+    const establishmentAcademieElement = document.getElementById('establishment-academie');
+    const mastersContainer = document.getElementById('masters-container');
+    const loadMoreBtn = document.getElementById('load-more-btn');
+
+    if (!establishmentId) {
+        mastersContainer.innerHTML = '<p class="text-red-500 text-center">Aucun établissement spécifié.</p>';
+        return;
+    }
+
+    // Afficher le loader
+    showLoader();
+
+    try {
+        // Charger les données de l'établissement
+        const establishment = await fetchEstablishmentData(establishmentId);
+        if (!establishment) {
+            throw new Error('Établissement introuvable.');
         }
 
-        // Fonction pour rediriger vers la page du master
-        function redirectToMaster(masterId) {
-            window.location.href = `master.html?id=${masterId}`;
-        }
+        establishmentNameElement.textContent = establishment.nom;
+        establishmentAcademieElement.textContent = `Académie ID : ${establishment.academieId || 'Non spécifié'}`;
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            const establishmentId = getQueryParam('id');
-            const establishmentNameElement = document.getElementById('establishment-name');
-            const establishmentAcademieElement = document.getElementById('establishment-academie');
-            const mastersContainer = document.getElementById('masters-container');
+        // Charger les masters
+        allMasters = await fetchMastersForEstablishment(establishmentId);
+        displayMasters(allMasters, mastersContainer);
 
-            if (!establishmentId) {
-                mastersContainer.innerHTML = '<p class="text-red-500 text-center">Aucun établissement spécifié.</p>';
-                return;
-            }
+        // Ajouter un événement au bouton Charger plus
+        loadMoreBtn.addEventListener('click', () => displayMasters(allMasters, mastersContainer));
+    } catch (error) {
+        console.error(error);
+        mastersContainer.innerHTML = '<p class="text-red-500 text-center">Une erreur est survenue. Veuillez réessayer plus tard.</p>';
+    } finally {
+        // Masquer le loader après chargement
+        hideLoader();
+    }
+});
 
-            // Afficher le loader
-            showLoader();
-
-            try {
-                // Charger les données de l'établissement
-                const establishment = await fetchEstablishmentData(establishmentId);
-                if (!establishment) {
-                    throw new Error('Établissement introuvable.');
-                }
-
-                establishmentNameElement.textContent = establishment.nom;
-                establishmentAcademieElement.textContent = `Académie ID : ${establishment.academieId || 'Non spécifié'}`;
-
-                // Charger et afficher les masters
-                const masters = await fetchMastersForEstablishment(establishmentId);
-                displayMasters(masters, mastersContainer);
-            } catch (error) {
-                console.error(error);
-                mastersContainer.innerHTML = '<p class="text-red-500 text-center">Une erreur est survenue. Veuillez réessayer plus tard.</p>';
-            } finally {
-                // Masquer le loader après chargement
-                hideLoader();
-            }
-        });
     </script>
     <footer>
         <div id="footer-container"></div>
