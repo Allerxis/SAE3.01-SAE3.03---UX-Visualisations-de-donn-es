@@ -1,44 +1,49 @@
-<footer class="grid  bg-gray-400 xl:px-16 p-10 py-6 gap-y-3 xl:text-base text-xs rounded-t-3xl">
-    <!--marge top a delete une fois-->
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <link rel="stylesheet" href="./css/style-tailwind.css" type="text/css" /> <!--NE FONCTIONNE PAS-->
-    <div class="grid md:grid-cols-2">
-        <div class="grid grid-cols-2 col-span-1 sm:justify-items-center justify-items-start gap-y-3 ">
-            <a href="contact.html">Contact</a>
-            <a href="mentionsLegales.html">Mentions légales</a>
-            <a href="APropos.html">A propos de nous</a>
-            <a href="Faq.html">Faq</a>
+<footer class="bg-gray-800 text-white py-8 px-6 rounded-t-3xl">
+    <div class="grid md:grid-cols-2 gap-y-6">
+        <!-- Liens principaux -->
+        <div class="grid grid-cols-2 sm:justify-items-center justify-items-start gap-y-4 text-sm">
+            <a href="contact.html" class="relative group text-white hover:text-blue-400 transition">
+                Contact
+                <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-400 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+            </a>
+            <a href="mentionsLegales.html" class="relative group text-white hover:text-blue-400 transition">
+                Mentions légales
+                <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-400 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+            </a>
+            <a href="APropos.html" class="relative group text-white hover:text-blue-400 transition">
+                À propos de nous
+                <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-400 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+            </a>
+            <a href="Faq.html" class="relative group text-white hover:text-blue-400 transition">
+                FAQ
+                <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-400 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+            </a>
         </div>
-        <div class="grid grid-cols-2 col-span-1 justify-items-center gap-x-2 ">
-            <div class="grid grid-cols-2 col-span-1 justify-items-center gap-x-2">
-                <a href="https://www.facebook.com"
-                    class="flex bg-white rounded-full m-5 xl:h-16 xl:w-16 sm:h-12 sm:w-12 h-10 w-10 justify-center items-center">
-                    
-                    <img src="/img/facebook.png" class="">
-                </a>
 
-                <a href="https://www.instagram.com"
-                    class="flex bg-white rounded-full m-5 xl:h-16 xl:w-16 sm:h-12 sm:w-12 h-10 w-10 justify-center items-center">
-                    <img src="/img/instagram.png" class="">
-                </a>
-            </div>
-
-            <div class="grid grid-cols-2 col-span-1 justify-items-center gap-x-2">
-                <a href="https://www.linkedin.com"
-                    class="flex bg-white rounded-full m-5 xl:h-16 xl:w-16 sm:h-12 sm:w-12 h-10 w-10 justify-center items-center">
-                    <img src="/img/linkedin.png" class="">
-                </a>
-
-                <a href="https://www.youtube.com"
-                    class="flex bg-white rounded-full m-5 xl:h-16 xl:w-16 sm:h-12 sm:w-12 h-10 w-10 justify-center items-center">
-                    <img src="/img/youtube.png" class="">
-                </a>
-            </div>
-
+        <!-- Réseaux sociaux -->
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="https://www.facebook.com" class="group flex bg-white rounded-full h-12 w-12 justify-center items-center overflow-hidden hover:scale-110 transition-transform relative">
+                <span class="absolute inset-0 bg-blue-500 opacity-0 group-hover:opacity-25 transition-opacity"></span>
+                <img src="/img/facebook.png" alt="Facebook" class="h-6 w-6 z-10">
+            </a>
+            <a href="https://www.instagram.com" class="group flex bg-white rounded-full h-12 w-12 justify-center items-center overflow-hidden hover:scale-110 transition-transform relative">
+                <span class="absolute inset-0 bg-pink-500 opacity-0 group-hover:opacity-25 transition-opacity"></span>
+                <img src="/img/instagram.png" alt="Instagram" class="h-6 w-6 z-10">
+            </a>
+            <a href="https://www.linkedin.com" class="group flex bg-white rounded-full h-12 w-12 justify-center items-center overflow-hidden hover:scale-110 transition-transform relative">
+                <span class="absolute inset-0 bg-blue-700 opacity-0 group-hover:opacity-25 transition-opacity"></span>
+                <img src="/img/linkedin.png" alt="LinkedIn" class="h-6 w-6 z-10">
+            </a>
+            <a href="https://www.youtube.com" class="group flex bg-white rounded-full h-12 w-12 justify-center items-center overflow-hidden hover:scale-110 transition-transform relative">
+                <span class="absolute inset-0 bg-red-500 opacity-0 group-hover:opacity-25 transition-opacity"></span>
+                <img src="/img/youtube.png" alt="YouTube" class="h-6 w-6 z-10">
+            </a>
         </div>
     </div>
-    <div class="flex flex-row justify-between">
-        <p class="">© 2024 NaMaster. Tous droits réservés.</p>
-        <a class="text-gray-600 text-xs" href="./mentionsIllégales.html"> Mentions Illégales </a>
+
+    <!-- Footer bas -->
+    <div class="flex flex-col md:flex-row justify-between items-center mt-8 text-xs text-gray-400">
+        <p>© 2024 NaMaster. Tous droits réservés.</p>
+        <a href="./mentionsIllégales.html" class="text-gray-400 hover:text-blue-400 transition-opacity" title="Un petit secret ?">Mentions Illégales</a>
     </div>
 </footer>
