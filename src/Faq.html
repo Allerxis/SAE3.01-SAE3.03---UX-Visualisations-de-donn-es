@@ -28,7 +28,6 @@
             <h3 class="text-center text-xl font-bold">Foire aux questions</h3>
             <hr class="my-4 border-t border-gray-300">
 
-
             <div class="space-y-6">
                 <!-- Question 1 -->
                 <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
@@ -40,20 +39,6 @@
                         suite de vos études.
                     </p>
                 </div>
-
-                <!-- Easter Egg 1 (pour Tony) -->
-                <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
-                    <h4 class="text-lg md:text-xl font-semibold">Tony, d'où viens ta créativité ?</h4>
-                    <p class="mt-2 text-sm md:text-base text-gray-600">
-                        Ma créativité ? Elle naît là où les idées se croisent, comme dans un grand film d’action. Quand
-                        je joue Garen sur la Faille de l'Invocateur, chaque "DEMACIA !" résonne comme une explosion
-                        d’inspiration. L’énergie de la bataille nourrit mes projets, tout comme les films épiques de
-                        Marvel et Transformers, où chaque scène me pousse à repousser mes limites créatives. Et bien
-                        sûr, tout ça ne serait pas possible sans un peu de passion, de bonté et de courage, à la manière
-                        d'Optimus Prime !
-                    </p>
-                </div>
-
                 <!-- Question 2 -->
                 <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
                     <h4 class="text-lg md:text-xl font-semibold">Quels sont les critères les plus importants pour
@@ -75,37 +60,12 @@
                     </p>
                 </div>
 
-                <!-- Easter Egg 2 (pour David) -->
-                <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
-                    <h4 class="text-lg md:text-xl font-semibold">David, quelle est ta source secrète d'inspiration ?
-                    </h4>
-                    <p class="mt-2 text-sm md:text-base text-gray-600">
-                        Mon inspiration ? Elle vient de tout ce qui fait avancer la technologie ! Mais je dois avouer
-                        que parfois, l'inspiration arrive lors d'une bonne session de codage, où chaque ligne de code me
-                        rapproche de l'illumination. Quand ça chauffe trop, il n'y a rien de mieux qu'une bonne
-                        "Ressurection" à la Mercy pour me donner un second souffle. Le code et les éclats de lumière
-                        d’Overwatch m'aident à garder le cap, même dans les moments les plus tendus.
-                    </p>
-                </div>
-
                 <!-- Question 4 -->
                 <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
                     <h4 class="text-lg md:text-xl font-semibold">Puis-je modifier ma recherche à tout moment ?</h4>
                     <p class="mt-2 text-sm md:text-base text-gray-600">
                         Oui, vous pouvez modifier vos critères de recherche à tout moment. NaMaster vous permet de
                         réajuster vos filtres pour trouver exactement ce que vous cherchez.
-                    </p>
-                </div>
-
-                <!-- Easter Egg 3 (pour Alexis) -->
-                <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
-                    <h4 class="text-lg md:text-xl font-semibold">Alexis, comment gardes-tu ton calme en pleine tempête
-                        de code ?</h4>
-                    <p class="mt-2 text-sm md:text-base text-gray-600">
-                        Quand ça chauffe sur le backend, il n'y a rien de mieux que de rester zen. Parfois, une session
-                        de méditation rapide ou une petite balade pour aérer le cerveau, et je suis prêt à revenir pour
-                        déboguer avec toute la sérénité d’un maître zen ! Le code n’a plus de secrets pour moi, même
-                        quand les serveurs sont en mode rébellion.
                     </p>
                 </div>
 
@@ -141,22 +101,8 @@
                     </p>
                 </div>
 
-                <!-- Easter Egg 4 (pour Romain) -->
-                <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
-                    <h4 class="text-lg md:text-xl font-semibold">Romain, quel est ton secret pour être à la fois créatif
-                        et développeur ?</h4>
-                    <p class="mt-2 text-sm md:text-base text-gray-600">
-                        Mon secret ? C’est tout dans mes cheveux roux ! Quand je code, ils prennent feu d'idées. Il
-                        paraît même qu’une mèche de ma chevelure enflammée a inspiré la dernière fonctionnalité sur
-                        laquelle je travaille. Ma créativité carbure à pleine vitesse, un peu comme ma voiture rouge,
-                        qui n'est pas seulement là pour me conduire, mais aussi pour m'aider à garder ce flair audacieux
-                        dans chaque projet. On dit que l'inspiration frappe fort, mais moi, elle a carrément les cheveux
-                        dans le vent !
-                    </p>
-                </div>
-
-                <!-- Question 8 -->
-                <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
+                 <!-- Question 8 -->
+                 <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
                     <h4 class="text-lg md:text-xl font-semibold">Comment NaMaster me guide-t-il vers les meilleures
                         opportunités de stage ?</h4>
                     <p class="mt-2 text-sm md:text-base text-gray-600">
@@ -203,6 +149,68 @@
                         <span class="font-bold">52 Rue des Docteurs Calmette et Guérin, 53000 Laval, France</span>.
                     </p>
                 </div>
+
+                <!-- Questions sur l'équipe -->
+                <div class="bg-gray-200 rounded-lg shadow-md p-4 md:p-6">
+                    <h4 class="text-lg md:text-xl font-semibold">Questions sur l'équipe</h4>
+                    <button id="toggle-team-questions" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        Voir la catégorie
+                    </button>
+
+                    <div id="team-questions" class="hidden mt-4 space-y-6">
+                        <!-- Question sur Tony -->
+                        <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
+                            <h4 class="text-lg md:text-xl font-semibold">Tony, d'où viens ta créativité ?</h4>
+                            <p class="mt-2 text-sm md:text-base text-gray-600">
+                                Ma créativité ? Elle naît là où les idées se croisent, comme dans un grand film d’action. Quand
+                        je joue Garen sur la Faille de l'Invocateur, chaque "DEMACIA !" résonne comme une explosion
+                        d’inspiration. L’énergie de la bataille nourrit mes projets, tout comme les films épiques de
+                        Marvel et Transformers, où chaque scène me pousse à repousser mes limites créatives. Et bien
+                        sûr, tout ça ne serait pas possible sans un peu de passion, de bonté et de courage, à la manière
+                        d'Optimus Prime !
+                            </p>
+                        </div>
+
+                        <!-- Question sur David -->
+                        <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
+                            <h4 class="text-lg md:text-xl font-semibold">David, quelle est ta source secrète d'inspiration ?</h4>
+                            <p class="mt-2 text-sm md:text-base text-gray-600">
+                                Mon inspiration ? Elle vient de tout ce qui fait avancer la technologie ! Mais je dois avouer
+                        que parfois, l'inspiration arrive lors d'une bonne session de codage, où chaque ligne de code me
+                        rapproche de l'illumination. Quand ça chauffe trop, il n'y a rien de mieux qu'une bonne
+                        "Ressurection" à la Mercy pour me donner un second souffle. Le code et les éclats de lumière
+                        d’Overwatch m'aident à garder le cap, même dans les moments les plus tendus.
+                            </p>
+                        </div>
+
+                        <!-- Question sur Alexis -->
+                        <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
+                            <h4 class="text-lg md:text-xl font-semibold">Alexis, comment gardes-tu ton calme en pleine tempête
+                                de code ?</h4>
+                            <p class="mt-2 text-sm md:text-base text-gray-600">
+                                Quand ça chauffe sur le backend, il n'y a rien de mieux que de rester zen. Parfois, une session
+                        de méditation rapide ou une petite balade pour aérer le cerveau, et je suis prêt à revenir pour
+                        déboguer avec toute la sérénité d’un maître zen ! Le code n’a plus de secrets pour moi, même
+                        quand les serveurs sont en mode rébellion.
+                            </p>
+                        </div>
+
+                        <!-- Question sur Romain -->
+                        <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
+                            <h4 class="text-lg md:text-xl font-semibold">Romain, quel est ton secret pour être à la fois créatif
+                                et développeur ?</h4>
+                            <p class="mt-2 text-sm md:text-base text-gray-600">
+                                Mon secret ? C’est tout dans mes cheveux roux ! Quand je code, ils prennent feu d'idées. Il
+                        paraît même qu’une mèche de ma chevelure enflammée a inspiré la dernière fonctionnalité sur
+                        laquelle je travaille. Ma créativité carbure à pleine vitesse, un peu comme ma voiture rouge,
+                        qui n'est pas seulement là pour me conduire, mais aussi pour m'aider à garder ce flair audacieux
+                        dans chaque projet. On dit que l'inspiration frappe fort, mais moi, elle a carrément les cheveux
+                        dans le vent !
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </main>
@@ -236,5 +244,25 @@
                 .catch(error => console.error('Error loading header:', error));
         });
 
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.getElementById('toggle-team-questions');
+    const teamQuestions = document.getElementById('team-questions');
+
+    if (!toggleButton) {
+        console.error("Le bouton avec l'ID 'toggle-team-questions' n'a pas été trouvé !");
+    }
+    if (!teamQuestions) {
+        console.error("L'élément avec l'ID 'team-questions' n'a pas été trouvé !");
+    }
+
+    toggleButton.addEventListener('click', () => {
+        teamQuestions.classList.toggle('hidden');
+        toggleButton.textContent = teamQuestions.classList.contains('hidden')
+            ? 'Voir la catégorie'
+            : 'Masquer la catégorie';
+    });
+});
     </script>
 </body>
