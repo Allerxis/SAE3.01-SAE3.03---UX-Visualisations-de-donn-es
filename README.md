@@ -66,3 +66,4 @@ Il faut :
 | 5             | Pas corrigé    | Latence au chargement des données de l'API (API surchargée) |
 | 6             | Pas corrigé    | Contraste invalide des icones des éléments dans le burger menu |
 | 7             | Pas corrigé    | La croix du burger menu n'apparait pas lorsque le burger menu est ouvert |
+| 8             | Pas corrigé    | Le texte d'indication au survol des graphique à gauche de l'écran est partiellement masquer|
