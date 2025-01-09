@@ -1,4 +1,4 @@
-// Fonction pour récupérer les données de l'API
+// Fonction pour récupérer les données des secteurs disciplinaires depuis l'API
 async function fetchSecteursDisciplinaires() {
     try {
         const response = await fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/secteurs-disciplinaires');
@@ -6,83 +6,79 @@ async function fetchSecteursDisciplinaires() {
             throw new Error(`Erreur HTTP ! statut : ${response.status}`);
         }
         const data = await response.json();
-        populateFilters(data);
+        populateFilters(data); // Remplir les filtres dans le DOM
     } catch (error) {
         console.error('Erreur lors de la récupération des données :', error);
     }
-}
+} 
 
 // Fonction pour ajouter les boutons dans le DOM
 function populateFilters(secteurs) {
     const filtersContainer = document.getElementById('filters-container');
-    // const sliderContainer = document.getElementById('slider-container');
+    filtersContainer.innerHTML = ''; // Nettoyer les filtres existants
 
-    // Nettoyer les conteneurs
-    filtersContainer.innerHTML = '';
-    // sliderContainer.innerHTML = '';
-
-    // Tableau pour suivre les disciplines déjà ajoutées
-    const addedDisciplines = new Set();
-
-    // Ajouter les 5 premiers filtres dans le conteneur visible
     secteurs.forEach((secteur) => {
-        if (!addedDisciplines.has(secteur.disciplineNom)) {
-            const button = document.createElement('button');
-            button.className = 'bg-gray-200 py-2 px-4 rounded-full text-center text-gray-800 text-sm shadow-sm';
-            button.textContent = secteur.disciplineNom; // Utiliser le nom du secteur
+        const button = document.createElement('button');
+        button.className = 'bg-gray-200 py-2 px-4 rounded-full text-center text-gray-800 text-sm shadow-sm';
+        button.textContent = secteur.nom; // Nom du secteur
 
-            // Ajouter l'événement de redirection
-            button.addEventListener('click', () => {
-                const url = `lesMasters.html?id=${secteur.disciplineId}`;
-                window.location.href = url; // Redirige vers la page avec l'ID
-            });
+        // Ajouter un événement pour filtrer dynamiquement
+        button.addEventListener('click', () => {
+            console.log(`Filtre sélectionné : ${secteur.nom} (ID: ${secteur.id})`);
 
-            filtersContainer.appendChild(button);
+            // Appeler la fonction de recherche dynamique
+            applyFilter(secteur.id);
+        });
 
-            // Ajouter la discipline au tableau des disciplines ajoutées
-            addedDisciplines.add(secteur.disciplineNom);
-        }
+        filtersContainer.appendChild(button);
     });
-
-    // // Ajouter les filtres restants dans le slider
-    // secteurs.forEach((secteur) => {
-    //     if (!addedDisciplines.has(secteur.disciplineNom)) {
-    //         const slide = document.createElement('div');
-    //         slide.className = 'swiper-slide';
-
-    //         const button = document.createElement('button');
-    //         button.className = 'bg-gray-200 py-2 px-4 rounded-full text-center text-gray-800 text-sm shadow-sm';
-    //         button.textContent = secteur.disciplineNom;
-
-    //         // Ajouter l'événement de redirection
-    //         button.addEventListener('click', () => {
-    //             const url = `lesMasters.html?id=${secteur.disciplineId}`;
-    //             window.location.href = url; // Redirige vers la page avec l'ID
-    //         });
-
-    //         slide.appendChild(button);
-    //         sliderContainer.appendChild(slide);
-
-    //         // Ajouter la discipline au tableau des disciplines ajoutées
-    //         addedDisciplines.add(secteur.disciplineNom);
-    //     }
-    // });
-
-    // Initialiser Swiper.js après avoir inséré les éléments
-    // new Swiper('.swiper-container', {
-    //     slidesPerView: 3,
-    //     spaceBetween: 10,
-    //     navigation: {
-    //         nextEl: '.swiper-button-next',
-    //         prevEl: '.swiper-button-prev',
-    //     },
-    //     breakpoints: {
-    //         // Responsive settings
-    //         640: { slidesPerView: 4, spaceBetween: 15 },
-    //         768: { slidesPerView: 5, spaceBetween: 20 },
-    //     },
-    // });
 }
 
-// Appeler la fonction pour charger les données dès que la page est prête
+// Fonction pour appliquer un filtre dynamique
+async function applyFilter(secteurId) {
+    const resultsContainer = document.getElementById('masters-container'); // Conteneur des résultats
+    const apiURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations';
+
+    try {
+        const response = await fetch(`${apiURL}?sdid=${encodeURIComponent(secteurId)}`);
+        if (!response.ok) throw new Error('Erreur lors de la récupération des résultats.');
+
+        const data = await response.json();
+        console.log('Données filtrées reçues :', data);
+
+        // Mettre à jour les résultats affichés
+        displayResults(data);
+    } catch (error) {
+        console.error('Erreur lors de l’application du filtre :', error);
+        resultsContainer.innerHTML = `<p class="text-red-500">Aucun résultat trouvé.</p>`;
+    }
+}
+
+// Fonction pour afficher les résultats dans la page
+function displayResults(data) {
+    const resultsContainer = document.getElementById('masters-container');
+    resultsContainer.innerHTML = ''; // Nettoyer les résultats précédents
+
+    if (data.length === 0) {
+        resultsContainer.innerHTML = '<p class="text-gray-500">Aucun résultat trouvé.</p>';
+        return;
+    }
+
+    data.forEach(master => {
+        const masterCard = document.createElement('a');
+        masterCard.href = `master.html?id=${master.ifc}`;
+        masterCard.innerHTML = `
+            <div class="p-4 bg-white border rounded-md shadow-sm">
+                <h2 class="font-bold text-lg mb-2 lg:text-2xl">${master.parcours || 'Nom non disponible'}</h2>
+                <p class="text-sm text-gray-500 lg:text-lg">
+                    Alternance : ${master.alternance ? 'Oui' : 'Non'}
+                </p>
+                <p class="text-xs text-gray-400 lg:text-sm mt-2">Lieu(x) : ${master.lieux || 'Non spécifié'}</p>
+            </div>
+        `;
+        resultsContainer.appendChild(masterCard);
+    });
+}
+
+// Charger les secteurs disciplinaires dès que la page est prête
 document.addEventListener('DOMContentLoaded', fetchSecteursDisciplinaires);

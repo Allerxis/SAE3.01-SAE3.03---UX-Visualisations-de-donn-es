@@ -14,6 +14,17 @@ document.addEventListener("DOMContentLoaded", () => {
       // Désactiver les autres liens
       tab.classList.remove("text-black", "active:bg-gray-200");
       tab.classList.add("text-gray-500");
-    }
+    } 
   });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const buttonRecherche = document.getElementById('button-recherche');
+  if (buttonRecherche) {
+    buttonRecherche.addEventListener('click', () => {
+      window.location.href = './lesMasters.html';
+    });
+  } else {
+    console.error('La div #button-recherche est introuvable.');
+  }
 });
