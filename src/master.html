@@ -20,6 +20,16 @@
 
 <body class="mt-[8rem] bg-gray-100 text-gray-800">
 
+    <!-- Superposition pour le loader -->
+    <div id="global-loader"
+        class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+            <p class="mt-4 text-white text-lg font-semibold">Chargement en cours...</p>
+        </div>
+    </div>
+
+
     <header>
         <div id="header-container"></div>
     </header>
@@ -61,6 +71,20 @@
     </main>
 
     <script>
+
+        // Fonction pour afficher le loader
+        const showLoader = () => {
+            const loader = document.getElementById('global-loader');
+            loader.classList.remove('hidden');
+        };
+
+        // Fonction pour masquer le loader
+        const hideLoader = () => {
+            const loader = document.getElementById('global-loader');
+            loader.classList.add('hidden');
+        };
+
+
         fetch('header.html')
             .then(response => response.text())
             .then(data => {
@@ -109,6 +133,9 @@
             }
 
             try {
+                // Afficher le loader
+                showLoader();
+
                 // Appel à l'API pour récupérer les détails du master
                 const response = await fetch(`${apiURL}?full-details=1`);
                 if (!response.ok) throw new Error('Erreur lors du chargement des données.');
@@ -123,96 +150,94 @@
 
                 // Insérer les données dynamiques
                 masterInfoContainer.innerHTML = `
-            <h1 class="text-2xl font-bold">${master.parcours || 'Nom non disponible'}</h1>
-            <p class="text-sm text-gray-600">Mention : ${master.mention || 'Non spécifié'}</p>
-            <p class="text-sm text-gray-600">Discipline : ${master.discipline || 'Non spécifiée'}</p>
-            <p class="text-sm text-gray-600">Secteur disciplinaire : ${master.secteur_disciplinaire || 'Non spécifié'}</p>
-            <p class="text-sm text-gray-600">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
-            <p class="text-sm text-gray-600">Lieu : ${master.lieux || 'Non spécifié'}</p>
-            <hr class="my-4 border-t border-gray-300">
-            <h2 class="text-2xl font-bold text-center">Statistiques</h2>
-        `;
+        <h1 class="text-2xl font-bold">${master.parcours || 'Nom non disponible'}</h1>
+        <p class="text-sm text-gray-600">Mention : ${master.mention || 'Non spécifié'}</p>
+        <p class="text-sm text-gray-600">Discipline : ${master.discipline || 'Non spécifiée'}</p>
+        <p class="text-sm text-gray-600">Secteur disciplinaire : ${master.secteur_disciplinaire || 'Non spécifié'}</p>
+        <p class="text-sm text-gray-600">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
+        <p class="text-sm text-gray-600">Lieu : ${master.lieux || 'Non spécifié'}</p>
+        <hr class="my-4 border-t border-gray-300">
+        <h2 class="text-2xl font-bold text-center">Statistiques</h2>
+    `;
             } catch (error) {
                 console.error('Erreur lors du chargement des données :', error);
                 masterInfoContainer.innerHTML = `<p class="text-red-500">Impossible de charger les informations. Veuillez réessayer plus tard.</p>`;
-            }
-        });
-
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            const apiURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations';
-            const otherMastersContainer = document.getElementById('other-masters');
-            const dynamicTitle = document.getElementById('dynamic-title');
-
-            // Fonction pour récupérer les paramètres de l'URL
-            function getQueryParam(param) {
-                const urlParams = new URLSearchParams(window.location.search);
-                return urlParams.get(param);
+            } finally {
+                // Masquer le loader
+                hideLoader();
             }
 
-            // Récupérer l'ID du master depuis l'URL
-            const masterId = getQueryParam('id');
-            if (!masterId) {
-                dynamicTitle.textContent = 'Erreur : aucun master spécifié';
-                otherMastersContainer.innerHTML = `<p class="text-red-500">Erreur : aucun master spécifié.</p>`;
-                return;
-            }
 
-            try {
-                // Appel à l'API pour récupérer tous les masters
-                const response = await fetch(`${apiURL}?full-details=1`);
-                if (!response.ok) throw new Error('Erreur lors du chargement des données.');
 
-                const masters = await response.json();
-                const currentMaster = masters.find(m => m.ifc === masterId);
+            document.addEventListener('DOMContentLoaded', async () => {
+                const apiURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations';
+                const otherMastersContainer = document.getElementById('other-masters');
+                const dynamicTitle = document.getElementById('dynamic-title');
 
-                if (!currentMaster) {
-                    dynamicTitle.textContent = 'Erreur : master introuvable';
-                    otherMastersContainer.innerHTML = `<p class="text-red-500">Erreur : le master spécifié est introuvable.</p>`;
+                // Fonction pour récupérer les paramètres de l'URL
+                function getQueryParam(param) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    return urlParams.get(param);
+                }
+
+                // Récupérer l'ID du master depuis l'URL
+                const masterId = getQueryParam('id');
+                if (!masterId) {
+                    dynamicTitle.textContent = 'Erreur : aucun master spécifié';
+                    otherMastersContainer.innerHTML = `<p class="text-red-500">Erreur : aucun master spécifié.</p>`;
                     return;
                 }
 
-                // Extraire le nom de l'établissement
-                const { etablissement } = currentMaster;
-                dynamicTitle.textContent = `Autres Masters disponibles dans ${etablissement || 'cet établissement'}`;
+                try {
+                    // Afficher le loader
+                    showLoader();
 
-                // Extraire latitude, longitude et lieux du master courant
-                const { latitude, longitude, lieux } = currentMaster;
+                    // Appel à l'API pour récupérer tous les masters
+                    const response = await fetch(`${apiURL}?full-details=1`);
+                    if (!response.ok) throw new Error('Erreur lors du chargement des données.');
 
-                if (!latitude || !longitude || !lieux) {
-                    otherMastersContainer.innerHTML = `<p class="text-gray-500 text-center">Aucune information géographique disponible pour ce master.</p>`;
-                    return;
+                    const masters = await response.json();
+                    const currentMaster = masters.find(m => m.ifc === masterId);
+
+                    if (!currentMaster) {
+                        dynamicTitle.textContent = 'Erreur : master introuvable';
+                        otherMastersContainer.innerHTML = `<p class="text-red-500">Erreur : le master spécifié est introuvable.</p>`;
+                        return;
+                    }
+
+                    // Récupérer les autres masters liés
+                    const otherMasters = masters.filter(
+                        m =>
+                            m.latitude === currentMaster.latitude &&
+                            m.longitude === currentMaster.longitude &&
+                            m.lieux === currentMaster.lieux &&
+                            m.ifc !== masterId
+                    );
+
+                    // Insérer dynamiquement les autres masters
+                    if (otherMasters.length === 0) {
+                        otherMastersContainer.innerHTML = `<p class="text-gray-500 text-center">Aucun autre master disponible au même endroit.</p>`;
+                    } else {
+                        otherMastersContainer.innerHTML = otherMasters.map(master => `
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h4 class="text-lg font-semibold">${master.parcours || 'Nom non disponible'}</h4>
+                <p class="text-sm text-gray-600">Mention : ${master.mention || 'Non spécifiée'}</p>
+                <p class="text-sm text-gray-600">Lieu : ${master.lieux || 'Non spécifié'}</p>
+                <p class="text-sm text-gray-600">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
+                <a href="master.html?id=${master.ifc}" class="text-blue-500 hover:underline">Voir plus</a>
+            </div>
+        `).join('');
+                    }
+                } catch (error) {
+                    console.error('Erreur lors du chargement des données :', error);
+                    dynamicTitle.textContent = 'Erreur : données indisponibles';
+                    otherMastersContainer.innerHTML = `<p class="text-red-500">Impossible de charger les autres masters. Veuillez réessayer plus tard.</p>`;
+                } finally {
+                    // Masquer le loader
+                    hideLoader();
                 }
-
-                // Filtrer les masters ayant les mêmes coordonnées ET le même champ 'lieux', en excluant le master courant
-                const otherMasters = masters.filter(
-                    m =>
-                        m.latitude === latitude &&
-                        m.longitude === longitude &&
-                        m.lieux === lieux &&
-                        m.ifc !== masterId // Exclure le master actuel
-                );
-
-                // Insérer dynamiquement les autres masters
-                if (otherMasters.length === 0) {
-                    otherMastersContainer.innerHTML = `<p class="text-gray-500 text-center">Aucun autre master disponible au même endroit.</p>`;
-                } else {
-                    otherMastersContainer.innerHTML = otherMasters.map(master => `
-                <div class="bg-white rounded-lg shadow-md p-4">
-                    <h4 class="text-lg font-semibold">${master.parcours || 'Nom non disponible'}</h4>
-                    <p class="text-sm text-gray-600">Mention : ${master.mention || 'Non spécifiée'}</p>
-                    <p class="text-sm text-gray-600">Lieu : ${master.lieux || 'Non spécifié'}</p>
-                    <p class="text-sm text-gray-600">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
-                    <a href="master.html?id=${master.ifc}" class="text-blue-500 hover:underline">Voir plus</a>
-                </div>
-            `).join('');
-                }
-            } catch (error) {
-                console.error('Erreur lors du chargement des données :', error);
-                dynamicTitle.textContent = 'Erreur : données indisponibles';
-                otherMastersContainer.innerHTML = `<p class="text-red-500">Impossible de charger les autres masters. Veuillez réessayer plus tard.</p>`;
-            }
-        });
+            });
+            });
 
     </script>
     <footer>
