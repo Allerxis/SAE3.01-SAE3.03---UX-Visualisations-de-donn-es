@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NaMaster - Mentions légales</title>
+    <title>mentions-légales</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- fichiers js -->
@@ -112,7 +112,9 @@
     </footer>
 
     <script>
+        // Charger et insérer le contenu de header.html et footer.html
         document.addEventListener('DOMContentLoaded', () => {
+            // Utiliser fetch pour récupérer le contenu du fichier header.html
             fetch('header.html')
                 .then(response => response.text())
                 .then(data => {
@@ -128,7 +130,7 @@
                     }
                 })
                 .catch(error => console.error('Error loading header:', error));
-
+            // Utiliser fetch pour récupérer le contenu du fichier footer.html
             fetch('footer.html')
                 .then(response => response.text())
                 .then(data => {

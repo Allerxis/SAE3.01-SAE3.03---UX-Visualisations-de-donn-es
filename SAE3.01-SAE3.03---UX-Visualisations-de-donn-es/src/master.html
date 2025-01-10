@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vos Favoris</title>
+    <title>master</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- fichiers js -->
     <script src="./js/bgMenu.js"></script>
@@ -83,8 +83,7 @@
             const loader = document.getElementById('global-loader');
             loader.classList.add('hidden');
         };
-
-
+        // <!-- Utiliser fetch pour récupérer le contenu du fichier header.html -->
         fetch('header.html')
             .then(response => response.text())
             .then(data => {
@@ -100,24 +99,27 @@
                 }
             })
             .catch(error => console.error('Error loading header:', error));
-
+        // <!-- Utiliser fetch pour récupérer le contenu du fichier footer.html -->
         fetch('footer.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('footer-container').innerHTML = data;
             })
             .catch(error => console.error('Error loading header:', error));
-
+// <!-- Utiliser fetch pour récupérer le contenu du fichier rechercheETfiltres.html -->
         fetch('rechercheETfiltres.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('search-container').innerHTML = data;
             })
             .catch(error => console.error('Error loading header:', error));
+// <!-- Utiliser fetch pour récupérer le contenu du fichier footer.html -->
+
 
         document.addEventListener('DOMContentLoaded', async () => {
+            // URL de l'API
             const apiURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations';
-            const masterInfoContainer = document.getElementById('master-info');
+            const masterInfoContainer = document.getElementById('master-info'); // Conteneur pour les informations du master
 
             // Fonction pour récupérer les paramètres de l'URL
             function getQueryParam(param) {
@@ -140,9 +142,10 @@
                 const response = await fetch(`${apiURL}?full-details=1`);
                 if (!response.ok) throw new Error('Erreur lors du chargement des données.');
 
-                const data = await response.json();
-                const master = data.find(m => m.ifc === masterId);
+                const data = await response.json();// Convertir la réponse en JSON
+                const master = data.find(m => m.ifc === masterId);// Trouver le master correspondant à l'ID
 
+                // Vérifier si le master existe
                 if (!master) {
                     masterInfoContainer.innerHTML = `<p class="text-red-500">Erreur : le master spécifié est introuvable.</p>`;
                     return;
@@ -150,29 +153,29 @@
 
                 // Insérer les données dynamiques
                 masterInfoContainer.innerHTML = `
-        <h1 class="text-2xl font-bold">${master.parcours || 'Nom non disponible'}</h1>
-        <p class="text-sm text-gray-600">Mention : ${master.mention || 'Non spécifié'}</p>
-        <p class="text-sm text-gray-600">Discipline : ${master.discipline || 'Non spécifiée'}</p>
-        <p class="text-sm text-gray-600">Secteur disciplinaire : ${master.secteur_disciplinaire || 'Non spécifié'}</p>
-        <p class="text-sm text-gray-600">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
-        <p class="text-sm text-gray-600">Lieu : ${master.lieux || 'Non spécifié'}</p>
-        <hr class="my-4 border-t border-gray-300">
-        <h2 class="text-2xl font-bold text-center">Statistiques</h2>
-    `;
-            } catch (error) {
+                    <h1 class="text-2xl font-bold">${master.parcours || 'Nom non disponible'}</h1>
+                    <p class="text-sm text-gray-600">Mention : ${master.mention || 'Non spécifié'}</p>
+                    <p class="text-sm text-gray-600">Discipline : ${master.discipline || 'Non spécifiée'}</p>
+                    <p class="text-sm text-gray-600">Secteur disciplinaire : ${master.secteur_disciplinaire || 'Non spécifié'}</p>
+                    <p class="text-sm text-gray-600">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
+                    <p class="text-sm text-gray-600">Lieu : ${master.lieux || 'Non spécifié'}</p>
+                    <hr class="my-4 border-t border-gray-300">
+                    <h2 class="text-2xl font-bold text-center">Statistiques</h2>
+                     `;
+            } catch (error) { // Gérer les erreurs
                 console.error('Erreur lors du chargement des données :', error);
                 masterInfoContainer.innerHTML = `<p class="text-red-500">Impossible de charger les informations. Veuillez réessayer plus tard.</p>`;
             } finally {
                 // Masquer le loader
                 hideLoader();
             }
+            
 
-
-
+            
             document.addEventListener('DOMContentLoaded', async () => {
-                const apiURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations';
-                const otherMastersContainer = document.getElementById('other-masters');
-                const dynamicTitle = document.getElementById('dynamic-title');
+                const apiURL = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations'; // URL de l'API
+                const otherMastersContainer = document.getElementById('other-masters'); // Conteneur pour les autres masters
+                const dynamicTitle = document.getElementById('dynamic-title'); // Titre dynamique
 
                 // Fonction pour récupérer les paramètres de l'URL
                 function getQueryParam(param) {
@@ -193,13 +196,13 @@
                     showLoader();
 
                     // Appel à l'API pour récupérer tous les masters
-                    const response = await fetch(`${apiURL}?full-details=1`);
-                    if (!response.ok) throw new Error('Erreur lors du chargement des données.');
+                    const response = await fetch(`${apiURL}?full-details=1`); // Récupérer les détails des masters
+                    if (!response.ok) throw new Error('Erreur lors du chargement des données.'); // Vérifier si la requête a réussi
 
-                    const masters = await response.json();
-                    const currentMaster = masters.find(m => m.ifc === masterId);
+                    const masters = await response.json(); // Convertir la réponse en JSON
+                    const currentMaster = masters.find(m => m.ifc === masterId); // Trouver le master actuel
 
-                    if (!currentMaster) {
+                    if (!currentMaster) { // Vérifier si le master existe
                         dynamicTitle.textContent = 'Erreur : master introuvable';
                         otherMastersContainer.innerHTML = `<p class="text-red-500">Erreur : le master spécifié est introuvable.</p>`;
                         return;
@@ -215,20 +218,20 @@
                     );
 
                     // Insérer dynamiquement les autres masters
-                    if (otherMasters.length === 0) {
+                    if (otherMasters.length === 0) { // Vérifier s'il n'y a pas d'autres masters
                         otherMastersContainer.innerHTML = `<p class="text-gray-500 text-center">Aucun autre master disponible au même endroit.</p>`;
-                    } else {
+                    } else { // Afficher les autres masters
                         otherMastersContainer.innerHTML = otherMasters.map(master => `
-            <div class="bg-white rounded-lg shadow-md p-4">
-                <h4 class="text-lg font-semibold">${master.parcours || 'Nom non disponible'}</h4>
-                <p class="text-sm text-gray-600">Mention : ${master.mention || 'Non spécifiée'}</p>
-                <p class="text-sm text-gray-600">Lieu : ${master.lieux || 'Non spécifié'}</p>
-                <p class="text-sm text-gray-600">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
-                <a href="master.html?id=${master.ifc}" class="text-blue-500 hover:underline">Voir plus</a>
-            </div>
-        `).join('');
+                        <div class="bg-white rounded-lg shadow-md p-4">
+                            <h4 class="text-lg font-semibold">${master.parcours || 'Nom non disponible'}</h4>
+                            <p class="text-sm text-gray-600">Mention : ${master.mention || 'Non spécifiée'}</p>
+                            <p class="text-sm text-gray-600">Lieu : ${master.lieux || 'Non spécifié'}</p>
+                            <p class="text-sm text-gray-600">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
+                            <a href="master.html?id=${master.ifc}" class="text-blue-500 hover:underline">Voir plus</a>
+                        </div>
+                     `).join(''); // Convertir le tableau en chaîne de caractères
                     }
-                } catch (error) {
+                } catch (error) { // Gérer les erreurs
                     console.error('Erreur lors du chargement des données :', error);
                     dynamicTitle.textContent = 'Erreur : données indisponibles';
                     otherMastersContainer.innerHTML = `<p class="text-red-500">Impossible de charger les autres masters. Veuillez réessayer plus tard.</p>`;

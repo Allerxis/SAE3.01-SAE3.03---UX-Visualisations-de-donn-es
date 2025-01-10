@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NaPasMaster - Mentions Illégales</title>
+    <title>mentions-illégales</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- fichiers js -->
@@ -100,7 +100,9 @@
     <footer id="footer-container" class="mt-12"></footer>
 
     <script>
+        // Charger et insérer le contenu de header.html
         document.addEventListener('DOMContentLoaded', () => {
+            // Utiliser fetch pour récupérer le contenu du fichier header.html
             fetch('header.html')
                 .then(response => response.text())
                 .then(data => {
@@ -116,7 +118,7 @@
                     }
                 })
                 .catch(error => console.error('Error loading header:', error));
-
+            // Charger et insérer le contenu de footer.html
             fetch('footer.html')
                 .then(response => response.text())
                 .then(data => {

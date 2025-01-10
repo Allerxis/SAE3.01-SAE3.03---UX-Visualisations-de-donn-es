@@ -66,6 +66,7 @@
     </main>
 
     <script>
+        // Charger et insérer le contenu de header.html
         fetch('header.html')
             .then(response => response.text())
             .then(data => {
@@ -81,14 +82,14 @@
                 }
             })
             .catch(error => console.error('Error loading header:', error));
-
+        // Charger et insérer le contenu de footer.html
         fetch('footer.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('footer-container').innerHTML = data;
             })
             .catch(error => console.error('Error loading header:', error));
-
+        // Charger et insérer le contenu de rechercheETfiltres.html
         fetch('rechercheETfiltres.html')
             .then(response => response.text())
             .then(data => {
@@ -96,7 +97,7 @@
             })
             .catch(error => console.error('Error loading header:', error));
 
-        function togglePasswordVisibility() {
+        function togglePasswordVisibility() { // Fonction pour afficher ou masquer le mot de passe
             const passwordInput = document.getElementById('password');
             const passwordToggle = document.getElementById('toggle-password').firstElementChild;
             if (passwordInput.type === 'password') {

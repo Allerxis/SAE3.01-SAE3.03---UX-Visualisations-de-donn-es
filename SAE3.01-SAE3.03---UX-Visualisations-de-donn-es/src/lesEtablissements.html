@@ -12,7 +12,7 @@
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="./js/filtresRecherche.js"></script>
 
-  <title>Établissements</title>
+  <title>les-etablissements</title>
 
 </head>
 
@@ -142,20 +142,28 @@
       const loadEtablissements = (academieId, academieNom) => {
         etablissementsContainer.innerHTML = ''; // Effacer les anciens établissements
 
+        // Vérifier si la liste des établissements est vide
         if (allEtablissements.length === 0) {
+          // Utiliser fetch pour récupérer les établissements depuis l'API
           fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/etablissements')
             .then(response => response.json())
             .then(data => {
+              // Stocker les données récupérées dans la variable allEtablissements
               allEtablissements = data;
+              // Afficher les établissements filtrés par académie
               displayEtablissementsByAcademie(academieId, academieNom);
             })
+            // Si une erreur se produit lors du chargement des établissements, elle est capturée et affichée dans la console
             .catch(error => console.error('Erreur chargement établissements:', error));
         } else {
+          // Si la liste des établissements n'est pas vide, afficher les établissements filtrés par académie
           displayEtablissementsByAcademie(academieId, academieNom);
         }
       };
 
+      // Fonction pour afficher les établissements filtrés par académie
       const displayEtablissementsByAcademie = (academieId, academieNom) => {
+        // Filtrer les établissements par académie en utilisant l'academieId
         const filteredEtablissements = allEtablissements.filter(etab => etab.academieId === academieId);
 
         // Mise à jour dynamique du titre H1 avec le nom de l'académie
@@ -167,6 +175,7 @@
           dynamicTitle.textContent = `Aucun établissement disponible dans l'académie ${academieNom}`;
         }
 
+        // Pour chaque établissement filtré, créer une carte et l'ajouter au conteneur des établissements
         filteredEtablissements.forEach(etablissement => {
           const card = createEtablissementCard(etablissement);
           etablissementsContainer.appendChild(card);

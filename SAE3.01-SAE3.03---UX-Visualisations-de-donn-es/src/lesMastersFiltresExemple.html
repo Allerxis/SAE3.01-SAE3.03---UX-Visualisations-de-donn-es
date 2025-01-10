@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Résultats NaMaster</title>
+  <title>NaMaster</title>
   <script src="https://cdn.tailwindcss.com/"></script>
   <script src="./js/bgMenu.js"></script>
   <script src="./js/navBarre.js"></script>
@@ -12,7 +12,7 @@
 
   <script src="./js/search.js"></script>
   <script src="./js/mastersSearch.js"></script>
-  
+
 </head>
 
 <body class="pt-20 bg-gray-100 text-gray-800">
@@ -26,7 +26,7 @@
     </div>
     <div id="filters-container" class="flex gap-4 overflow-x-auto mt-8 pb-4"></div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:mx-8 lg:mx-10 mb-8" id="masters-container">
-      <!-- Masters seront insérés ici -->
+      <!-- Masters seront ici -->
     </div>
     <div class="flex justify-center mt-8">
       <button id="load-more" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Charger plus</button>
@@ -48,7 +48,7 @@
         // Réexécuter le script bgMenu.js après l'injection
         const burgerBtn = document.getElementById('burger-btn');
         const menu = document.getElementById('menu');
-
+        // <!-- Ajouter un événement de clic pour le bouton burger -->
         if (burgerBtn) {
           burgerBtn.addEventListener('click', () => {
             menu.classList.toggle('hidden');
@@ -56,7 +56,7 @@
         }
       })
       .catch(error => console.error('Error loading header:', error));
-
+    // <!-- Charger et insérer le contenu de footer.html -->
     fetch('footer.html')
       .then(response => response.text())
       .then(data => {
@@ -87,12 +87,12 @@
     // Charger les secteurs disciplinaires pour générer les filtres
     async function fetchSecteursDisciplinaires() {
       try {
-        const response = await fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/secteurs-disciplinaires');
-        if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
-        const secteurs = await response.json();
+        const response = await fetch('https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/secteurs-disciplinaires'); // Récupérer les secteurs disciplinaires
+        if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`); // Vérifier si la requête a réussi
+        const secteurs = await response.json(); // Convertir la réponse en JSON
 
-        const filtersContainer = document.getElementById('filters-container');
-        filtersContainer.innerHTML = '<button class="bg-gray-200 py-2 px-4 rounded-full text-center text-gray-800 text-sm shadow-sm" id="filter-all">Tous</button>';
+        const filtersContainer = document.getElementById('filters-container'); // Conteneur pour les filtres
+        filtersContainer.innerHTML = '<button class="bg-gray-200 py-2 px-4 rounded-full text-center text-gray-800 text-sm shadow-sm" id="filter-all">Tous</button>'; // Bouton pour réinitialiser le filtre
 
         // Bouton pour réinitialiser le filtre
         document.getElementById('filter-all').addEventListener('click', () => {
@@ -100,75 +100,77 @@
           filteredMasters = allMasters;
           currentIndex = 0;
           loadMoreMasters(true); // Réinitialiser l'affichage
-          updateFilterUI(null);
+          updateFilterUI(null); // Mettre à jour l'apparence des filtres
         });
 
         // Créer les boutons pour chaque secteur disciplinaire
         secteurs.forEach(secteur => {
-          const button = document.createElement('button');
-          button.className = 'bg-gray-200 py-2 px-4 rounded-full text-center text-gray-800 text-sm shadow-sm';
-          button.textContent = secteur.nom;
+          const button = document.createElement('button'); // Créer un bouton
+          button.className = 'bg-gray-200 py-2 px-4 rounded-full text-center text-gray-800 text-sm shadow-sm'; // Ajouter des classes CSS
+          button.textContent = secteur.nom; // Texte du bouton
 
           button.addEventListener('click', () => {
-            activeFilter = secteur.id;
+            activeFilter = secteur.id;// Filtrer les masters
             filteredMasters = allMasters.filter(master => master.secDiscId === secteur.id); // Filtrer les masters
-            currentIndex = 0;
+            currentIndex = 0; // Réinitialiser l'index pour la pagination
             loadMoreMasters(true); // Réinitialiser l'affichage
-            updateFilterUI(secteur.id);
+            updateFilterUI(secteur.id); // Mettre à jour l'apparence des filtres
           });
 
-          filtersContainer.appendChild(button);
+          filtersContainer.appendChild(button); // Ajouter le bouton au conteneur
         });
       } catch (error) {
-        console.error('Erreur lors de la récupération des secteurs disciplinaires :', error);
+        console.error('Erreur lors de la récupération des secteurs disciplinaires :', error); // Afficher l'erreur dans la console
       }
     }
 
     // Charger les masters par lots (pagination)
     function loadMoreMasters(reset = false) {
-      const mastersContainer = document.getElementById('masters-container');
+      const mastersContainer = document.getElementById('masters-container'); // Conteneur pour les masters
 
       // Réinitialiser l'affichage si nécessaire
       if (reset) {
         mastersContainer.innerHTML = '';
       }
 
+      // Récupérer les masters suivants à afficher
       const nextMasters = filteredMasters.slice(currentIndex, currentIndex + mastersPerPage);
-      nextMasters.forEach(master => {
-        const card = document.createElement('div');
+      nextMasters.forEach(master => { // Parcourir les masters
+        const card = document.createElement('div'); // Créer une carte de master
         card.className = 'p-4 bg-white border rounded-md shadow-sm';
-        card.innerHTML = `
+        card.innerHTML = ` 
       <h2 class="font-bold text-lg mb-2 lg:text-2xl">${master.parcours || 'Nom non disponible'}</h2>
       <p class="text-sm text-gray-500 lg:text-lg">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
       <p class="text-xs text-gray-400 lg:text-sm mt-2">Lieu(x) : ${master.lieux || 'Non spécifié'}</p>
     `;
-        mastersContainer.appendChild(card);
+        mastersContainer.appendChild(card); // Ajouter la carte au conteneur
       });
 
-      currentIndex += nextMasters.length;
+      currentIndex += nextMasters.length; // Mettre à jour l'index actuel
 
       // Cacher le bouton "Charger plus" s'il n'y a plus de masters à afficher
       const loadMoreButton = document.getElementById('load-more');
-      if (currentIndex >= filteredMasters.length) {
+      if (currentIndex >= filteredMasters.length) { // Vérifier si tous les masters ont été affichés
         loadMoreButton.style.display = 'none';
-      } else {
+      } else { // Sinon, afficher le bouton
         loadMoreButton.style.display = 'block';
       }
     }
 
     // Mettre à jour l'apparence des filtres
     function updateFilterUI(activeId) {
-      const buttons = document.querySelectorAll('#filters-container button');
-      buttons.forEach(button => {
+      const buttons = document.querySelectorAll('#filters-container button'); // Sélectionner tous les boutons de filtre
+      buttons.forEach(button => { // Parcourir les boutons
         button.classList.remove('bg-blue-500', 'text-white');
         button.classList.add('bg-gray-200', 'text-gray-800');
       });
 
-      if (activeId === null) {
+      // Mettre en surbrillance le filtre actif
+      if (activeId === null) { // Vérifier si le filtre actif est "Tous"
         document.getElementById('filter-all').classList.add('bg-blue-500', 'text-white');
-      } else {
+      } else { // Sinon, trouver le bouton correspondant à l'ID actif
         const activeButton = [...buttons].find(button => button.textContent === activeId.toString());
-        if (activeButton) {
+        if (activeButton) { // Mettre en surbrillance le bouton actif
           activeButton.classList.add('bg-blue-500', 'text-white');
         }
       }
