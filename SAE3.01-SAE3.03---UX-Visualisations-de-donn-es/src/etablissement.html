@@ -20,8 +20,9 @@
 
 <body class="mt-[8rem] bg-gray-100 text-gray-800">
 
-      <!-- Superposition pour le loader -->
-      <div id="global-loader" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center hidden">
+    <!-- Superposition pour le loader -->
+    <div id="global-loader"
+        class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center hidden">
         <div class="text-center">
             <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
             <p class="mt-4 text-white text-lg font-semibold">Chargement en cours...</p>
@@ -45,42 +46,54 @@
             </div>
 
             <div class="text-center mt-4">
-                <button id="load-more-btn" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:ring-4 focus:ring-blue-300">
+                <button id="load-more-btn"
+                    class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:ring-4 focus:ring-blue-300">
                     Charger plus
                 </button>
             </div>
         </div>
     </main>
 
-    <script >
+    <script>
+        // Utiliser fetch pour récupérer le contenu du fichier header.html
         fetch('header.html')
             .then(response => response.text())
             .then(data => {
+                // Insérer le contenu récupéré dans l'élément avec l'ID 'header-container'
                 document.getElementById('header-container').innerHTML = data;
 
                 const burgerBtn = document.getElementById('burger-btn');
                 const menu = document.getElementById('menu');
 
+                // Si l'élément burger-btn existe, ajouter un écouteur d'événement pour le clic
                 if (burgerBtn) {
                     burgerBtn.addEventListener('click', () => {
+                        // Basculer la classe 'hidden' sur l'élément menu pour afficher/masquer le menu
                         menu.classList.toggle('hidden');
                     });
                 }
             })
+            // Si une erreur se produit lors du chargement du header, elle est capturée et affichée dans la console
             .catch(error => console.error('Error loading header:', error));
 
+        // Utiliser fetch pour récupérer le contenu du fichier footer.html
         fetch('footer.html')
             .then(response => response.text())
             .then(data => {
+                // Insérer le contenu récupéré dans l'élément avec l'ID 'footer-container'
                 document.getElementById('footer-container').innerHTML = data;
             })
+            // Si une erreur se produit lors du chargement du footer, elle est capturée et affichée dans la console
             .catch(error => console.error('Error loading header:', error));
 
+        // Utiliser fetch pour récupérer le contenu du fichier rechercheETfiltres.html
         fetch('rechercheETfiltres.html')
             .then(response => response.text())
             .then(data => {
+                // Insérer le contenu récupéré dans l'élément avec l'ID 'search-container'
                 document.getElementById('search-container').innerHTML = data;
             })
+            // Si une erreur se produit lors du chargement du fichier rechercheETfiltres.html, elle est capturée et affichée dans la console
             .catch(error => console.error('Error loading header:', error));
 
 
@@ -124,16 +137,16 @@
         }
 
         let allMasters = []; // Stocker tous les masters récupérés
-let currentIndex = 0; // Index pour le chargement progressif
-const mastersPerPage = 9; // Nombre de masters par page
+        let currentIndex = 0; // Index pour le chargement progressif
+        const mastersPerPage = 9; // Nombre de masters par page
 
-// Affiche un lot de masters
-function displayMasters(masters, mastersContainer) {
-    const nextMasters = masters.slice(currentIndex, currentIndex + mastersPerPage);
-    nextMasters.forEach(master => {
-        const masterCard = document.createElement('div');
-        masterCard.className = 'p-4 bg-white border rounded-md shadow-sm';
-        masterCard.innerHTML = `
+        // Affiche un lot de masters
+        function displayMasters(masters, mastersContainer) {
+            const nextMasters = masters.slice(currentIndex, currentIndex + mastersPerPage);
+            nextMasters.forEach(master => {
+                const masterCard = document.createElement('div');
+                masterCard.className = 'p-4 bg-white border rounded-md shadow-sm';
+                masterCard.innerHTML = `
             <h2 class="font-bold text-lg mb-2 lg:text-2xl">${master.parcours || 'Nom non disponible'}</h2>
             <p class="text-sm text-gray-500 lg:text-lg">Lieu(x) : ${master.lieux || 'Non spécifié'}</p>
             <p class="text-sm text-gray-500 lg:text-lg">Alternance : ${master.alternance ? 'Oui' : 'Non'}</p>
@@ -143,61 +156,61 @@ function displayMasters(masters, mastersContainer) {
                 </button>
             </div>
         `;
-        mastersContainer.appendChild(masterCard);
-    });
+                mastersContainer.appendChild(masterCard);
+            });
 
-    currentIndex += mastersPerPage;
+            currentIndex += mastersPerPage;
 
-    // Cacher le bouton si tous les masters sont affichés
-    if (currentIndex >= masters.length) {
-        document.getElementById('load-more-btn').style.display = 'none';
-    }
-}
-
-// Fonction pour rediriger vers la page du master
-function redirectToMaster(masterId) {
-    window.location.href = `master.html?id=${masterId}`;
-}
-
-document.addEventListener('DOMContentLoaded', async () => {
-    const establishmentId = getQueryParam('id');
-    const establishmentNameElement = document.getElementById('establishment-name');
-    const establishmentAcademieElement = document.getElementById('establishment-academie');
-    const mastersContainer = document.getElementById('masters-container');
-    const loadMoreBtn = document.getElementById('load-more-btn');
-
-    if (!establishmentId) {
-        mastersContainer.innerHTML = '<p class="text-red-500 text-center">Aucun établissement spécifié.</p>';
-        return;
-    }
-
-    // Afficher le loader
-    showLoader();
-
-    try {
-        // Charger les données de l'établissement
-        const establishment = await fetchEstablishmentData(establishmentId);
-        if (!establishment) {
-            throw new Error('Établissement introuvable.');
+            // Cacher le bouton si tous les masters sont affichés
+            if (currentIndex >= masters.length) {
+                document.getElementById('load-more-btn').style.display = 'none';
+            }
         }
 
-        establishmentNameElement.textContent = establishment.nom;
-        establishmentAcademieElement.textContent = `Académie ID : ${establishment.academieId || 'Non spécifié'}`;
+        // Fonction pour rediriger vers la page du master
+        function redirectToMaster(masterId) {
+            window.location.href = `master.html?id=${masterId}`;
+        }
 
-        // Charger les masters
-        allMasters = await fetchMastersForEstablishment(establishmentId);
-        displayMasters(allMasters, mastersContainer);
+        document.addEventListener('DOMContentLoaded', async () => {
+            const establishmentId = getQueryParam('id');
+            const establishmentNameElement = document.getElementById('establishment-name');
+            const establishmentAcademieElement = document.getElementById('establishment-academie');
+            const mastersContainer = document.getElementById('masters-container');
+            const loadMoreBtn = document.getElementById('load-more-btn');
 
-        // Ajouter un événement au bouton Charger plus
-        loadMoreBtn.addEventListener('click', () => displayMasters(allMasters, mastersContainer));
-    } catch (error) {
-        console.error(error);
-        mastersContainer.innerHTML = '<p class="text-red-500 text-center">Une erreur est survenue. Veuillez réessayer plus tard.</p>';
-    } finally {
-        // Masquer le loader après chargement
-        hideLoader();
-    }
-});
+            if (!establishmentId) {
+                mastersContainer.innerHTML = '<p class="text-red-500 text-center">Aucun établissement spécifié.</p>';
+                return;
+            }
+
+            // Afficher le loader
+            showLoader();
+
+            try {
+                // Charger les données de l'établissement
+                const establishment = await fetchEstablishmentData(establishmentId);
+                if (!establishment) {
+                    throw new Error('Établissement introuvable.');
+                }
+
+                establishmentNameElement.textContent = establishment.nom;
+                establishmentAcademieElement.textContent = `Académie ID : ${establishment.academieId || 'Non spécifié'}`;
+
+                // Charger les masters
+                allMasters = await fetchMastersForEstablishment(establishmentId);
+                displayMasters(allMasters, mastersContainer);
+
+                // Ajouter un événement au bouton Charger plus
+                loadMoreBtn.addEventListener('click', () => displayMasters(allMasters, mastersContainer));
+            } catch (error) {
+                console.error(error);
+                mastersContainer.innerHTML = '<p class="text-red-500 text-center">Une erreur est survenue. Veuillez réessayer plus tard.</p>';
+            } finally {
+                // Masquer le loader après chargement
+                hideLoader();
+            }
+        });
 
     </script>
     <footer>

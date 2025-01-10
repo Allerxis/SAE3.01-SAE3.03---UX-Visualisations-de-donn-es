@@ -91,35 +91,47 @@
 
 
     <script>
+        // <!-- Attendre que le DOM soit complètement chargé avant d'exécuter le script -->
         document.addEventListener('DOMContentLoaded', () => {
+            // <!-- Utiliser fetch pour récupérer le contenu du fichier header.html -->
             fetch('header.html')
                 .then(response => response.text())
                 .then(data => {
+                    // <!-- Insérer le contenu récupéré dans l'élément avec l'ID 'header-container' -->
                     document.getElementById('header-container').innerHTML = data;
 
                     const burgerBtn = document.getElementById('burger-btn');
                     const menu = document.getElementById('menu');
 
+                    // <!-- Si l'élément burger-btn existe, ajouter un écouteur d'événement pour le clic -->
                     if (burgerBtn) {
                         burgerBtn.addEventListener('click', () => {
+                            // <!-- Basculer la classe 'hidden' sur l'élément menu pour afficher/masquer le menu -->
                             menu.classList.toggle('hidden');
                         });
                     }
                 })
+                // <!-- Si une erreur se produit lors du chargement du header, elle est capturée et affichée dans la console -->
                 .catch(error => console.error('Error loading header:', error));
 
+            // <!-- Utiliser fetch pour récupérer le contenu du fichier footer.html -->
             fetch('footer.html')
                 .then(response => response.text())
                 .then(data => {
+                    // <!-- Insérer le contenu récupéré dans l'élément avec l'ID 'footer-container' -->
                     document.getElementById('footer-container').innerHTML = data;
                 })
+                // <!-- Si une erreur se produit lors du chargement du footer, elle est capturée et affichée dans la console -->
                 .catch(error => console.error('Error loading header:', error));
 
+            // <!-- Utiliser fetch pour récupérer le contenu du fichier rechercheETfiltres.html -->
             fetch('rechercheETfiltres.html')
                 .then(response => response.text())
                 .then(data => {
+                    // <!-- Insérer le contenu récupéré dans l'élément avec l'ID 'search-container' -->
                     document.getElementById('search-container').innerHTML = data;
                 })
+                // <!-- Si une erreur se produit lors du chargement du fichier rechercheETfiltres.html, elle est capturée et affichée dans la console -->
                 .catch(error => console.error('Error loading header:', error));
         });
 
