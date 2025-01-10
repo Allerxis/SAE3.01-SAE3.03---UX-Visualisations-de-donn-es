@@ -20,7 +20,7 @@
 <header>
   <div id="header-container"></div>
 </header>
- 
+
 <body class="mt[8rem]">
   <main class="p-6 sm:mx-8 lg:my-10">
     <div class="text-center">
@@ -29,31 +29,31 @@
     </div>
 
     <!-- Superposition pour le loader -->
-  <div id="global-loader" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center hidden">
-    <div class="text-center">
-      <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
-      <p class="mt-4 text-white text-lg font-semibold">Chargement en cours...</p>
+    <div id="global-loader"
+      class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center hidden">
+      <div class="text-center">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+        <p class="mt-4 text-white text-lg font-semibold">Chargement en cours...</p>
+      </div>
     </div>
-  </div>
 
 
     <div id="academies-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:mx-8 lg:mx-10 mb-8">
-      <!-- Les académies seront insérées ici -->
+      <!-- Les académies seront ici -->
     </div>
 
     <div id="etablissements-container"
       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:mx-8 lg:mx-10 mb-8 hidden">
-      <!-- Les établissements filtrés seront insérés ici -->
+      <!-- Les établissements filtrés insérés ici -->
     </div>
   </main>
 
   <script>
-
-
-
-    // Charger et insérer le contenu de header.html
+    // Cette ligne utilise la fonction fetch pour récupérer le contenu du fichier header.html
     fetch('header.html')
+      // Si la requête est réussie, elle convertit la réponse en texte
       .then(response => response.text())
+      // Ensuite, elle insère le contenu récupéré dans l'élément avec l'ID 'header-container'
       .then(data => {
         document.getElementById('header-container').innerHTML = data;
 
@@ -61,20 +61,29 @@
         const burgerBtn = document.getElementById('burger-btn');
         const menu = document.getElementById('menu');
 
+        // Si l'élément burger-btn existe, ajouter un écouteur d'événement pour le clic
         if (burgerBtn) {
           burgerBtn.addEventListener('click', () => {
+            // Basculer la classe 'hidden' sur l'élément menu pour afficher/masquer le menu
             menu.classList.toggle('hidden');
           });
         }
       })
+      // Si une erreur se produit, elle est capturée et affichée dans la console
       .catch(error => console.error('Error loading header:', error));
 
+    // Cette ligne utilise la fonction fetch pour récupérer le contenu du fichier footer.html
     fetch('footer.html')
+      // Si la requête est réussie, elle convertit la réponse en texte
       .then(response => response.text())
+      // Ensuite, elle insère le contenu récupéré dans l'élément avec l'ID 'footer-container'
       .then(data => {
         document.getElementById('footer-container').innerHTML = data;
       })
+      // Si une erreur se produit, elle est capturée et affichée dans la console
       .catch(error => console.error('Error loading header:', error));
+
+    // Attendre que le DOM soit complètement chargé avant d'exécuter le script
     document.addEventListener('DOMContentLoaded', () => {
       const backToTopButton = document.getElementById('back-to-top');
       const backButton = document.getElementById('back-button'); // Bouton Retour ajouté
@@ -193,8 +202,8 @@
       });
     });
 
- // Fonction pour afficher le loader global
- const showLoader = () => {
+    // Fonction pour afficher le loader global
+    const showLoader = () => {
       const loader = document.getElementById('global-loader');
       loader.classList.remove('hidden');
     };
