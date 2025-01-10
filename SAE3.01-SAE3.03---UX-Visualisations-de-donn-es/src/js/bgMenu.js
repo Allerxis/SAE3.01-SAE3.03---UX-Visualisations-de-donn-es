@@ -6,5 +6,5 @@ document.addEventListener('DOMContentLoaded', function () {
         burgerBtn.addEventListener('click', () => {
             menu.classList.toggle('hidden');
         });
-    }
+    } 
 });
