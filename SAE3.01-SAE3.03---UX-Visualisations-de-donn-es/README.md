@@ -45,11 +45,11 @@ Il faut :
 | Étape                   | État                  |
 |-------------------------|-----------------------|
 | Burger menu             | Fini                  |
-| Mise en favoris         | Partie front uniquement |
 | Fonctionnalité de recherche | Fini              |
+| Affichage de graphique via echart  | Fini       |
+| Icone de chargement     | Fini                  |
+| Mise en favoris         | Partie front uniquement |
 | Gestion de compte       | Partie front uniquement |
-| Affichage de graphique via echart  | Fini         |
-| Icone de chargement     | Pas fait         |
 
 - **Priorités et dépendances** : *(à détailler)*
 
