@@ -42,16 +42,14 @@ Il faut :
 ---
 
 ## Roadmap Prévisionnelle
-| Étape                   | État                  |
-|-------------------------|-----------------------|
-| Burger menu             | Fini                  |
-| Fonctionnalité de recherche | Fini              |
-| Affichage de graphique via echart  | Fini       |
-| Icone de chargement     | Fini                  |
-| Mise en favoris         | Partie front uniquement |
-| Gestion de compte       | Partie front uniquement |
-
-- **Priorités et dépendances** : *(à détailler)*
+| Étape                   | État                  |Priorité               |
+|-------------------------|-----------------------|-----------------------|
+| Burger menu             | Fini                  | Haute                 |
+| Fonctionnalité de recherche | Fini              | Moyenne               |
+| Affichage de graphique via echart  | Fini       | Haute                 |
+| Icone de chargement     | Fini                  | Basse                 |
+| Mise en favoris         | Front uniquement      | Moyenne               |
+| Gestion de compte       | Front uniquement      | Basse                 |
 
 ---
 
@@ -62,8 +60,8 @@ Il faut :
 | 1             | Corrigé        | La barre de navigation ne s’adapte pas à la taille de la page |
 | 2             | Corrigé        | Suppression des éléments ayant comme valeurs 'null' pour la catégorie "parcours"|
 | 3             | Corrigé        | Optimisation du chargement des masters pour éviter des bugs d'affichage liés au chargement|
-| 4             | Pas corrigé    | La mise en gras du nom de la page sélectionnée dans la barre de navigation ne se met pas à jour au changement de page |
-| 5             | Pas corrigé    | Latence au chargement des données de l'API (API surchargée) |
-| 6             | Pas corrigé    | Contraste invalide des icones des éléments dans le burger menu |
+| 4             | Corrigé        | Contraste invalide des icones des éléments dans le burger menu |
+| 5             | Pas corrigé    | La mise en gras du nom de la page sélectionnée dans la barre de navigation ne se met pas à jour au changement de page |
+| 6             | Pas corrigé    | Latence au chargement des données de l'API (API surchargée) |
 | 7             | Pas corrigé    | La croix du burger menu n'apparait pas lorsque le burger menu est ouvert |
 | 8             | Pas corrigé    | Le texte d'indication au survol des graphique à gauche de l'écran est partiellement masquer|
